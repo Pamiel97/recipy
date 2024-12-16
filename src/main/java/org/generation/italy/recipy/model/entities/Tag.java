@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name="tags")
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +14,7 @@ public class Tag {
     private String name;
 
     @ManyToMany
-    @JoinTable(name="recipe_tag", joinColumns = @JoinColumn(name="recipe_id"),
+    @JoinTable(name="recipe_tags", joinColumns = @JoinColumn(name="recipe_id"),
     inverseJoinColumns = @JoinColumn(name="tag_id"))
     private List<Recipe> recipes = new ArrayList<>();
 

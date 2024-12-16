@@ -14,6 +14,7 @@ public class Recipe {
     private long id;
     private String title;
     private String description;
+    @Enumerated(EnumType.STRING)
     private Category category;
     @Column(name = "prep_time")
     private int prepTime;
@@ -31,13 +32,8 @@ public class Recipe {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
-    @ManyToMany
-    @JoinTable(
-            name = "recipe_ingredients",
-            joinColumns = @JoinColumn(name = "recipe_id"),
-            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
-    )
-    List<Ingredient> ingredients;
+   @OneToMany(mappedBy = "recipe")
+    private List<RecipeStep> recipeSteps = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -135,11 +131,11 @@ public class Recipe {
         this.user = user;
     }
 
-    public List<Ingredient> getIngredients() {
-        return ingredients;
+    public List<RecipeStep> getRecipeSteps() {
+        return recipeSteps;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
+    public void setRecipeSteps(List<RecipeStep> recipeSteps) {
+        this.recipeSteps = recipeSteps;
     }
 }
