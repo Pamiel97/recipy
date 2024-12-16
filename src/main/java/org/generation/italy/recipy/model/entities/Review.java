@@ -7,17 +7,19 @@ import java.time.LocalDate;
 @Entity
 @Table(name="reviews")
 public class Review {
-    long id;
-    String text;
-    double rating;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String text;
+    private double rating;
     @Column(name="creation_date")
-    LocalDate creationDate;
+    private LocalDate creationDate;
     @ManyToOne
     @JoinColumn(name="user_id")
-    User user;
+    private User user;
     @ManyToOne
     @JoinColumn(name = "recipe_id")
-    Recipe recipe;
+    private Recipe recipe;
 
     public long getId() {
         return id;

@@ -11,23 +11,43 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
-    String name;
-    String surname;
-    String email;
-    String password;
-    char sex;
-    Profile profile;
-    double weight;
-    double height;
-    double bfp;
-    double lbmp;
+    private long id;
+    private String name;
+    private String surname;
+    private String email;
+    private String password;
+    private char sex;
+    @Enumerated(EnumType.STRING)
+    private Profile profile;
+    private double weight;
+    private double height;
+    private double bfp;
+    private double lbmp;
     @Column(name = "diet_type")
-    DietType dietType;
-    Pal pal;
+    @Enumerated(EnumType.STRING)
+    private DietType dietType;
+    @Enumerated(EnumType.STRING)
+    private Pal pal;
+    @Column(name = "img_url")
+    private String imgUrl;
     @OneToMany(mappedBy = "user")
-    List<Review> review = new ArrayList<>();
-
+    private List<Review> review = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "user_allergies",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "allergy_id")
+    )
+    private List<Allergy> allergies = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "user_intolerances",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "intolerance_id")
+    )
+    private List<Intolerance> intolerances = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Pantry> pantries = new ArrayList<>();
 
 
     public long getId() {
@@ -134,11 +154,43 @@ public class User {
         this.pal = pal;
     }
 
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
     public List<Review> getReview() {
         return review;
     }
 
     public void setReview(List<Review> review) {
         this.review = review;
+    }
+
+    public List<Allergy> getAllergies() {
+        return allergies;
+    }
+
+    public void setAllergies(List<Allergy> allergies) {
+        this.allergies = allergies;
+    }
+
+    public List<Intolerance> getIntolerances() {
+        return intolerances;
+    }
+
+    public void setIntolerances(List<Intolerance> intolerances) {
+        this.intolerances = intolerances;
+    }
+
+    public List<Pantry> getPantries() {
+        return pantries;
+    }
+
+    public void setPantries(List<Pantry> pantries) {
+        this.pantries = pantries;
     }
 }

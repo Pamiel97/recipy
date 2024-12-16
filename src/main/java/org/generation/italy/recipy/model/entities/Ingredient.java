@@ -2,30 +2,40 @@ package org.generation.italy.recipy.model.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "ingredients")
 public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
-    String name;
+    private long id;
+    private String name;
     @Column(name = "kcal_per_gram")
-    double kcal;
+    private double kcal;
     @Column(name = "carbohydrates_per_gram")
-    double carbohydrates;
+    private double carbohydrates;
     @Column(name = "proteins_per_gram")
-    double proteins;
+    private double proteins;
     @Column(name = "fats_per_gram")
-    double fats;
-    Category category;
-    @Column(name = "allergens")
-    Allergen allergen;
+    private double fats;
+    @Enumerated(EnumType.STRING)
+    private Category category;
     @Column(name = "avg_weight")
-    double avgWeight;
+    private double avgWeight;
     @Column(name = "avg_price")
-    double avgPrice;
+    private double avgPrice;
     @Column(name = "img_url")
-    String imgUrl;
+    private String imgUrl;
+    @ManyToOne
+    @JoinColumn(name = "allergy_id")
+    private Allergy allergy;
+    @ManyToOne
+    @JoinColumn(name = "intolerance_id")
+    private Intolerance intolerance;
+    @OneToMany(mappedBy = "ingredient")
+    private List<Pantry> pantries = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -83,14 +93,6 @@ public class Ingredient {
         this.category = category;
     }
 
-    public Allergen getAllergen() {
-        return allergen;
-    }
-
-    public void setAllergen(Allergen allergen) {
-        this.allergen = allergen;
-    }
-
     public double getAvgWeight() {
         return avgWeight;
     }
@@ -113,5 +115,29 @@ public class Ingredient {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Allergy getAllergy() {
+        return allergy;
+    }
+
+    public void setAllergy(Allergy allergy) {
+        this.allergy = allergy;
+    }
+
+    public Intolerance getIntolerance() {
+        return intolerance;
+    }
+
+    public void setIntolerance(Intolerance intolerance) {
+        this.intolerance = intolerance;
+    }
+
+    public List<Pantry> getPantries() {
+        return pantries;
+    }
+
+    public void setPantries(List<Pantry> pantries) {
+        this.pantries = pantries;
     }
 }

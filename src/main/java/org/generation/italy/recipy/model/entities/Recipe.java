@@ -11,26 +11,26 @@ import java.util.List;
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
-    String title;
-    String description;
-    Category category;
+    private long id;
+    private String title;
+    private String description;
+    private Category category;
     @Column(name = "prep_time")
-    int prepTime;
+    private int prepTime;
     @Column(name = "cooking_time")
-    int cookingTime;
-    String difficulty;
+    private int cookingTime;
+    private String difficulty;
     @Column(name = "kcalories")
-    double kCalories;
+    private double kCalories;
     @Column(name = "creation_date")
-    LocalDate creationDate;
+    private LocalDate creationDate;
     @ManyToMany(mappedBy = "recipes")
-    List<Tag> tag;
+    private List<Tag> tag;
     @Column(name = "img_url")
-    String imgUrl;
+    private String imgUrl;
     @ManyToOne
     @JoinColumn(name="user_id")
-    User user;
+    private User user;
     @ManyToMany
     @JoinTable(
             name = "recipe_ingredients",
