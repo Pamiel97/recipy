@@ -1,14 +1,18 @@
 package org.generation.italy.recipy.model.entities;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -16,7 +20,7 @@ public class User {
     private String surname;
     private String email;
     private String password;
-    private char sex;
+    private Character sex;
     @Enumerated(EnumType.STRING)
     private Profile profile;
     private double weight;
@@ -48,6 +52,19 @@ public class User {
     private List<Intolerance> intolerances = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Pantry> pantries = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    public User() {}
+
+    public User(String firstname, String lastname, String email, String encode, Role role) {
+        this.name = firstname;
+        this.surname = lastname;
+        this.email = email;
+        this.password = encode;
+        this.role = role;
+    }
 
 
     public long getId() {
@@ -82,19 +99,49 @@ public class User {
         this.email = email;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public char getSex() {
+    public Character getSex() {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(Character sex) {
         this.sex = sex;
     }
 
@@ -192,5 +239,9 @@ public class User {
 
     public void setPantries(List<Pantry> pantries) {
         this.pantries = pantries;
+    }
+
+    public Role getRole() {
+        return role;
     }
 }
