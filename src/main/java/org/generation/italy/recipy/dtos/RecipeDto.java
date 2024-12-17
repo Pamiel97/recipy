@@ -11,7 +11,7 @@ public class RecipeDto {
     private long id;
     private String title;
     private String description;
-    private String category;
+    private String course;
     private int prepTime;
     private int cookingTime;
     private String difficulty;
@@ -29,7 +29,7 @@ public class RecipeDto {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.category = category;
+        this.course = category;
         this.prepTime = prepTime;
         this.cookingTime = cookingTime;
         this.difficulty = difficulty;
@@ -91,7 +91,7 @@ public class RecipeDto {
         recipe.setId(this.id);
         recipe.setTitle(this.title);
         recipe.setDescription(this.description);
-        recipe.setCourse(Category.valueOf(this.category));
+        recipe.setCourse(Course.valueOf(this.course));
         recipe.setPrepTime(this.prepTime);
         recipe.setPrepTime(this.cookingTime);
         recipe.setDifficulty(this.difficulty);
