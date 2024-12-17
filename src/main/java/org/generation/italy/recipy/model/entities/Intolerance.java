@@ -16,6 +16,13 @@ public class Intolerance {
     @ManyToMany(mappedBy = "intolerances")
     private List<User> affectedUsers = new ArrayList<>();
 
+    public Intolerance() {}
+    public Intolerance(long id, String name, List<User> affectedUsers) {
+        this.id = id;
+        this.name = name;
+        this.affectedUsers = affectedUsers;
+    }
+
     public long getId() {
         return id;
     }

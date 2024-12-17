@@ -18,6 +18,13 @@ public class Tag {
     inverseJoinColumns = @JoinColumn(name="tag_id"))
     private List<Recipe> recipes = new ArrayList<>();
 
+    public Tag() {}
+    public Tag(long id, String name, List<Recipe> recipes) {
+        this.id = id;
+        this.name = name;
+        this.recipes = recipes;
+    }
+
     public long getId() {
         return id;
     }

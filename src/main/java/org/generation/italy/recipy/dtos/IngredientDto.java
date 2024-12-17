@@ -1,9 +1,6 @@
 package org.generation.italy.recipy.dtos;
 
-import org.generation.italy.recipy.model.entities.Category;
-import org.generation.italy.recipy.model.entities.DietType;
-import org.generation.italy.recipy.model.entities.Ingredient;
-import org.generation.italy.recipy.model.entities.Intolerance;
+import org.generation.italy.recipy.model.entities.*;
 
 public class IngredientDto {
     private long id;
@@ -48,9 +45,8 @@ public class IngredientDto {
         ingredient.setAvgPrice(this.price);
         ingredient.setImgUrl(this.imgUrl);
         ingredient.setDietCompatibility(DietType.valueOf(this.diet));
-//        ingredient.setAllergy(Allergy.valueOf(this.allergy));
-//        ingredient.setIntolerance(Intolerance.valueOf(this.intolerance));;
-
+        ingredient.setAllergy(new Allergy());
+        ingredient.setIntolerance(new Intolerance());
         return ingredient;
     }
 

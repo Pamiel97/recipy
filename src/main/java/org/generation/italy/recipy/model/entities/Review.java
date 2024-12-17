@@ -21,6 +21,16 @@ public class Review {
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
+    public Review() {}
+    public Review(long id, String text, double rating, LocalDate creationDate, User user, Recipe recipe) {
+        this.id = id;
+        this.text = text;
+        this.rating = rating;
+        this.creationDate = creationDate;
+        this.user = user;
+        this.recipe = recipe;
+    }
+
     public long getId() {
         return id;
     }
