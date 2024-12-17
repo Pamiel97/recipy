@@ -25,11 +25,38 @@ public class IngredientDto {
     }
 
     public static IngredientDto fromIngredient(Ingredient ingredient) {
-        return new IngredientDto(ingredient.getId(), ingredient.getName(), ingredient.getKcal(),
-                                 ingredient.getCarbohydrates(), ingredient.getProteins(), ingredient.getFats(),
-                                 ingredient.getCategory().toString(), ingredient.getAvgWeight(), ingredient.getAvgPrice(),
-                                 ingredient.getImgUrl(), ingredient.getDietCompatibility().toString(),
-                                 ingredient.getAllergy().toString(), ingredient.getIntolerance().toString());
+        IngredientDto dto = new IngredientDto();
+        dto.setId(ingredient.getId());
+        dto.setName(ingredient.getName());
+        dto.setKcal(ingredient.getKcal());
+        dto.setCarbs(ingredient.getCarbohydrates());
+        dto.setProts(ingredient.getProteins());
+        dto.setFats(ingredient.getFats());
+        if (ingredient.getCategory() != null) {
+            dto.setCategory(ingredient.getCategory().toString().toLowerCase());
+        } else {
+            dto.setCategory(Category.ALTRO.toString().toLowerCase());
+        }
+        dto.setWeight(ingredient.getAvgWeight());
+        dto.setPrice(ingredient.getAvgPrice());
+        dto.setImgUrl(ingredient.getImgUrl());
+        if (ingredient.getDietCompatibility() != null) {
+            dto.setDiet(ingredient.getDietCompatibility().toString().toLowerCase());
+        } else {
+            dto.setDiet(DietType.ALTRO.toString().toLowerCase());
+        }
+        if(ingredient.getAllergy() != null) {
+            dto.setAllergy(ingredient.getAllergy().getName());
+        } else {
+            dto.setAllergy(null);
+        }
+        if(ingredient.getIntolerance() != null) {
+            dto.setIntolerance(ingredient.getIntolerance().getName());
+        } else {
+            dto.setIntolerance(null);
+        }
+
+        return dto;
     }
 
     public Ingredient toIngredient() {
