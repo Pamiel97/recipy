@@ -32,7 +32,7 @@ public class Recipe {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
-   @OneToMany(mappedBy = "recipe")
+    @OneToMany(mappedBy = "recipe")
     private List<RecipeStep> recipeSteps = new ArrayList<>();
 
    public Recipe() {}
