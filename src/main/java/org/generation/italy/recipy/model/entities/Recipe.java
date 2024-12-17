@@ -15,7 +15,7 @@ public class Recipe {
     private String title;
     private String description;
     @Enumerated(EnumType.STRING)
-    private Category category;
+    private Course course;
     @Column(name = "prep_time")
     private int prepTime;
     @Column(name = "cooking_time")
@@ -32,15 +32,15 @@ public class Recipe {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
-   @OneToMany(mappedBy = "recipe")
+    @OneToMany(mappedBy = "recipe")
     private List<RecipeStep> recipeSteps = new ArrayList<>();
 
-   public Recipe() {}
-    public Recipe(long id, String title, String description, Category category, int prepTime, int cookingTime, String difficulty, double kCalories, LocalDate creationDate, List<Tag> tag, String imgUrl, User user, List<RecipeStep> recipeSteps) {
+    public Recipe() {}
+    public Recipe(long id, String title, String description, Course course, int prepTime, int cookingTime, String difficulty, double kCalories, LocalDate creationDate, List<Tag> tag, String imgUrl, User user, List<RecipeStep> recipeSteps) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.category = category;
+        this.course = course;
         this.prepTime = prepTime;
         this.cookingTime = cookingTime;
         this.difficulty = difficulty;
@@ -76,12 +76,12 @@ public class Recipe {
         this.description = description;
     }
 
-    public Category getCategory() {
-        return category;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public int getPrepTime() {
