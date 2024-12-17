@@ -32,24 +32,28 @@ public class IngredientDto {
         dto.setCarbs(ingredient.getCarbohydrates());
         dto.setProts(ingredient.getProteins());
         dto.setFats(ingredient.getFats());
+        dto.setWeight(ingredient.getAvgWeight());
+        dto.setPrice(ingredient.getAvgPrice());
+        dto.setImgUrl(ingredient.getImgUrl());
+
         if (ingredient.getCategory() != null) {
             dto.setCategory(ingredient.getCategory().toString().toLowerCase());
         } else {
             dto.setCategory(Category.ALTRO.toString().toLowerCase());
         }
-        dto.setWeight(ingredient.getAvgWeight());
-        dto.setPrice(ingredient.getAvgPrice());
-        dto.setImgUrl(ingredient.getImgUrl());
+
         if (ingredient.getDietCompatibility() != null) {
             dto.setDiet(ingredient.getDietCompatibility().toString().toLowerCase());
         } else {
             dto.setDiet(DietType.ALTRO.toString().toLowerCase());
         }
+
         if(ingredient.getAllergy() != null) {
             dto.setAllergy(ingredient.getAllergy().getName());
         } else {
             dto.setAllergy(null);
         }
+
         if(ingredient.getIntolerance() != null) {
             dto.setIntolerance(ingredient.getIntolerance().getName());
         } else {
