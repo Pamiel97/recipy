@@ -40,6 +40,24 @@ public class Ingredient {
     @OneToMany(mappedBy = "ingredient")
     private List<Pantry> pantries = new ArrayList<>();
 
+    public Ingredient() {}
+    public Ingredient(long id, String name, double kcal, double carbohydrates, double proteins, double fats, Category category, double avgWeight, double avgPrice, String imgUrl, DietType dietCompatibility, Allergy allergy, Intolerance intolerance, List<Pantry> pantries) {
+        this.id = id;
+        this.name = name;
+        this.kcal = kcal;
+        this.carbohydrates = carbohydrates;
+        this.proteins = proteins;
+        this.fats = fats;
+        this.category = category;
+        this.avgWeight = avgWeight;
+        this.avgPrice = avgPrice;
+        this.imgUrl = imgUrl;
+        this.dietCompatibility = dietCompatibility;
+        this.allergy = allergy;
+        this.intolerance = intolerance;
+        this.pantries = pantries;
+    }
+
     public long getId() {
         return id;
     }
