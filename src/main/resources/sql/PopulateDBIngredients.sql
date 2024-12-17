@@ -106,7 +106,7 @@ INSERT INTO public.ingredients (name, kcal_per_gram, carbohydrates_per_gram, pro
 ('Feta', 2.6, 0.4, 0.14, 0.21, 'latticini', 40, 2.0),
 ('Crescenza', 1.9, 0.2, 0.12, 0.11, 'latticini', 200, 1.4),
 ('Ricotta Salata', 4.2, 0.5, 0.30, 0.33, 'latticini', 30, 3.0),
-('Taleggio', 3.4, 0.3, 0.23, 0.28, 'latticini', 40, 2.4);
+('Taleggio', 3.4, 0.3, 0.23, 0.28, 'latticini', 40, 2.4),
 ('Yogurt', 0.61, 0.07, 0.04, 0.03, 'latticini', 125, 0.60),
 ('Burro', 7.17, 0.01, 0.02, 0.81, 'latticini', 25, 0.60),
 ('Latte', 0.64, 0.03, 0.04, 0.03, 'latticini', 100, 0.50),
@@ -123,7 +123,7 @@ INSERT INTO public.ingredients (name, kcal_per_gram, carbohydrates_per_gram, pro
 ('Chia', 5.40, 0.42, 0.17, 0.34, 'frutta secca e semi', 20, 2.20),
 ('Arachidi', 5.50, 0.16, 0.25, 0.49, 'frutta secca e semi', 10, 2.30),
 ('Noci', 6.5, 0.14, 0.15, 0.6, 'frutta secca e semi', 30, 3.0),
-('Semi di chia', 4.9, 0.42, 0.17, 0.3, 'frutta secca e semi', 30, 3.5)
+('Semi di chia', 4.9, 0.42, 0.17, 0.3, 'frutta secca e semi', 30, 3.5),
 
 ('Olio d''oliva', 8.84, 0.00, 0.00, 0.99, 'grassi', 100, 1.50),
 ('Olio di cocco', 8.99, 0.00, 0.00, 1.00, 'grassi', 100, 2.00),
