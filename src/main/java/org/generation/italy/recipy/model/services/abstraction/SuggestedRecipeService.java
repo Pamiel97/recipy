@@ -5,5 +5,5 @@ import org.generation.italy.recipy.model.entities.Recipe;
 import java.util.List;
 
 public interface SuggestedRecipeService {
-    List<Recipe> suggestedRecipesForUserPref(long id);
+    List<Recipe> recipesOkToUserDietType(long userId);
 }

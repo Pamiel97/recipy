@@ -72,7 +72,7 @@ public class RecipeDto {
                 recipe.getId(),
                 recipe.getTitle(),
                 recipe.getDescription(),
-                recipe.getCategory().toString(),
+                recipe.getCourse().toString(),
                 recipe.getPrepTime(),
                 recipe.getCookingTime(),
                 recipe.getDifficulty(),
@@ -91,7 +91,7 @@ public class RecipeDto {
         recipe.setId(this.id);
         recipe.setTitle(this.title);
         recipe.setDescription(this.description);
-        recipe.setCategory(Category.valueOf(this.category));
+        recipe.setCourse(Category.valueOf(this.category));
         recipe.setPrepTime(this.prepTime);
         recipe.setPrepTime(this.cookingTime);
         recipe.setDifficulty(this.difficulty);
