@@ -12,6 +12,7 @@ public enum Category {
     FRUTTA_SECCA_E_SEMI,
     GRASSI,
     DOLCI_E_ZUCCHERI,
-    BEVANDE
+    BEVANDE,
+    ALTRO
 
 }
