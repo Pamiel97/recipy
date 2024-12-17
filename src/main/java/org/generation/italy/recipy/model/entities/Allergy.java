@@ -15,6 +15,13 @@ public class Allergy {
     @ManyToMany(mappedBy = "allergies")
     private List<User> affectedUsers = new ArrayList<>();
 
+    public Allergy() {}
+    public Allergy(long id, List<User> affectedUsers, String name) {
+        this.id = id;
+        this.affectedUsers = affectedUsers;
+        this.name = name;
+    }
+
     public long getId() {
         return id;
     }

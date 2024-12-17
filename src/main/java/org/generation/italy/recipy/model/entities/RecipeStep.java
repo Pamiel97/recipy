@@ -19,6 +19,16 @@ public class RecipeStep {
     @Column(name="step_img_url")
     private String stepImgUrl;
 
+    public RecipeStep() {}
+    public RecipeStep(long id, Recipe recipe, Ingredient ingredient, String description, int ordinal, String stepImgUrl) {
+        this.id = id;
+        this.recipe = recipe;
+        this.ingredient = ingredient;
+        this.description = description;
+        this.ordinal = ordinal;
+        this.stepImgUrl = stepImgUrl;
+    }
+
     public long getId() {
         return id;
     }

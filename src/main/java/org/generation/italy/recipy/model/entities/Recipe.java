@@ -35,6 +35,23 @@ public class Recipe {
    @OneToMany(mappedBy = "recipe")
     private List<RecipeStep> recipeSteps = new ArrayList<>();
 
+   public Recipe() {}
+    public Recipe(long id, String title, String description, Category category, int prepTime, int cookingTime, String difficulty, double kCalories, LocalDate creationDate, List<Tag> tag, String imgUrl, User user, List<RecipeStep> recipeSteps) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.category = category;
+        this.prepTime = prepTime;
+        this.cookingTime = cookingTime;
+        this.difficulty = difficulty;
+        this.kCalories = kCalories;
+        this.creationDate = creationDate;
+        this.tag = tag;
+        this.imgUrl = imgUrl;
+        this.user = user;
+        this.recipeSteps = recipeSteps;
+    }
+
     public long getId() {
         return id;
     }
