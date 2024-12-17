@@ -2,6 +2,7 @@ package org.generation.italy.recipy.model.services.abstraction;
 
 import org.generation.italy.recipy.model.entities.Recipe;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface RecipeService {
@@ -11,4 +12,5 @@ public interface RecipeService {
     Optional<Recipe> findById(long id);
 
 
+    List<Recipe> getAllRecipes();
 }
