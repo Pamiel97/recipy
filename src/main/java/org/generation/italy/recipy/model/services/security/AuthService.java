@@ -1,8 +1,8 @@
 package org.generation.italy.recipy.model.services.security;
 
-import org.generation.italy.recipy.dtos.AuthenticationRequest;
-import org.generation.italy.recipy.dtos.AuthenticationResponse;
-import org.generation.italy.recipy.dtos.RegisterRequest;
+import org.generation.italy.recipy.dtos.security.AuthenticationRequest;
+import org.generation.italy.recipy.dtos.security.AuthenticationResponse;
+import org.generation.italy.recipy.dtos.security.RegisterRequest;
 import org.generation.italy.recipy.model.entities.User;
 import org.generation.italy.recipy.model.repositories.security.UserRepository;
 import org.slf4j.Logger;

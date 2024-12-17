@@ -1,8 +1,8 @@
 package org.generation.italy.recipy.controllers.security;
 
-import org.generation.italy.recipy.dtos.AuthenticationRequest;
-import org.generation.italy.recipy.dtos.AuthenticationResponse;
-import org.generation.italy.recipy.dtos.RegisterRequest;
+import org.generation.italy.recipy.dtos.security.AuthenticationRequest;
+import org.generation.italy.recipy.dtos.security.AuthenticationResponse;
+import org.generation.italy.recipy.dtos.security.RegisterRequest;
 import org.generation.italy.recipy.model.services.security.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

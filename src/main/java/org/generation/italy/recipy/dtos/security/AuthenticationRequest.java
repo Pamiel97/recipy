@@ -1,4 +1,4 @@
-package org.generation.italy.recipy.dtos;
+package org.generation.italy.recipy.dtos.security;
 
 public class AuthenticationRequest {
     private String email;

@@ -1,4 +1,4 @@
-package org.generation.italy.recipy.dtos;
+package org.generation.italy.recipy.dtos.security;
 
 import org.generation.italy.recipy.model.entities.Role;
 
