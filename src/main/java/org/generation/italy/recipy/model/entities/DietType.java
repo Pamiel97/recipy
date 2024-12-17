@@ -5,6 +5,7 @@ public enum DietType {
     VEGETARIANO,
     PESCATARIANO,
     ONNIVORO,
+    CARNIVORO,
     FRUTTARIANO,
     ALTRO
 }

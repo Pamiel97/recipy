@@ -34,7 +34,7 @@ CREATE TABLE public.users
     CONSTRAINT check_bfp_range CHECK (bfp>=0 AND bfp<=1),
     CONSTRAINT check_lbmp_range CHECK (lbmp>=0 AND lbmp<=1),
     CONSTRAINT check_profile CHECK (profile IN('utente_base', 'chef', 'dietologo', 'altro')),
-    CONSTRAINT check_diet_type CHECK (diet_type IN('vegano', 'vegetariano', 'pescatariano', 'onnivoro', 'fruttariano', 'altro')),
+    CONSTRAINT check_diet_type CHECK (diet_type IN('vegano', 'vegetariano', 'pescatariano', 'onnivoro', 'carnivoro', 'fruttariano', 'altro')),
     CONSTRAINT check_pal CHECK (pal IN('sedentario', 'leggero', 'moderato', 'intenso'))
 );
 
@@ -119,12 +119,14 @@ CREATE TABLE public.ingredients
     avg_weight real,
     avg_price real,
     img_url character varying(64),
+    diet_compatibility character varying(32),
     allergy_id bigint,
     intolerance_id bigint,
     PRIMARY KEY (id),
     CONSTRAINT check_category CHECK (category IN('frutta', 'verdura', 'cereali', 'legumi', 'carne', 'pesce', 'uova', 'latticini', 'frutta secca e semi', 'grassi', 'dolci e zuccheri', 'bevande', 'altro')),
     CONSTRAINT fk_ingredients_allergy FOREIGN KEY (allergy_id) REFERENCES allergies (id),
-    CONSTRAINT fk_ingredients_intolerance FOREIGN KEY (intolerance_id) REFERENCES intolerances (id)
+    CONSTRAINT fk_ingredients_intolerance FOREIGN KEY (intolerance_id) REFERENCES intolerances (id),
+    CONSTRAINT check_diet_compatibility CHECK (diet_compatibility IN('vegano', 'vegetariano', 'pescatariano', 'onnivoro', 'carnivoro', 'fruttariano',  'altro'))
 );
 
 ALTER TABLE IF EXISTS public.ingredients

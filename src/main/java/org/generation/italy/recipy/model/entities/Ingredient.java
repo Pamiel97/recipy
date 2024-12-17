@@ -28,6 +28,9 @@ public class Ingredient {
     private double avgPrice;
     @Column(name = "img_url")
     private String imgUrl;
+    @Column(name = "diet_compatibility")
+    @Enumerated(EnumType.STRING)
+    private DietType dietCompatibility;
     @ManyToOne
     @JoinColumn(name = "allergy_id")
     private Allergy allergy;
@@ -117,6 +120,14 @@ public class Ingredient {
         this.imgUrl = imgUrl;
     }
 
+    public DietType getDietCompatibility() {
+        return dietCompatibility;
+    }
+
+    public void setDietCompatibility(DietType dietCompatibility) {
+        this.dietCompatibility = dietCompatibility;
+    }
+
     public Allergy getAllergy() {
         return allergy;
     }
@@ -140,4 +151,5 @@ public class Ingredient {
     public void setPantries(List<Pantry> pantries) {
         this.pantries = pantries;
     }
+
 }
