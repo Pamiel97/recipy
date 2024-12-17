@@ -8,9 +8,9 @@ import java.util.List;
 
 @Service
 public class SuggestedRecipeServiceJpa implements SuggestedRecipeService {
-    @Override
-    public List<Recipe> suggestedRecipesForUserPref(long id) {
 
-        return List.of();
+    @Override
+    public List<Recipe> recipesOkToUserDietType(long userId) {
+        return List.of(); //TODO
     }
 }
