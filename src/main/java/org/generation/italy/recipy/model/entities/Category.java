@@ -14,5 +14,4 @@ public enum Category {
     DOLCI_E_ZUCCHERI,
     BEVANDE,
     ALTRO
-
 }
