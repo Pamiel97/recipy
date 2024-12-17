@@ -15,13 +15,6 @@ public class UserDto {
         return new UserDto(user.getFirstname(), user.getLastname());
     }
 
-    public User toUser() {
-        User user = new User();
-        user.setFirstname(firstname);
-        user.setLastname(lastname);
-        return user;
-    }
-
     public String getFirstname() {
         return firstname;
     }
