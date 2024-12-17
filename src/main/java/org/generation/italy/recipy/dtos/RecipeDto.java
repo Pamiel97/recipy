@@ -1,9 +1,8 @@
 package org.generation.italy.recipy.dtos;
 
-import org.generation.italy.recipy.model.entities.Recipe;
-import org.generation.italy.recipy.model.entities.RecipeStep;
-import org.generation.italy.recipy.model.entities.Tag;
+import org.generation.italy.recipy.model.entities.*;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +11,9 @@ public class RecipeDto {
     private long id;
     private String title;
     private String description;
+    private String category;
+    private int prepTime;
+    private int cookingTime;
     private String difficulty;
     private double kCalories;
     private String creationDate;
@@ -22,11 +24,14 @@ public class RecipeDto {
 
     public RecipeDto() {}
 
-    public RecipeDto(long id, String title, String description, String difficulty, double kCalories, String creationDate,
+    public RecipeDto(long id, String title, String description,String category, int prepTime, int cookingTime, String difficulty, double kCalories, String creationDate,
                      String imgUrl, UserDto user, List<String> tags, List<RecipeStepDto> recipeSteps) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.category = category;
+        this.prepTime = prepTime;
+        this.cookingTime = cookingTime;
         this.difficulty = difficulty;
         this.kCalories = kCalories;
         this.creationDate = creationDate;
@@ -37,7 +42,7 @@ public class RecipeDto {
     }
 
 
-    //TODO
+
     public static RecipeDto fromRecipe(Recipe recipe) {
         List<String> tagNames = new ArrayList<>();
         if (recipe.getTag() != null) {
@@ -59,21 +64,70 @@ public class RecipeDto {
             creationDateString = recipe.getCreationDate().format(formatter);
         }
 
-       // UserDto userDto = UserDto.fromUser(recipe.getUser());
+        UserDto userDto = UserDto.fromUser(recipe.getUser());
 
-//        return new RecipeDto(
-//                recipe.getId(),
-//                recipe.getTitle(),
-//                recipe.getDescription(),
-//                recipe.getDifficulty(),
-//                recipe.getkCalories(),
-//                creationDateString,
-//                recipe.getImgUrl(),
-//                //userDto,
-//                tagNames,
-//                recipeStepDtos
-//        );
-        return null;
+
+
+        return new RecipeDto(
+                recipe.getId(),
+                recipe.getTitle(),
+                recipe.getDescription(),
+                recipe.getCategory().toString(),
+                recipe.getPrepTime(),
+                recipe.getCookingTime(),
+                recipe.getDifficulty(),
+                recipe.getkCalories(),
+                creationDateString,
+                recipe.getImgUrl(),
+                userDto,
+                tagNames,
+                recipeStepDtos
+        );
     }
+
+    //SETTARE ID USER
+    public Recipe toRecipe(){
+        Recipe recipe = new Recipe();
+        recipe.setId(this.id);
+        recipe.setTitle(this.title);
+        recipe.setDescription(this.description);
+        recipe.setCategory(Category.valueOf(this.category));
+        recipe.setPrepTime(this.prepTime);
+        recipe.setPrepTime(this.cookingTime);
+        recipe.setDifficulty(this.difficulty);
+        recipe.setkCalories(this.kCalories);
+
+        if (this.creationDate != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+            recipe.setCreationDate(LocalDate.parse(this.creationDate, formatter));
+        }
+
+        recipe.setImgUrl(this.imgUrl);
+
+       //USER da dto a user
+
+        if (this.tags != null) {
+            List<Tag> tagList = new ArrayList<>();
+            for (String tagName : this.tags) {
+                Tag tag = new Tag();
+                tag.setName(tagName);
+                tagList.add(tag);
+            }
+            recipe.setTag(tagList);
+        }
+
+        if (this.recipeSteps != null) {
+            List<RecipeStep> recipeStepList = new ArrayList<>();
+            for (RecipeStepDto stepDto : this.recipeSteps) {
+                recipeStepList.add(stepDto.toRecipeStep());
+            }
+            recipe.setRecipeSteps(recipeStepList);
+        }
+
+        return recipe;
+    }
+
+
+
 
 }
