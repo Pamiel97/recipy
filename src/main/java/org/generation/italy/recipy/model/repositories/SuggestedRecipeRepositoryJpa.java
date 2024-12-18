@@ -32,4 +32,16 @@ public interface SuggestedRecipeRepositoryJpa extends JpaRepository<Recipe, Long
 //            WHERE (r.prepTime + r.cooking_time) < :minutes
 //            """)
 //    List<Recipe> findAllRecipesShorterThan(@Param("minutes") int minutes);
+
+
+    @Query("""
+            SELECT r
+            FROM Recipe r
+            JOIN RecipeStep rs ON r.id = rs.recipe.id
+            JOIN Pantry p ON rs.ingredient.id = p.ingredient.id
+            JOIN User u ON p.user.id = u.id
+            WHERE rs.ingredient.id = p.ingredient.id
+            AND p.user.id = u.id
+            """)
+    List<Recipe> findByAvailablePantry();
 }
