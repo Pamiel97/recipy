@@ -39,13 +39,13 @@ public class IngredientDto {
         if (ingredient.getCategory() != null) {
             dto.setCategory(ingredient.getCategory().toString().toLowerCase());
         } else {
-            dto.setCategory(Category.ALTRO.toString().toLowerCase());
+            dto.setCategory(Category.altro.toString());
         }
 
         if (ingredient.getDietCompatibility() != null) {
             dto.setDiet(ingredient.getDietCompatibility().toString().toLowerCase());
         } else {
-            dto.setDiet(DietType.ALTRO.toString().toLowerCase());
+            dto.setDiet(DietType.altro.toString());
         }
 
         if(ingredient.getAllergy() != null) {
