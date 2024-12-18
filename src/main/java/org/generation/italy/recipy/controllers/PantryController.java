@@ -32,9 +32,17 @@ public class PantryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PantryDto>> getAllPantries() {
-        List<Pantry> pantries = pantryService.findAllAvailableIngredients();
-        return ResponseEntity.ok(pantries.stream().map(PantryDto::fromPantry).toList());
+    public ResponseEntity<?> getAllPantries(@RequestParam (required = false) Long pantryId) {
+        if(pantryId != null) {
+            Optional<Pantry> optPantry = pantryService.findPantryById(pantryId);
+            if(optPantry.isEmpty()){
+                return ResponseEntity.badRequest().body(String.format("Pantry con id %d non trovato", pantryId));
+            }
+            return ResponseEntity.ok(PantryDto.fromPantry(optPantry.get()));
+        } else {
+            List<Pantry> pantries = pantryService.findAllAvailableIngredients();
+            return ResponseEntity.ok(pantries.stream().map(PantryDto::fromPantry).toList());
+        }
     }
 
     @PostMapping

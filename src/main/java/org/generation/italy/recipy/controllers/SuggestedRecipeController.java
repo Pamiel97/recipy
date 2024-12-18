@@ -1,7 +1,9 @@
 package org.generation.italy.recipy.controllers;
 
+import org.generation.italy.recipy.dtos.PantryDto;
 import org.generation.italy.recipy.dtos.RecipeDto;
 import org.generation.italy.recipy.model.entities.Recipe;
+import org.generation.italy.recipy.model.exceptions.EmptyListException;
 import org.generation.italy.recipy.model.services.abstraction.SuggestedRecipeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,4 +34,21 @@ public class SuggestedRecipeController {
     }
 
     //TODO scommentare e finire di implementare il metodo che trova le ricette più corte di x minuti
+
+
+
+
+
+
+    //mirko
+
+    @GetMapping("/pantries")
+    public ResponseEntity<?> getRecipesByAvailablePantries() {
+        try {
+            List<Recipe> recipes = suggestedRecipeService.findRecipesByAvailablePantries();
+            return ResponseEntity.ok(recipes.stream().map(RecipeDto::fromRecipe).toList());
+        } catch (EmptyListException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
