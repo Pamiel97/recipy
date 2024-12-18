@@ -47,10 +47,45 @@ public class PantryController {
         try {
             Pantry pantry = pantryDto.toPantry();
             pantry.setIngredient(ingredient.get());
-            Pantry createdPantry = pantryService.createPantry(pantry, userId);
+            Pantry createdPantry = pantryService.savePantry(pantry, userId);
             URI location = uriBuilder.path("/pantries/{id}").buildAndExpand(pantry.getId()).toUri();
             return ResponseEntity.created(location).body(PantryDto.fromPantry(createdPantry));
         } catch(EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updatePantry(@PathVariable long id, @RequestBody PantryDto pantryDto, @AuthenticationPrincipal User user) {
+        if(id != pantryDto.getId()) {
+            return ResponseEntity.badRequest().body("Gli id non coincidono");
+        }
+        Optional<Ingredient> ingredient = ingredientService.findById(pantryDto.getIngredient());
+        if(ingredient.isEmpty()) {
+            return ResponseEntity.badRequest().body("Ingrediente non trovato");
+        }
+        long userId = user.getId();
+
+        try {
+            Pantry pantry = pantryDto.toPantry();
+            pantry.setIngredient(ingredient.get());
+            Pantry updatedPantry = pantryService.savePantry(pantry, userId);
+            return ResponseEntity.ok(PantryDto.fromPantry(updatedPantry));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletePantry(@PathVariable long id) {
+        Optional<Pantry> pantry = pantryService.findPantryById(id);
+        if(pantry.isEmpty()) {
+            return ResponseEntity.badRequest().body("Pantry non trovata");
+        }
+        try {
+            pantryService.isDeleted(id);
+            return ResponseEntity.ok(PantryDto.fromPantry(pantry.get()));
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 

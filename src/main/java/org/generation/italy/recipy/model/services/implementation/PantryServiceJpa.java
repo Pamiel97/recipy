@@ -29,13 +29,26 @@ public class PantryServiceJpa implements PantryService {
     }
 
     @Override
-    public Pantry createPantry(Pantry pantry, long userId) throws EntityNotFoundException {
+    public Pantry savePantry(Pantry pantry, long userId) throws EntityNotFoundException {
         Optional<User> ou = userRepo.findById(userId);
         if(ou.isEmpty()){
             throw new EntityNotFoundException(String.format("Utente con id %d non trovato!", userId));
         }
         pantry.setUser(ou.get());
         return pantryRepo.save(pantry);
+    }
 
+    @Override
+    public Optional<Pantry> findPantryById(long id) {
+        return pantryRepo.findById(id);
+    }
+
+    @Override
+    public void isDeleted(long id) throws EntityNotFoundException {
+        Optional<Pantry> optPantry = findPantryById(id);
+        if(optPantry.isEmpty()) {
+            throw new EntityNotFoundException(String.format("Pantry con id %d non trovata!", id));
+        }
+        pantryRepo.deleteById(id);
     }
 }
