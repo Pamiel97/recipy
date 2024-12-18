@@ -25,14 +25,14 @@ public class Recipe {
     private double kCalories;
     @Column(name = "creation_date")
     private LocalDate creationDate;
-    @ManyToMany(mappedBy = "recipes")
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch = FetchType.EAGER) //permette di caricare direttamente tutte le tag
     private List<Tag> tag;
     @Column(name = "img_url")
     private String imgUrl;
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<RecipeStep> recipeSteps = new ArrayList<>();
 
     public Recipe() {}

@@ -13,16 +13,15 @@ public class Tag {
     private long id;
     private String name;
 
-    @ManyToMany
-    @JoinTable(name="recipe_tags", joinColumns = @JoinColumn(name="recipe_id"),
-    inverseJoinColumns = @JoinColumn(name="tag_id"))
-    private List<Recipe> recipes = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "recipe_id")
+    private Recipe recipe;
 
     public Tag() {}
-    public Tag(long id, String name, List<Recipe> recipes) {
+    public Tag(long id, String name, Recipe recipe) {
         this.id = id;
         this.name = name;
-        this.recipes = recipes;
+        this.recipe = recipe;
     }
 
     public long getId() {
@@ -41,11 +40,11 @@ public class Tag {
         this.name = name;
     }
 
-    public List<Recipe> getRecipes() {
-        return recipes;
+    public Recipe getRecipe() {
+        return recipe;
     }
 
-    public void setRecipes(List<Recipe> recipes) {
-        this.recipes = recipes;
+    public void setRecipes(Recipe recipe) {
+        this.recipe = recipe;
     }
 }
