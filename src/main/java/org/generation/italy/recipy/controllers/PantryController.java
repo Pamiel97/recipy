@@ -12,12 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import javax.swing.text.html.parser.Entity;
 import java.net.URI;
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,6 +46,7 @@ public class PantryController {
         long userId = user.getId();
         try {
             Pantry pantry = pantryDto.toPantry();
+            pantry.setIngredient(ingredient.get());
             Pantry createdPantry = pantryService.createPantry(pantry, userId);
             URI location = uriBuilder.path("/pantries/{id}").buildAndExpand(pantry.getId()).toUri();
             return ResponseEntity.created(location).body(PantryDto.fromPantry(createdPantry));

@@ -24,13 +24,14 @@ public class PantryDto {
     }
 
     public static PantryDto fromPantry(Pantry pantry) {
-        return new PantryDto(pantry.getId(),
-                             pantry.getQuantity(),
-                             pantry.getUnitType(),
-                             pantry.getPurchaseDate().format(DateTimeFormatter.ISO_LOCAL_DATE),
-                             pantry.getExpirationDate().format(DateTimeFormatter.ISO_LOCAL_DATE),
-                             UserDto.fromUser(pantry.getUser()),
-                             pantry.getIngredient().getId());
+        return new PantryDto(
+                pantry.getId(),
+                pantry.getQuantity(),
+                pantry.getUnitType(),
+                pantry.getPurchaseDate().format(DateTimeFormatter.ISO_LOCAL_DATE),
+                pantry.getExpirationDate().format(DateTimeFormatter.ISO_LOCAL_DATE),
+                UserDto.fromUser(pantry.getUser()),
+                pantry.getIngredient().getId());
     }
 
     public Pantry toPantry(){
@@ -40,7 +41,8 @@ public class PantryDto {
         pantry.setUnitType(this.unitType);
         pantry.setPurchaseDate(LocalDate.parse(this.purchaseDate));
         pantry.setExpirationDate(LocalDate.parse(this.expirationDate));
-        //manca user
+        //manca user che viene preso direttamente dalla login
+        //manca ingredientId che viene settato nel controller
         return pantry;
     }
 
