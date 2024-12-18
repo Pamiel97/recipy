@@ -41,6 +41,9 @@ public class Ingredient {
     private List<Pantry> pantries = new ArrayList<>();
 
     public Ingredient() {}
+    public Ingredient(long id){
+        this.id =id;
+    }
     public Ingredient(long id, String name, double kcal, double carbohydrates, double proteins, double fats, Category category, double avgWeight, double avgPrice, String imgUrl, DietType dietCompatibility, Allergy allergy, Intolerance intolerance, List<Pantry> pantries) {
         this.id = id;
         this.name = name;

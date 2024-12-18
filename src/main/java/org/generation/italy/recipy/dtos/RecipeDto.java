@@ -96,7 +96,7 @@ public class RecipeDto {
         recipe.setPrepTime(this.cookingTime);
         recipe.setDifficulty(this.difficulty);
         recipe.setkCalories(this.kCalories);
-        recipe.setUser(null);
+
 
         if (this.creationDate != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
@@ -112,6 +112,7 @@ public class RecipeDto {
             for (String tagName : this.tags) {
                 Tag tag = new Tag();
                 tag.setName(tagName);
+                tag.setRecipes(recipe);
                 tagList.add(tag);
             }
             recipe.setTag(tagList);
@@ -120,7 +121,9 @@ public class RecipeDto {
         if (this.recipeSteps != null) {
             List<RecipeStep> recipeStepList = new ArrayList<>();
             for (RecipeStepDto stepDto : this.recipeSteps) {
-                recipeStepList.add(stepDto.toRecipeStep());
+                RecipeStep rs = stepDto.toRecipeStep();
+                rs.setRecipe(recipe);
+                recipeStepList.add(rs);
             }
             recipe.setRecipeSteps(recipeStepList);
         }
@@ -128,7 +131,107 @@ public class RecipeDto {
         return recipe;
     }
 
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
 
+    public String getTitle() {
+        return title;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
+    public int getPrepTime() {
+        return prepTime;
+    }
+
+    public void setPrepTime(int prepTime) {
+        this.prepTime = prepTime;
+    }
+
+    public int getCookingTime() {
+        return cookingTime;
+    }
+
+    public void setCookingTime(int cookingTime) {
+        this.cookingTime = cookingTime;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public double getkCalories() {
+        return kCalories;
+    }
+
+    public void setkCalories(double kCalories) {
+        this.kCalories = kCalories;
+    }
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public UserDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserDto user) {
+        this.user = user;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public List<RecipeStepDto> getRecipeSteps() {
+        return recipeSteps;
+    }
+
+    public void setRecipeSteps(List<RecipeStepDto> recipeSteps) {
+        this.recipeSteps = recipeSteps;
+    }
 }

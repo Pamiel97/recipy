@@ -16,6 +16,8 @@ public class UserDto {
         return new UserDto(user.getFirstname(), user.getLastname(), user.getProfile().toString());
     }
 
+
+
     public String getFirstname() {
         return firstname;
     }

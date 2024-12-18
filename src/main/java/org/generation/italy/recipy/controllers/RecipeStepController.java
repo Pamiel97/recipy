@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/recipeStep")
+@RequestMapping("api/recipeSteps")
 public class RecipeStepController {
     private RecipeStepService recipeStepService;
     private IngredientService ingService;
@@ -33,7 +33,7 @@ public class RecipeStepController {
 
 
     @PostMapping
-    public ResponseEntity<?> createRecipeStepDto(@RequestBody RecipeStepDto stepDto){
+    public ResponseEntity<?> createRecipe(@RequestBody RecipeStepDto stepDto){
         Optional<Recipe> optionalRecipe = recipeService.findById(stepDto.getRecipeId());
 
         if (optionalRecipe.isEmpty()) {
