@@ -74,4 +74,26 @@ public class RecipeServiceJpa implements RecipeService {
     public List<Recipe> findAll() {
         return repo.findAll();
     }
+
+    @Override
+    public Recipe updateRecipe(long id, Recipe updatedRecipe) throws EntityNotFoundException {
+        Optional<Recipe> optionalRecipe = repo.findById(id);
+        if (optionalRecipe.isEmpty()) {
+            throw new EntityNotFoundException("Ricetta con id: " + id + " non trovata");
+        }
+
+        Recipe recipe = optionalRecipe.get();
+        recipe.setTitle(updatedRecipe.getTitle());
+        recipe.setDescription(updatedRecipe.getDescription());
+        recipe.setCourse(updatedRecipe.getCourse());
+        recipe.setPrepTime(updatedRecipe.getPrepTime());
+        recipe.setCookingTime(updatedRecipe.getCookingTime());
+        recipe.setDifficulty(updatedRecipe.getDifficulty());
+        recipe.setkCalories(updatedRecipe.getkCalories());
+        recipe.setImgUrl(updatedRecipe.getImgUrl());
+        recipe.setTag(updatedRecipe.getTag());
+        recipe.setRecipeSteps(updatedRecipe.getRecipeSteps());
+
+        return repo.save(recipe);
+    }
 }

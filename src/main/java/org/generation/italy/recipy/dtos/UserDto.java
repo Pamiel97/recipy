@@ -3,21 +3,27 @@ package org.generation.italy.recipy.dtos;
 import org.generation.italy.recipy.model.entities.User;
 
 public class UserDto {
+    long id;
     private String firstname, lastname, profile;
 
     public UserDto() {}
-    public UserDto(String firstname, String lastname, String profile) {
+    public UserDto(long id, String firstname, String lastname, String profile) {
+        this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.profile = profile;
     }
 
     public static UserDto fromUser(User user) {
-        return new UserDto(user.getFirstname(), user.getLastname(), user.getProfile().toString());
+        return new UserDto(user.getId(), user.getFirstname(), user.getLastname(), user.getProfile().toString());
     }
 
-
-
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
+    }
     public String getFirstname() {
         return firstname;
     }

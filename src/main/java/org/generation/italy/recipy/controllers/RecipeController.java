@@ -48,4 +48,15 @@ public class RecipeController {
         List<Recipe> allRecipe = recipeService.findAll();
         return ResponseEntity.ok(allRecipe.stream().map(RecipeDto::fromRecipe).toList());
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateRecipe(@PathVariable long id, @RequestBody RecipeDto recipeDto) {
+
+        try {
+            Recipe updatedRecipe = recipeService.updateRecipe(id, recipeDto.toRecipe());
+            return ResponseEntity.ok(updatedRecipe);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
