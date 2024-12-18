@@ -1,5 +1,6 @@
 package org.generation.italy.recipy.model.services.abstraction;
 
+import org.generation.italy.recipy.dtos.ShoppingListDto;
 import org.generation.italy.recipy.model.entities.Recipe;
 import org.generation.italy.recipy.model.exceptions.EntityNotFoundException;
 
@@ -14,6 +15,5 @@ public interface RecipeService {
     List<Recipe> findAll();
     Recipe updateRecipe(long id, Recipe updatedRecipe) throws EntityNotFoundException;
 
-
-    List<Recipe> getAllRecipes();
+    List<ShoppingListDto> generateShoppingList(long id) throws EntityNotFoundException;
 }

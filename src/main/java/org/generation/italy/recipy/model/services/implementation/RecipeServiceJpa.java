@@ -1,5 +1,6 @@
 package org.generation.italy.recipy.model.services.implementation;
 
+import org.generation.italy.recipy.dtos.ShoppingListDto;
 import org.generation.italy.recipy.model.entities.Ingredient;
 import org.generation.italy.recipy.model.entities.Recipe;
 import org.generation.italy.recipy.model.entities.RecipeStep;
@@ -12,6 +13,7 @@ import org.generation.italy.recipy.model.repositories.UserRepositoryJPA;
 import org.generation.italy.recipy.model.services.abstraction.RecipeService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -95,5 +97,25 @@ public class RecipeServiceJpa implements RecipeService {
         recipe.setRecipeSteps(updatedRecipe.getRecipeSteps());
 
         return repo.save(recipe);
+    }
+
+    @Override
+    public List<ShoppingListDto> generateShoppingList(long id) throws EntityNotFoundException {
+        Recipe recipe = repo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Ricetta con ID " + id + " non trovata"));
+
+        List<ShoppingListDto> shoppingList = new ArrayList<>();
+
+        // Itero sui RecipeStep per ottenere gli ingredienti e le quantità
+        for (RecipeStep step : recipe.getRecipeSteps()) {
+            Ingredient ingredient = step.getIngredient();
+            ShoppingListDto item = new ShoppingListDto(
+                    ingredient.getName(),
+                    step.getQuantity(),
+                    step.getUnit()
+            );
+            shoppingList.add(item);
+        }
+        return shoppingList;
     }
 }
