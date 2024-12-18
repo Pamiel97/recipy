@@ -12,6 +12,7 @@ public interface RecipeService {
     boolean updateRecipe(Recipe recipe);
     Optional<Recipe> findById(long id);
     List<Recipe> findAll();
+    Recipe updateRecipe(long id, Recipe updatedRecipe) throws EntityNotFoundException;
 
 
 }
