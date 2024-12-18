@@ -96,4 +96,14 @@ public class RecipeServiceJpa implements RecipeService {
 
         return repo.save(recipe);
     }
+
+    @Override
+    public void deleteRecipe(long id) throws EntityNotFoundException {
+        Optional<Recipe> existingRecipeOpt = repo.findById(id);
+        if (existingRecipeOpt.isEmpty()) {
+            throw new EntityNotFoundException("Ricetta con id: " + id + " non trovata");
+        }
+        Recipe existingRecipe = existingRecipeOpt.get();
+        repo.delete(existingRecipe);
+    }
 }
