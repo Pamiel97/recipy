@@ -4,9 +4,10 @@ import org.generation.italy.recipy.model.entities.Recipe;
 import org.generation.italy.recipy.model.repositories.RecipeRepositoryJPA;
 import org.generation.italy.recipy.model.repositories.RecipeStepRepositoryJPA;
 import org.generation.italy.recipy.model.services.abstraction.RecipeService;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+@Service
 public class RecipeServiceJpa implements RecipeService {
     private RecipeRepositoryJPA repo;
 

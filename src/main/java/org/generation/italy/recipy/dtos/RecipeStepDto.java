@@ -12,34 +12,41 @@ public class RecipeStepDto {
     private String description;
     private int ordinal;
     private String stepImgUrl;
-    private String ingredientName;
+    private IngredientDto ingredientName;
+    private long recipeId;
 
     public RecipeStepDto() {}
 
-    public RecipeStepDto(long id, String description, int ordinal, String stepImgUrl, String ingredientName) {
+    public RecipeStepDto(long id, String description, int ordinal, String stepImgUrl, IngredientDto ingredientName, long recipeId) {
         this.id = id;
         this.description = description;
         this.ordinal = ordinal;
         this.stepImgUrl = stepImgUrl;
         this.ingredientName = ingredientName;
+        this.recipeId = recipeId;
     }
 
     public static RecipeStepDto fromRecipeStep(RecipeStep recipeStep){
 
+        IngredientDto ingredient = null;
+        if (recipeStep.getIngredient() != null) {
+            ingredient = IngredientDto.fromIngredient(recipeStep.getIngredient());
+        }
+
         return new RecipeStepDto(recipeStep.getId(),recipeStep.getDescription(),
-                                 recipeStep.getOrdinal(),recipeStep.getStepImgUrl(),recipeStep.getIngredient().getName());
+                                 recipeStep.getOrdinal(),recipeStep.getStepImgUrl(),ingredient, recipeStep.getRecipe().getId());
     }
 
+    //settare nel controller id per la ricetta
     public RecipeStep toRecipeStep(){
-        RecipeStep recipe = new RecipeStep();
-        recipe.setId(this.id);
-        recipe.setDescription(this.description);
-        recipe.setOrdinal(this.ordinal);
-        recipe.setStepImgUrl(this.stepImgUrl);
-        //CREARE FINDBY NAME per settare gli ingredienti
-//        Ingredient ingredient = findIngredientByName(this.ingredientName);
-//        recipe.setIngredient(ingredient);
-        return recipe;
+        RecipeStep recipeStep = new RecipeStep();
+        recipeStep.setId(this.id);
+        recipeStep.setDescription(this.description);
+        recipeStep.setOrdinal(this.ordinal);
+        recipeStep.setStepImgUrl(this.stepImgUrl);
+        recipeStep.setIngredient(this.ingredientName.toIngredient());
+        recipeStep.setRecipe(null);
+        return recipeStep;
     }
 
     public long getId() {
@@ -74,11 +81,19 @@ public class RecipeStepDto {
         this.stepImgUrl = stepImgUrl;
     }
 
-    public String getIngredientName() {
+    public IngredientDto getIngredientName() {
         return ingredientName;
     }
 
-    public void setIngredientName(String ingredientName) {
+    public void setIngredientName(IngredientDto ingredientName) {
         this.ingredientName = ingredientName;
+    }
+
+    public long getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(long recipeId) {
+        this.recipeId = recipeId;
     }
 }

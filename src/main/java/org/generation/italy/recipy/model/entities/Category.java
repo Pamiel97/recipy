@@ -1,17 +1,17 @@
 package org.generation.italy.recipy.model.entities;
 
 public enum Category {
-    FRUTTA,
-    VERDURA,
-    CEREALI,
-    LEGUMI,
-    CARNE,
-    PESCE,
-    UOVA,
-    LATTICINI,
-    FRUTTA_SECCA_E_SEMI,
-    GRASSI,
-    DOLCI_E_ZUCCHERI,
-    BEVANDE,
-    ALTRO
+    frutta,
+    verdura,
+    cereali,
+    legumi,
+    carne,
+    pesce,
+    uova,
+    latticini,
+    frutta_secca_e_semi,
+    grassi,
+    dolci_e_zuccheri,
+    bevande,
+    altro
 }

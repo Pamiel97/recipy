@@ -85,7 +85,7 @@ public class RecipeDto {
         );
     }
 
-    //SETTARE ID USER
+    //SETTARE ID USER da controller
     public Recipe toRecipe(){
         Recipe recipe = new Recipe();
         recipe.setId(this.id);
@@ -96,6 +96,7 @@ public class RecipeDto {
         recipe.setPrepTime(this.cookingTime);
         recipe.setDifficulty(this.difficulty);
         recipe.setkCalories(this.kCalories);
+        recipe.setUser(null);
 
         if (this.creationDate != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
@@ -104,7 +105,7 @@ public class RecipeDto {
 
         recipe.setImgUrl(this.imgUrl);
 
-       //USER da dto a user
+
 
         if (this.tags != null) {
             List<Tag> tagList = new ArrayList<>();
