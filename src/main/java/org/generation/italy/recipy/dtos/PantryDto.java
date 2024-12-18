@@ -10,17 +10,17 @@ public class PantryDto {
     private int quantity;
     private String unitType, purchaseDate, expirationDate;
     private UserDto user;
-    private IngredientDto ingredient;
+    private long ingredientId;
 
     public PantryDto() {}
-    public PantryDto(long id, int quantity, String unitType, String purchaseDate, String expirationDate, UserDto user, IngredientDto ingredient) {
+    public PantryDto(long id, int quantity, String unitType, String purchaseDate, String expirationDate, UserDto user, long ingredientId) {
         this.id = id;
         this.quantity = quantity;
         this.unitType = unitType;
         this.purchaseDate = purchaseDate;
         this.expirationDate = expirationDate;
         this.user = user;
-        this.ingredient = ingredient;
+        this.ingredientId = ingredientId;
     }
 
     public static PantryDto fromPantry(Pantry pantry) {
@@ -30,7 +30,18 @@ public class PantryDto {
                              pantry.getPurchaseDate().format(DateTimeFormatter.ISO_LOCAL_DATE),
                              pantry.getExpirationDate().format(DateTimeFormatter.ISO_LOCAL_DATE),
                              UserDto.fromUser(pantry.getUser()),
-                             IngredientDto.fromIngredient(pantry.getIngredient()));
+                             pantry.getIngredient().getId());
+    }
+
+    public Pantry toPantry(){
+        Pantry pantry = new Pantry();
+        pantry.setId(this.id);
+        pantry.setQuantity(this.quantity);
+        pantry.setUnitType(this.unitType);
+        pantry.setPurchaseDate(LocalDate.parse(this.purchaseDate));
+        pantry.setExpirationDate(LocalDate.parse(this.expirationDate));
+        //manca user
+        return pantry;
     }
 
     public long getId() {
@@ -69,10 +80,10 @@ public class PantryDto {
     public void setUser(UserDto user) {
         this.user = user;
     }
-    public IngredientDto getIngredient() {
-        return ingredient;
+    public long getIngredient() {
+        return ingredientId;
     }
-    public void setIngredient(IngredientDto ingredient) {
-        this.ingredient = ingredient;
+    public void setIngredient(long ingredientId) {
+        this.ingredientId = ingredientId;
     }
 }
