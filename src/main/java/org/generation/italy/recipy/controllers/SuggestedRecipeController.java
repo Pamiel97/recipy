@@ -26,7 +26,7 @@ public class SuggestedRecipeController {
     }
 
     @GetMapping("/diet-compatible/{id}")
-    public ResponseEntity<List<RecipeDto>> recipesOkToUserDietType(@PathVariable long userId){
+    public ResponseEntity<List<RecipeDto>> recipesOkToUserDietType(@PathVariable("id") long userId){
         List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserDietType(userId)
                 .stream().map(RecipeDto::fromRecipe).toList();
         if (recipes.isEmpty()){

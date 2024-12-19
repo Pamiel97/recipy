@@ -1,6 +1,5 @@
-INSERT INTO public.ingredients (name, kcal_per_gram, carbohydrates_per_gram, proteins_per_gram, fats_per_gram, category, avg_weight, avg_price, img_url, diet_compatibility, allergy_id, intolerance_id) VALUES
-('Mela', 0.52, 0.14, 0.01, 0.003, 'frutta', 150, 0.30, null, 'fruttariano', null,
-(SELECT id FROM intolerances WHERE name = 'Fruttosio')),
+INSERT INTO public.ingredients (name, kcal_per_gram, carbohydrates_per_gram, proteins_per_gram, fats_per_gram, avg_weight, avg_price, img_url, allergy_id, intolerance_id, ingredient_categories_id) VALUES
+(SELECT id FROM ingredient_categories WHERE name = 'vegano')),
 ('Banana', 0.89, 0.23, 0.01, 0.003, 'frutta', 120, 0.20, null, 'fruttariano', null,
 (SELECT id FROM intolerances WHERE name = 'Fruttosio')),
 ('Arancia', 0.47, 0.12, 0.01, 0.002, 'frutta', 130, 0.25, null, 'fruttariano', null,
