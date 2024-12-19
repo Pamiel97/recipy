@@ -12,6 +12,7 @@ import org.generation.italy.recipy.model.repositories.UserRepositoryJPA;
 import org.generation.italy.recipy.model.services.abstraction.RecipeService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -19,12 +20,14 @@ public class RecipeServiceJpa implements RecipeService {
     private RecipeRepositoryJPA repo;
     private UserRepositoryJPA userRepositoryJPA;
     private IngredientRepositoryJPA ingredientRepo;
+    private RecipeStepRepositoryJPA recipeStepRepository;
 
 
-    public RecipeServiceJpa(RecipeRepositoryJPA repo, UserRepositoryJPA userRepositoryJPA,IngredientRepositoryJPA ingredientRepo){
+    public RecipeServiceJpa(RecipeRepositoryJPA repo, UserRepositoryJPA userRepositoryJPA,IngredientRepositoryJPA ingredientRepo, RecipeStepRepositoryJPA recipeStepRepository){
         this.repo = repo;
         this.userRepositoryJPA = userRepositoryJPA;
         this.ingredientRepo = ingredientRepo;
+        this.recipeStepRepository = recipeStepRepository;
     }
 
 
@@ -47,23 +50,6 @@ public class RecipeServiceJpa implements RecipeService {
 
     }
 
-    @Override
-    public boolean deleteRecipeById(long id) {
-        if(!repo.existsById(id)){
-            return false;
-        }
-        repo.deleteById(id);
-        return true;
-    }
-
-    @Override
-    public boolean updateRecipe(Recipe recipe) {
-        if(!repo.existsById(recipe.getId())){
-            return false;
-        }
-        repo.save(recipe);
-        return true;
-    }
 
     @Override
     public Optional<Recipe> findById(long id) {
@@ -82,18 +68,43 @@ public class RecipeServiceJpa implements RecipeService {
             throw new EntityNotFoundException("Ricetta con id: " + id + " non trovata");
         }
 
-        Recipe recipe = optionalRecipe.get();
-        recipe.setTitle(updatedRecipe.getTitle());
-        recipe.setDescription(updatedRecipe.getDescription());
-        recipe.setCourse(updatedRecipe.getCourse());
-        recipe.setPrepTime(updatedRecipe.getPrepTime());
-        recipe.setCookingTime(updatedRecipe.getCookingTime());
-        recipe.setDifficulty(updatedRecipe.getDifficulty());
-        recipe.setkCalories(updatedRecipe.getkCalories());
-        recipe.setImgUrl(updatedRecipe.getImgUrl());
-        recipe.setTag(updatedRecipe.getTag());
-        recipe.setRecipeSteps(updatedRecipe.getRecipeSteps());
+        Recipe existingRecipe = optionalRecipe.get();
 
-        return repo.save(recipe);
+        for (RecipeStep step : updatedRecipe.getRecipeSteps()) {
+            Optional<Ingredient> oi = ingredientRepo.findById(step.getIngredient().getId());
+            if (oi.isEmpty()) {
+                throw new EntityNotFoundException("Ingrediente con id: " + step.getIngredient().getId() + " non trovato");
+            }
+            step.setIngredient(oi.get());
+        }
+
+        for (RecipeStep step : updatedRecipe.getRecipeSteps()) {
+            if (step.getId() != 0) {
+                Optional<RecipeStep> optionalStep = recipeStepRepository.findById(step.getId());
+                if (optionalStep.isPresent()) {
+                    RecipeStep existingStep = optionalStep.get();
+                    existingStep.setDescription(step.getDescription());
+                    existingStep.setOrdinal(step.getOrdinal());
+                    existingStep.setStepImgUrl(step.getStepImgUrl());
+                    existingStep.setIngredient(step.getIngredient());
+                } else {
+                    throw new EntityNotFoundException("Step con id: " + step.getId() + " non trovato");
+                }
+            }
+        }
+
+        existingRecipe.setRecipeSteps(updatedRecipe.getRecipeSteps());
+
+        return repo.save(existingRecipe);
+    }
+
+    @Override
+    public void deleteRecipe(long id) throws EntityNotFoundException {
+        Optional<Recipe> existingRecipeOpt = repo.findById(id);
+        if (existingRecipeOpt.isEmpty()) {
+            throw new EntityNotFoundException("Ricetta con id: " + id + " non trovata");
+        }
+        Recipe existingRecipe = existingRecipeOpt.get();
+        repo.delete(existingRecipe);
     }
 }

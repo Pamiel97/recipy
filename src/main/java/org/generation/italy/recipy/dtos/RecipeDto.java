@@ -75,7 +75,7 @@ public class RecipeDto {
                 recipe.getCourse().toString(),
                 recipe.getPrepTime(),
                 recipe.getCookingTime(),
-                recipe.getDifficulty(),
+                recipe.getDifficulty().toString(),
                 recipe.getkCalories(),
                 creationDateString,
                 recipe.getImgUrl(),
@@ -94,7 +94,7 @@ public class RecipeDto {
         recipe.setCourse(Course.valueOf(this.course));
         recipe.setPrepTime(this.prepTime);
         recipe.setPrepTime(this.cookingTime);
-        recipe.setDifficulty(this.difficulty);
+        recipe.setDifficulty(Difficulty.valueOf(this.difficulty));
         recipe.setkCalories(this.kCalories);
 
 

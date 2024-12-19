@@ -26,10 +26,61 @@ public interface SuggestedRecipeRepositoryJpa extends JpaRepository<Recipe, Long
             """)
     List<Recipe> recipesOkToUserDietType(@Param("userId") long userId);
 
+    @Query("""
+            SELECT r
+            FROM Recipe r
+            WHERE (r.prepTime + r.cookingTime) < :minutes
+            """)
+    List<Recipe> findAllRecipesShorterThan(@Param("minutes") int minutes);
+
+    @Query("""
+            SELECT r
+            FROM Recipe r
+            JOIN User u ON r.user.id = u.id
+            WHERE u.id = :userId
+            AND (
+                (u.profile = 'chef' AND r.difficulty = 'difficile')
+                OR (u.profile = 'dietologo' AND r.difficulty IN ('medio', 'facile'))
+                OR (u.profile = 'altro' AND r.difficulty IN ('medio', 'facile'))
+                OR (u.profile = 'utente_base' AND r.difficulty = 'facile')
+            )
+            """)
+    List<Recipe> findRecipesForUserProfile(@Param("userId") long userId);
+
+
 //    @Query("""
-//            SELECT *
+//            SELECT r
 //            FROM Recipe r
-//            WHERE (r.prepTime + r.cooking_time) < :minutes
+//            JOIN RecipeStep rs ON r.id = rs.recipe.id
+//            JOIN Pantry p ON rs.ingredient.id = p.ingredient.id
+//            JOIN User u ON p.user.id = u.id
+//            WHERE u.id = :userId
+//
+//            AND rs.ingredient.id =
+//            (SELECT rs2.ingredient.id
+//            FROM RecipeStep rs2
+//            WHERE rs2.recipe.id = r.id)
+//
+//            AND p.ingredient.id =
+//            (SELECT p2.ingredient.id
+//            FROM Pantry p2
+//            JOIN User u2 ON p2.user.id = u2.id
+//            WHERE u2.id = :userId)
+//
+//            AND rs.ingredient.id IN (p.ingredient.id)
 //            """)
-//    List<Recipe> findAllRecipesShorterThan(@Param("minutes") int minutes);
+
+    @Query("""
+            SELECT r
+            FROM Recipe r 
+            WHERE NOT EXISTS 
+            ( SELECT rs 
+            FROM RecipeStep rs 
+            WHERE rs.recipe = r 
+            AND rs.ingredient NOT IN 
+            ( SELECT p.ingredient 
+            FROM Pantry p 
+            WHERE p.user.id = :userId ) )
+            """)
+    List<Recipe> findByAvailablePantry(@Param("userId") long userId);
 }

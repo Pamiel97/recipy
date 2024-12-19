@@ -1,15 +1,12 @@
--- Inserimento ricetta Spaghetti alla Carbonara
-INSERT INTO public.recipes (title, description, category, prep_time, cooking_time, difficulty, kCalories, creation_date, tag, user_id)
+INSERT INTO public.recipes (title, description, course, prep_time, cooking_time, difficulty, kCalories, creation_date, tag, img_url, user_id)
 VALUES
-('Spaghetti alla Carbonara', 'Un classico piatto romano a base di spaghetti, uova, pancetta, formaggio pecorino e pepe nero.', 'primo', 10, 15, 'facile', 600, CURRENT_DATE, 'tradizionale', 1);
-
--- Inserimento ingredienti e passaggi
-INSERT INTO public.recipe_steps (recipe_id, ingredient_id, description, ordinal, step_img_url)
-VALUES
-(1, (SELECT id FROM public.ingredients WHERE name = 'Spaghetti'), 'Cuocere gli spaghetti in abbondante acqua salata.', 1, NULL),
-(1, (SELECT id FROM public.ingredients WHERE name = 'Pancetta'), 'Rosolare la pancetta in una padella fino a farla diventare croccante.', 2, NULL),
-(1, (SELECT id FROM public.ingredients WHERE name = 'Uovo'), 'Sbattere le uova con il formaggio pecorino grattugiato e pepe nero.', 3, NULL),
-(1, (SELECT id FROM public.ingredients WHERE name = 'Pecorino'), 'Aggiungere il pecorino grattugiato al composto di uova e mescolare bene.', 4, NULL),
-(1, (SELECT id FROM public.ingredients WHERE name = 'Pepe Nero'), 'Aggiungere una generosa dose di pepe nero nel composto di uova.', 5, NULL),
-(1, (SELECT id FROM public.ingredients WHERE name = 'Spaghetti'), 'Scolare gli spaghetti e unirli alla pancetta croccante nella padella.', 6, NULL),
-(1, (SELECT id FROM public.ingredients WHERE name = 'Uovo'), 'Versare il composto di uova e formaggio sugli spaghetti, mescolando velocemente per evitare che l\'uovo cuocia troppo.', 7, NULL);
+('Spaghetti alla Carbonara', 'Spaghetti con pancetta, uova, pecorino e pepe nero.', 'primo', 15, 10, 'facile', 600, '2024-12-19', 'tradizionale', 'carbonara.jpg', 1),
+('Insalata di Quinoa e Avocado', 'Insalata fresca con quinoa, avocado, pomodorini e limone.', 'contorno', 10, 0, 'facile', 350, '2024-12-19', 'sano', 'quinoa_avocado.jpg', 1),
+('Pollo al Curry', 'Pollo in salsa di curry con riso basmati.', 'secondo', 20, 30, 'medio', 700, '2024-12-18', 'piccante', 'pollo_curry.jpg', 1),
+('Tiramisu', 'Dolce al cucchiaio con mascarpone, caffè e cacao.', 'dolce', 30, 0, 'medio', 450, '2024-12-17', 'tradizionale', 'tiramisu.jpg', 1),
+('Smoothie al Mango', 'Frullato di mango con yogurt greco e miele.', 'bevanda', 5, 0, 'facile', 250, '2024-12-19', 'estivo', 'smoothie_mango.jpg', 1),
+('Lasagne Vegetariana', 'Lasagne con verdure grigliate, besciamella e mozzarella.', 'primo', 40, 45, 'difficile', 800, '2024-12-16', 'sano', 'lasagne_vegetariana.jpg', 1),
+('Hummus con Verdure', 'Crema di ceci servita con bastoncini di verdure crude.', 'antipasto', 15, 0, 'facile', 300, '2024-12-18', 'sano', 'hummus_verdure.jpg',1),
+('Crostata di Frutta', 'Crostata con crema pasticcera e frutta fresca di stagione.', 'dolce', 40, 25, 'medio', 500, '2024-12-17', 'estivo', 'crostata_frutta.jpg', 1),
+('Pizza Margherita', 'Pizza con pomodoro, mozzarella e basilico.', 'secondo', 20, 15, 'facile', 700, '2024-12-19', 'tradizionale', 'pizza_margherita.jpg',1),
+('Zuppa di Lenticchie', 'Zuppa calda di lenticchie con pomodori e spezie.', 'secondo', 10, 40, 'medio', 500, '2024-12-19', 'sano', 'zuppa_lenticchie.jpg', 1);

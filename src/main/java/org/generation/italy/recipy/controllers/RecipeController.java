@@ -51,10 +51,22 @@ public class RecipeController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateRecipe(@PathVariable long id, @RequestBody RecipeDto recipeDto) {
-
+        if(id != recipeDto.getId()) {
+            return ResponseEntity.badRequest().body("Gli id non coincidono");
+        }
         try {
             Recipe updatedRecipe = recipeService.updateRecipe(id, recipeDto.toRecipe());
             return ResponseEntity.ok(updatedRecipe);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteRecipe(@PathVariable long id) {
+        try {
+            recipeService.deleteRecipe(id);
+            return ResponseEntity.noContent().build();
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }

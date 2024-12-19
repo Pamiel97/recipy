@@ -30,6 +30,8 @@ INSERT INTO public.ingredients (name, kcal_per_gram, carbohydrates_per_gram, pro
 (SELECT id FROM intolerances WHERE name = 'Fruttosio')),
 ('Lime', 0.29, 0.1, 0.01, 0.0, 'frutta', 50, 0.8, null, 'fruttariano', null,
 (SELECT id FROM intolerances WHERE name = 'Fruttosio')),
+('Avocado', 1.6, 0.09, 0.02, 0.15, 'frutta', 150, 1.50, 'avocado.jpg', 'vegano', NULL, NULL),
+('Limone', 0.29, 0.09, 0.01, 0.01, 'frutta', 120, 0.30, 'limone.jpg', 'vegano', NULL, NULL),
 
 ('Pomodoro', 0.18, 0.04, 0.01, 0.003, 'verdura', 150, 0.20, null, 'vegano', null, null),
 ('Cipolla', 0.40, 0.09, 0.01, 0.01, 'verdura', 100, 0.15, null, 'vegano', null, null),
@@ -56,6 +58,8 @@ INSERT INTO public.ingredients (name, kcal_per_gram, carbohydrates_per_gram, pro
 ('Carciofi', 0.47, 0.11, 0.02, 0.03, 'verdura', 100, 1.0, null, 'vegano', null, null),
 ('Asparagi', 0.2, 0.04, 0.02, 0.02, 'verdura', 100, 0.8, null, 'vegano', null, null),
 ('Funghi champignon', 0.22, 0.05, 0.03, 0.01, 'verdura', 100, 0.6, null, 'vegano', null, null),
+('Cetriolo', 0.16, 0.04, 0.01, 0.01, 'verdura', 150, 0.40, 'cetriolo.jpg', 'vegano', NULL, NULL),
+('Sedano', 0.16, 0.04, 0.01, 0.01, 'verdura', 100, 0.30, 'sedano.jpg', 'vegano', NULL, NULL),
 
 ('Fagioli cannellini', 0.33, 0.58, 0.02, 0.01, 'legumi', 100, 1.0, null, 'vegano', null, null),
 ('Fagioli borlotti', 0.34, 0.59, 0.02, 0.02, 'legumi', 100, 1.1, null, 'vegano', null, null),
@@ -76,6 +80,9 @@ INSERT INTO public.ingredients (name, kcal_per_gram, carbohydrates_per_gram, pro
 ('Riso integrale', 3.5, 0.75, 0.08, 0.02, 'cereali', 100, 1.2, null, 'vegano',
 (SELECT id FROM allergies WHERE name = 'Glutine'),
 (SELECT id FROM intolerances WHERE name = 'Glutine')),
+('Pasta', 3.57, 0.71, 0.12, 0.01, 'cereali', 80, 1.00, 'pasta.jpg', 'vegano',
+(SELECT id FROM allergies WHERE name = 'Glutine'),
+(SELECT id FROM intolerances WHERE name = 'Glutine'));
 ('Spaghetti', 3.5, 0.73, 0.12, 0.02, 'cereali', 100, 0.8, null, 'vegano',
 (SELECT id FROM allergies WHERE name = 'Glutine'),
 (SELECT id FROM intolerances WHERE name = 'Glutine')),
@@ -162,6 +169,8 @@ INSERT INTO public.ingredients (name, kcal_per_gram, carbohydrates_per_gram, pro
 ('Vitello', 2.30, 0.00, 0.20, 0.18, 'carne', 200, 5.00, null, 'carnivoro', null, null),
 ('Prosciutto cotto', 1.30, 0.00, 0.18, 0.05, 'carne', 50, 2.50, null, 'carnivoro', null, null),
 ('Salame', 2.90, 0.00, 0.15, 0.23, 'carne', 50, 3.00, null, 'carnivoro', null, null),
+('Pancetta', 5.42, 0.1, 0.37, 0.43, 'carne', 30, 1.50, 'pancetta.jpg', 'carnivoro', NULL, NULL);
+('Pollo', 1.65, 0, 0.31, 0.04, 'carne', 200, 2.50, 'pollo.jpg', 'carnivoro', NULL, NULL)
 
 ('Parmigiano', 4.32, 0.00, 0.35, 0.29, 'latticini', 30, 0.70, null, 'vegetariano',
 (SELECT id FROM allergies WHERE name = 'Latticini'),
@@ -200,6 +209,12 @@ INSERT INTO public.ingredients (name, kcal_per_gram, carbohydrates_per_gram, pro
 (SELECT id FROM allergies WHERE name = 'Latticini'),
 (SELECT id FROM intolerances WHERE name = 'Lattosio')),
 ('Panna', 3.80, 0.02, 0.02, 0.40, 'latticini', 100, 0.80, null, 'vegetariano',
+(SELECT id FROM allergies WHERE name = 'Latticini'),
+(SELECT id FROM intolerances WHERE name = 'Lattosio')),
+('Mascarpone', 4.02, 0.25, 0.05, 0.43, 'latticini', 250, 2.50, 'mascarpone.jpg', 'vegetariano',
+(SELECT id FROM allergies WHERE name = 'Latticini'),
+(SELECT id FROM intolerances WHERE name = 'Lattosio')),
+('Yogurt Greco', 0.59, 0.04, 0.10, 0.04, 'latticini', 200, 1.50, 'yogurt_greco.jpg', 'vegetariano',
 (SELECT id FROM allergies WHERE name = 'Latticini'),
 (SELECT id FROM intolerances WHERE name = 'Lattosio')),
 
@@ -241,6 +256,8 @@ INSERT INTO public.ingredients (name, kcal_per_gram, carbohydrates_per_gram, pro
 ('Sciroppo d''acero', 3.10, 0.80, 0.00, 0.00, 'dolci e zuccheri', 50, 1.20, null, 'vegano', null, null),
 ('Zucchero di canna', 4.0, 1.0, 0.0, 0.0, 'dolci e zuccheri', 100, 1.0, null, 'vegano', null, null),
 ('Zucchero semolato', 4.0, 1.0, 0.0, 0.0, 'dolci e zuccheri', 100, 1.0, null, 'vegano', null, null),
+('Savoiardi', 3.9, 0.8, 0.06, 0.04, 'dolci e zuccheri', 20, 1.20, 'savoiardi.jpg', 'vegano', NULL, NULL),
+('Cacao in polvere', 3.6, 0.5, 0.2, 0.2, 'dolci e zuccheri', 5, 0.80, 'cacao.jpg', 'vegano', NULL, NULL),
 
 ('Acqua', 0.00, 0.00, 0.00, 0.00, 'bevande', 1000, 0.00, null, 'vegano', null, null),
 ('Aceto', 0.02, 0.00, 0.00, 0.00, 'bevande', 100, 0.05, null, 'vegano', null, null),
@@ -255,6 +272,9 @@ INSERT INTO public.ingredients (name, kcal_per_gram, carbohydrates_per_gram, pro
 (SELECT id FROM intolerances WHERE name = 'Lattosio')),
 ('Succo d''arancia', 0.45, 0.10, 0.01, 0.00, 'bevande', 250, 0.80, null, 'vegano', null,
 (SELECT id FROM intolerances WHERE name = 'Fruttosio')),
+('Latte di Cocco', 0.19, 0.03, 0.01, 0.17, 'bevande', 240, 2.00, 'latte_di_cocco.jpg', 'vegano', NULL, NULL),
+
+('Uova', 1.43, 0.1, 0.12, 0.1, 'uova', 50, 0.25, 'uova.jpg', 'onnivoro', NULL, NULL);
 
 ('Cacao amaro', 3.7, 0.5, 0.2, 0.3, 'altro', 50, 1.2, null, 'vegano', null, null),
 ('Vaniglia', 3.0, 0.0, 0.0, 0.0, 'altro', 10, 3.0, null, 'vegano', null, null),

@@ -82,7 +82,7 @@ public class PantryDto {
     public void setUser(UserDto user) {
         this.user = user;
     }
-    public long getIngredient() {
+    public long getIngredientId() {
         return ingredientId;
     }
     public void setIngredient(long ingredientId) {
