@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface SuggestedRecipeService {
-    List<Recipe> recipesOkToUserDietType(long userId);
+//    List<Recipe> recipesOkToUserDietType(long userId);
     List<Recipe> findAllRecipesShorterThan(int minutes);
     List<Recipe> findRecipesForUserProfile(long userId);
 
