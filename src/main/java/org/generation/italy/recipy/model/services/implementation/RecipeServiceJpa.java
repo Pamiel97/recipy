@@ -47,23 +47,6 @@ public class RecipeServiceJpa implements RecipeService {
 
     }
 
-    @Override
-    public boolean deleteRecipeById(long id) {
-        if(!repo.existsById(id)){
-            return false;
-        }
-        repo.deleteById(id);
-        return true;
-    }
-
-    @Override
-    public boolean updateRecipe(Recipe recipe) {
-        if(!repo.existsById(recipe.getId())){
-            return false;
-        }
-        repo.save(recipe);
-        return true;
-    }
 
     @Override
     public Optional<Recipe> findById(long id) {
@@ -82,19 +65,15 @@ public class RecipeServiceJpa implements RecipeService {
             throw new EntityNotFoundException("Ricetta con id: " + id + " non trovata");
         }
 
-        Recipe recipe = optionalRecipe.get();
-        recipe.setTitle(updatedRecipe.getTitle());
-        recipe.setDescription(updatedRecipe.getDescription());
-        recipe.setCourse(updatedRecipe.getCourse());
-        recipe.setPrepTime(updatedRecipe.getPrepTime());
-        recipe.setCookingTime(updatedRecipe.getCookingTime());
-        recipe.setDifficulty(updatedRecipe.getDifficulty());
-        recipe.setkCalories(updatedRecipe.getkCalories());
-        recipe.setImgUrl(updatedRecipe.getImgUrl());
-        recipe.setTag(updatedRecipe.getTag());
-        recipe.setRecipeSteps(updatedRecipe.getRecipeSteps());
+        for (RecipeStep step: updatedRecipe.getRecipeSteps()){
+            Optional<Ingredient> oi =  ingredientRepo.findById(step.getIngredient().getId());
+            if(oi.isEmpty()){
+                throw  new EntityNotFoundException("Ingrediente con id: " + step.getIngredient().getId() + " non è stato trovato");
+            }
+            step.setIngredient(oi.get());
+        }
 
-        return repo.save(recipe);
+        return repo.save(updatedRecipe);
     }
 
     @Override
