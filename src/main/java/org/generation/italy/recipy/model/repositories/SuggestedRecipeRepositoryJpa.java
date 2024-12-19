@@ -48,14 +48,39 @@ public interface SuggestedRecipeRepositoryJpa extends JpaRepository<Recipe, Long
     List<Recipe> findRecipesForUserProfile(@Param("userId") long userId);
 
 
+//    @Query("""
+//            SELECT r
+//            FROM Recipe r
+//            JOIN RecipeStep rs ON r.id = rs.recipe.id
+//            JOIN Pantry p ON rs.ingredient.id = p.ingredient.id
+//            JOIN User u ON p.user.id = u.id
+//            WHERE u.id = :userId
+//
+//            AND rs.ingredient.id =
+//            (SELECT rs2.ingredient.id
+//            FROM RecipeStep rs2
+//            WHERE rs2.recipe.id = r.id)
+//
+//            AND p.ingredient.id =
+//            (SELECT p2.ingredient.id
+//            FROM Pantry p2
+//            JOIN User u2 ON p2.user.id = u2.id
+//            WHERE u2.id = :userId)
+//
+//            AND rs.ingredient.id IN (p.ingredient.id)
+//            """)
+
     @Query("""
             SELECT r
-            FROM Recipe r
-            JOIN RecipeStep rs ON r.id = rs.recipe.id
-            JOIN Pantry p ON rs.ingredient.id = p.ingredient.id
-            JOIN User u ON p.user.id = u.id
-            WHERE rs.ingredient.id = p.ingredient.id
-            AND p.user.id = u.id
+            FROM Recipe r 
+            WHERE NOT EXISTS 
+            ( SELECT rs 
+            FROM RecipeStep rs 
+            WHERE rs.recipe = r 
+            AND rs.ingredient NOT IN 
+            ( SELECT p.ingredient 
+            FROM Pantry p 
+            WHERE p.user.id = :userId ) )
             """)
-    List<Recipe> findByAvailablePantry();
+    List<Recipe> findByAvailablePantry(@Param("userId") long userId);
 }
