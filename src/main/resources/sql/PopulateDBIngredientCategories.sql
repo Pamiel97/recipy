@@ -1,0 +1,15 @@
+INSERT INTO ingredient_categories (name, description) VALUES
+('frutta', 'è un frutto'),
+('verdura', 'è una verdura'),
+('cereali', 'è un cereale'),
+('legumi'), 'è un legume'),
+('carne', 'è della carne'),
+('pesce', 'è del pesce'),
+('uova', 'è un uovo'),
+('latticini', 'è un latticino'),
+('frutta_secca_o_semi', 'è una frutta secca o un seme'),
+('grassi_animali', 'è un grasso animale'),
+('grassi_vegetali', 'è un grasso vegetale'),
+('dolci_e_zuccheri', 'è un dolce o uno zucchero'),
+('bevande', 'è una bevanda'),
+('altro', 'è altro');
