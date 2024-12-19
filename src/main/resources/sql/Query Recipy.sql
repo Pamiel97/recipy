@@ -21,7 +21,7 @@ CREATE TABLE public.users
     email character varying(128) NOT NULL,
     password character varying(128) NOT NULL,
     sex character(1),
-    profile character varying(64),
+    profile character varying(64) NOT NULL,
     weight real,
     height real,
     bfp real,

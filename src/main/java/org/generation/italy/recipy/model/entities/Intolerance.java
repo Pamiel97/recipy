@@ -1,7 +1,6 @@
 package org.generation.italy.recipy.model.entities;
 
 import jakarta.persistence.*;
-import org.springframework.data.relational.core.sql.Into;
 
 import java.util.ArrayList;
 import java.util.List;
