@@ -33,13 +33,19 @@ public interface SuggestedRecipeRepositoryJpa extends JpaRepository<Recipe, Long
             """)
     List<Recipe> findAllRecipesShorterThan(@Param("minutes") int minutes);
 
-//    @Query("""
-//            SELECT r
-//            FROM Recipe r
-//            JOIN User u ON r.user.id = u.id
-//            WHERE u.id = :userId
-//            """)
-//    List<Recipe> getRecipesForUserProfile(@Param("userId") long userId);
+    @Query("""
+            SELECT r
+            FROM Recipe r
+            JOIN User u ON r.user.id = u.id
+            WHERE u.id = :userId
+            AND (
+                (u.profile = 'chef' AND r.difficulty = 'difficile')
+                OR (u.profile = 'dietologo' AND r.difficulty IN ('medio', 'facile'))
+                OR (u.profile = 'altro' AND r.difficulty IN ('medio', 'facile'))
+                OR (u.profile = 'utente_base' AND r.difficulty = 'facile')
+            )
+            """)
+    List<Recipe> findRecipesForUserProfile(@Param("userId") long userId);
 
 
     @Query("""
