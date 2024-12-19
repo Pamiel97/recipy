@@ -13,5 +13,5 @@ public interface SuggestedRecipeService {
 
 
     //mirko
-    List<Recipe> findRecipesByAvailablePantries() throws EmptyListException;
+    List<Recipe> findRecipesByAvailablePantries(long userId) throws EmptyListException;
 }
