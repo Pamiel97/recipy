@@ -33,9 +33,9 @@ public class User implements UserDetails {
     private String imgUrl;
     @Enumerated(EnumType.STRING)
     private Role role;
-//    @ManyToOne
-//    JoinColumn(name = "eating_regime_id")
-//    private EatingRegime eatingRegime;
+    @ManyToOne
+    @JoinColumn(name = "eating_regime_id")
+    private EatingRegime eatingRegime;
     @OneToMany(mappedBy = "user")
     private List<Review> review = new ArrayList<>();
     @ManyToMany
@@ -90,32 +90,8 @@ public class User implements UserDetails {
     public void setEmail(String email) {
         this.email = email;
     }
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_"+role.name()));
-    }
     public String getPassword() {
         return password;
-    }
-    @Override
-    public String getUsername() {
-        return email;
-    }
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-    @Override
-    public boolean isEnabled() {
-        return true;
     }
     public void setPassword(String password) {
         this.password = password;
@@ -168,6 +144,12 @@ public class User implements UserDetails {
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
     }
+    public EatingRegime getEatingRegime() {
+        return eatingRegime;
+    }
+    public void setEatingRegime(EatingRegime eatingRegime) {
+        this.eatingRegime = eatingRegime;
+    }
     public List<Review> getReview() {
         return review;
     }
@@ -194,5 +176,32 @@ public class User implements UserDetails {
     }
     public Role getRole() {
         return role;
+    }
+    public void setRole(Role role) {
+        this.role = role;
+    }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
+    }
+    @Override
+    public String getUsername() {
+        return email;
+    }
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

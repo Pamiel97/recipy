@@ -6,7 +6,7 @@ import java.util.List;
 
 public class UserDetailDto {
     private long id;
-    private String firstname, lastname, email, profile, pal, imgUrl, role;
+    private String firstname, lastname, email, profile, pal, imgUrl, role, eatingRegime;
     private double weight, height, bfp, lbmp;
     private Character sex;
     private List<AllergyDto> allergies;
@@ -15,8 +15,8 @@ public class UserDetailDto {
     public UserDetailDto() {}
 
     public UserDetailDto(long id, String firstname, String lastname, String email, String profile, String pal,
-                         String imgUrl, String role, double weight, double height, double bfp, double lbmp,
-                         Character sex, List<AllergyDto> allergies, List<IntoleranceDto> intolerances) {
+                         String imgUrl, String role, String eatingRegime, double weight, double height, double bfp,
+                         double lbmp, Character sex, List<AllergyDto> allergies, List<IntoleranceDto> intolerances) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -25,6 +25,7 @@ public class UserDetailDto {
         this.pal = pal;
         this.imgUrl = imgUrl;
         this.role = role;
+        this.eatingRegime = eatingRegime;
         this.weight = weight;
         this.height = height;
         this.bfp = bfp;
@@ -44,6 +45,7 @@ public class UserDetailDto {
                 user.getPal().toString(),
                 user.getImgUrl(),
                 user.getRole().toString(),
+                user.getEatingRegime().getName(),
                 user.getWeight(),
                 user.getHeight(),
                 user.getBfp(),

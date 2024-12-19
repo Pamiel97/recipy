@@ -32,9 +32,9 @@ public class Ingredient {
     @ManyToOne
     @JoinColumn(name = "intolerance_id")
     private Intolerance intolerance;
-//    @ManyToOne
-//    @JoinColumn(name = "ingredient_categories")
-//    private IngredientCategory ingredientCategory;
+    @ManyToOne
+    @JoinColumn(name = "ingredient_category_id")
+    private IngredientCategory ingredientCategory;
     @OneToMany(mappedBy = "ingredient")
     private List<Pantry> pantries = new ArrayList<>();
 
@@ -43,8 +43,8 @@ public class Ingredient {
         this.id =id;
     }
     public Ingredient(long id, String name, double kcal, double carbohydrates, double proteins, double fats,
-                      double avgWeight, double avgPrice, String imgUrl, Allergy allergy, Intolerance intolerance,//TODO aggiungere ingredientCategory
-                      List<Pantry> pantries) {
+                      double avgWeight, double avgPrice, String imgUrl, Allergy allergy, Intolerance intolerance,
+                      IngredientCategory ingredientCategory, List<Pantry> pantries) {
         this.id = id;
         this.name = name;
         this.kcal = kcal;
@@ -56,6 +56,7 @@ public class Ingredient {
         this.imgUrl = imgUrl;
         this.allergy = allergy;
         this.intolerance = intolerance;
+        this.ingredientCategory = ingredientCategory;
         this.pantries = pantries;
     }
 
@@ -124,6 +125,12 @@ public class Ingredient {
     }
     public void setIntolerance(Intolerance intolerance) {
         this.intolerance = intolerance;
+    }
+    public IngredientCategory getIngredientCategory() {
+        return ingredientCategory;
+    }
+    public void setIngredientCategory(IngredientCategory ingredientCategory) {
+        this.ingredientCategory = ingredientCategory;
     }
     public List<Pantry> getPantries() {
         return pantries;
