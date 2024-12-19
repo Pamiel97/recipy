@@ -25,7 +25,7 @@ public class SuggestedRecipeController {
         this.suggestedRecipeService = suggestedRecipeService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/diet-compatible/{id}")
     public ResponseEntity<List<RecipeDto>> recipesOkToUserDietType(@PathVariable long userId){
         List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserDietType(userId)
                 .stream().map(RecipeDto::fromRecipe).toList();
@@ -45,8 +45,15 @@ public class SuggestedRecipeController {
         return ResponseEntity.ok(recipes);
     }
 
-
-
+    @GetMapping("/difficulty/{id}")
+    public ResponseEntity<List<RecipeDto>> findRecipesForUserProfile(@PathVariable long userId) {
+        List<RecipeDto> recipes = suggestedRecipeService.findRecipesForUserProfile(userId)
+                .stream().map(RecipeDto::fromRecipe).toList();
+        if (recipes.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(recipes);
+    }
 
 
 

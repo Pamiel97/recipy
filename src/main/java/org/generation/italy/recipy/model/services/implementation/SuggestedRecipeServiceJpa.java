@@ -31,10 +31,10 @@ public class SuggestedRecipeServiceJpa implements SuggestedRecipeService {
         return suggestedRecipeRepo.findAllRecipesShorterThan(minutes);
     }
 
-//    @Override
-//    public List<Recipe> getRecipesForUserProfile(long userId) {
-//        return List.of(); //TODO
-//    }
+    @Override
+    public List<Recipe> findRecipesForUserProfile(long userId) {
+        return suggestedRecipeRepo.findRecipesForUserProfile(userId);
+    }
 
 
     //mirko

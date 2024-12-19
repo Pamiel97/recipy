@@ -14,7 +14,7 @@ public class RecipeDto {
     private String course;
     private int prepTime;
     private int cookingTime;
-    private Difficulty difficulty;
+    private String difficulty;
     private double kCalories;
     private String creationDate;
     private String imgUrl;
@@ -24,7 +24,7 @@ public class RecipeDto {
 
     public RecipeDto() {}
 
-    public RecipeDto(long id, String title, String description,String category, int prepTime, int cookingTime, Difficulty difficulty, double kCalories, String creationDate,
+    public RecipeDto(long id, String title, String description,String category, int prepTime, int cookingTime, String difficulty, double kCalories, String creationDate,
                      String imgUrl, UserDto user, List<String> tags, List<RecipeStepDto> recipeSteps) {
         this.id = id;
         this.title = title;
@@ -75,7 +75,7 @@ public class RecipeDto {
                 recipe.getCourse().toString(),
                 recipe.getPrepTime(),
                 recipe.getCookingTime(),
-                recipe.getDifficulty(),
+                recipe.getDifficulty().toString(),
                 recipe.getkCalories(),
                 creationDateString,
                 recipe.getImgUrl(),
@@ -94,7 +94,7 @@ public class RecipeDto {
         recipe.setCourse(Course.valueOf(this.course));
         recipe.setPrepTime(this.prepTime);
         recipe.setPrepTime(this.cookingTime);
-        recipe.setDifficulty(this.difficulty);
+        recipe.setDifficulty(Difficulty.valueOf(this.difficulty));
         recipe.setkCalories(this.kCalories);
 
 
@@ -179,11 +179,11 @@ public class RecipeDto {
         this.cookingTime = cookingTime;
     }
 
-    public Difficulty getDifficulty() {
+    public String getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(Difficulty difficulty) {
+    public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
     }
 
