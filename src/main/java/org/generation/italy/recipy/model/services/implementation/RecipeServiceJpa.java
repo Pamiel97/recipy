@@ -47,23 +47,6 @@ public class RecipeServiceJpa implements RecipeService {
 
     }
 
-    @Override
-    public boolean deleteRecipeById(long id) {
-        if(!repo.existsById(id)){
-            return false;
-        }
-        repo.deleteById(id);
-        return true;
-    }
-
-    @Override
-    public boolean updateRecipe(Recipe recipe) {
-        if(!repo.existsById(recipe.getId())){
-            return false;
-        }
-        repo.save(recipe);
-        return true;
-    }
 
     @Override
     public Optional<Recipe> findById(long id) {

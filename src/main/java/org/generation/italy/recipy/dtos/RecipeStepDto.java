@@ -77,7 +77,7 @@ public class RecipeStepDto {
         return ingredientId;
     }
 
-    public void setIngredient(long ingredientId) {
+    public void setIngredientId(long ingredientId) {
         this.ingredientId = ingredientId;
     }
 
