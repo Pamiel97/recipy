@@ -5,4 +5,4 @@ INSERT INTO eating_regimes (name, description) VALUES
 ('carnivoro', 'Mangio solo carne'),
 ('onnivoro', 'Mangio tutto'),
 ('fruttariano', 'Mangio solo frutta'),
-('altro', null);
+('altro', 'Mangio altro');

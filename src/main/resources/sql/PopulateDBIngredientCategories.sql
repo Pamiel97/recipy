@@ -2,7 +2,7 @@ INSERT INTO ingredient_categories (name, description) VALUES
 ('frutta', 'è un frutto'),
 ('verdura', 'è una verdura'),
 ('cereali', 'è un cereale'),
-('legumi'), 'è un legume'),
+('legumi', 'è un legume'),
 ('carne', 'è della carne'),
 ('pesce', 'è del pesce'),
 ('uova', 'è un uovo'),
