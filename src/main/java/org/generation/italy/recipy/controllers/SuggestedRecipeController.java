@@ -35,7 +35,15 @@ public class SuggestedRecipeController {
         return ResponseEntity.ok(recipes);
     }
 
-    //TODO scommentare e finire di implementare il metodo che trova le ricette più corte di x minuti
+    @GetMapping("/shorter-than/{minutes}")
+    public ResponseEntity<List<RecipeDto>> findAllRecipesShorterThan(@PathVariable int minutes){
+        List<RecipeDto> recipes = suggestedRecipeService.findAllRecipesShorterThan(minutes)
+                .stream().map(RecipeDto::fromRecipe).toList();
+        if (recipes.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(recipes);
+    }
 
 
 
