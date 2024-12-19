@@ -4,22 +4,21 @@ import org.generation.italy.recipy.model.entities.*;
 
 public class IngredientDto {
     private long id;
-    private String name, category, imgUrl, diet, allergy, intolerance;
+    private String name, imgUrl, allergy, intolerance;
     private double kcal, carbs, prots, fats, weight, price;
     public IngredientDto() {}
 
-    public IngredientDto(long id, String name, double kcal, double carbs, double prots, double fats, String category, double weight, double price, String imgUrl, String diet, String allergy, String intolerance) {
+    public IngredientDto(long id, String name, double kcal, double carbs, double prots, double fats, double weight,
+                         double price, String imgUrl, String allergy, String intolerance) {
         this.id = id;
         this.name = name;
         this.kcal = kcal;
         this.carbs = carbs;
         this.prots = prots;
         this.fats = fats;
-        this.category = category;
         this.weight = weight;
         this.price = price;
         this.imgUrl = imgUrl;
-        this.diet = diet;
         this.allergy = allergy;
         this.intolerance = intolerance;
     }
@@ -36,24 +35,11 @@ public class IngredientDto {
         dto.setPrice(ingredient.getAvgPrice());
         dto.setImgUrl(ingredient.getImgUrl());
 
-        if (ingredient.getCategory() != null) {
-            dto.setCategory(ingredient.getCategory().toString().toLowerCase());
-        } else {
-            dto.setCategory(Category.altro.toString());
-        }
-
-        if (ingredient.getDietCompatibility() != null) {
-            dto.setDiet(ingredient.getDietCompatibility().toString().toLowerCase());
-        } else {
-            dto.setDiet(DietType.altro.toString());
-        }
-
         if(ingredient.getAllergy() != null) {
             dto.setAllergy(ingredient.getAllergy().getName());
         } else {
             dto.setAllergy(null);
         }
-
         if(ingredient.getIntolerance() != null) {
             dto.setIntolerance(ingredient.getIntolerance().getName());
         } else {
@@ -71,11 +57,9 @@ public class IngredientDto {
         ingredient.setCarbohydrates(this.carbs);
         ingredient.setProteins(this.prots);
         ingredient.setFats(this.fats);
-        ingredient.setCategory(Category.valueOf(this.category));
         ingredient.setAvgWeight(this.weight);
         ingredient.setAvgPrice(this.price);
         ingredient.setImgUrl(this.imgUrl);
-        ingredient.setDietCompatibility(DietType.valueOf(this.diet));
         ingredient.setAllergy(new Allergy());
         ingredient.setIntolerance(new Intolerance());
         return ingredient;
@@ -93,23 +77,11 @@ public class IngredientDto {
     public void setName(String name) {
         this.name = name;
     }
-    public String getCategory() {
-        return category;
-    }
-    public void setCategory(String category) {
-        this.category = category;
-    }
     public String getImgUrl() {
         return imgUrl;
     }
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
-    }
-    public String getDiet() {
-        return diet;
-    }
-    public void setDiet(String diet) {
-        this.diet = diet;
     }
     public String getAllergy() {
         return allergy;

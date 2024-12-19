@@ -27,13 +27,15 @@ public class User implements UserDetails {
     private double height;
     private double bfp;
     private double lbmp;
-    @Column(name = "diet_type")
-    @Enumerated(EnumType.STRING)
-    private DietType dietType;
     @Enumerated(EnumType.STRING)
     private Pal pal;
     @Column(name = "img_url")
     private String imgUrl;
+    @Enumerated(EnumType.STRING)
+    private Role role;
+//    @ManyToOne
+//    JoinColumn(name = "eating_regime_id")
+//    private EatingRegime eatingRegime;
     @OneToMany(mappedBy = "user")
     private List<Review> review = new ArrayList<>();
     @ManyToMany
@@ -52,9 +54,6 @@ public class User implements UserDetails {
     private List<Intolerance> intolerances = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Pantry> pantries = new ArrayList<>();
-
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
     public User() {}
 
@@ -156,12 +155,6 @@ public class User implements UserDetails {
     }
     public void setLbmp(double lbmp) {
         this.lbmp = lbmp;
-    }
-    public DietType getDietType() {
-        return dietType;
-    }
-    public void setDietType(DietType dietType) {
-        this.dietType = dietType;
     }
     public Pal getPal() {
         return pal;
