@@ -1,17 +1,3 @@
--- Recipe Steps for 'Spaghetti alla Carbonara'
-INSERT INTO public.recipe_steps (recipe_id, ingredient_id, description, ordinal, step_img_url)
-VALUES
-((SELECT id FROM recipes WHERE title = 'Spaghetti alla Carbonara'),
-(SELECT id FROM ingredients WHERE name = 'Spaghetti'), 'Cuocere gli spaghetti in acqua salata bollente.', 1, 'spaghetti_bollitura.jpg'),
-((SELECT id FROM recipes WHERE title = 'Spaghetti alla Carbonara'),
-(SELECT id FROM ingredients WHERE name = 'Pancetta'), 'Rosolare la pancetta in padella fino a renderla croccante.', 2, 'pancetta_rosolata.jpg'),
-((SELECT id FROM recipes WHERE title = 'Spaghetti alla Carbonara'),
-(SELECT id FROM ingredients WHERE name = 'Uova'), 'Sbattere le uova con il pecorino grattugiato e pepe nero.', 3, 'uova_pecorino.jpg'),
-((SELECT id FROM recipes WHERE title = 'Spaghetti alla Carbonara'),
-(SELECT id FROM ingredients WHERE name = 'Spaghetti'), 'Scolare gli spaghetti e mescolarli con la pancetta.', 4, 'spaghetti_pancetta.jpg'),
-((SELECT id FROM recipes WHERE title = 'Spaghetti alla Carbonara'),
-null, 'Unire le uova al composto di spaghetti e pancetta, mescolando velocemente.', 5, 'carbonara_montata.jpg'),
-
 -- Recipe Steps for 'Insalata di Quinoa e Avocado'
 INSERT INTO public.recipe_steps (recipe_id, ingredient_id, description, ordinal, step_img_url)
 VALUES
@@ -113,3 +99,19 @@ VALUES
 (SELECT id FROM ingredients WHERE name = 'Sedano'), 'Tagliare il sedano a bastoncini.', 7, 'verdure_crude.jpg'),
 ((SELECT id FROM recipes WHERE title = 'Hummus con Verdure'),
 null, 'Servire l''hummus con le verdure fresche come accompagnamento.', 6, 'hummus_servito.jpg');
+
+
+
+-- Recipe Steps for 'Spaghetti alla Carbonara'
+INSERT INTO public.recipe_steps (recipe_id, ingredient_id, description, ordinal, step_img_url)
+VALUES
+((SELECT id FROM recipes WHERE title = 'Spaghetti alla Carbonara'),
+(SELECT id FROM ingredients WHERE name = 'Spaghetti'), 'Cuocere gli spaghetti in acqua salata bollente.', 1, 'spaghetti_bollitura.jpg'),
+((SELECT id FROM recipes WHERE title = 'Spaghetti alla Carbonara'),
+(SELECT id FROM ingredients WHERE name = 'Pancetta'), 'Rosolare la pancetta in padella fino a renderla croccante.', 2, 'pancetta_rosolata.jpg'),
+((SELECT id FROM recipes WHERE title = 'Spaghetti alla Carbonara'),
+(SELECT id FROM ingredients WHERE name = 'Uova'), 'Sbattere le uova con il pecorino grattugiato e pepe nero.', 3, 'uova_pecorino.jpg'),
+((SELECT id FROM recipes WHERE title = 'Spaghetti alla Carbonara'),
+(SELECT id FROM ingredients WHERE name = 'Spaghetti'), 'Scolare gli spaghetti e mescolarli con la pancetta.', 4, 'spaghetti_pancetta.jpg'),
+((SELECT id FROM recipes WHERE title = 'Spaghetti alla Carbonara'),
+null, 'Unire le uova al composto di spaghetti e pancetta, mescolando velocemente.', 5, 'carbonara_montata.jpg'),

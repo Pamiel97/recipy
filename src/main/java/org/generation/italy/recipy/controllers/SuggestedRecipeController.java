@@ -59,7 +59,7 @@ public class SuggestedRecipeController {
 
     //mirko
 
-    @GetMapping("/pantries")
+    @GetMapping("/recipes-by-pantries")
     public ResponseEntity<?> getRecipesByAvailablePantries(@AuthenticationPrincipal User user) {
         try {
             List<Recipe> recipes = suggestedRecipeService.findRecipesByAvailablePantries(user.getId());
