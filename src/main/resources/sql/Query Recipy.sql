@@ -126,7 +126,7 @@ CREATE TABLE public.ingredients
     allergy_id bigint,
     intolerance_id bigint,
     PRIMARY KEY (id),
-    CONSTRAINT check_category CHECK (category IN('frutta', 'verdura', 'cereali', 'legumi', 'carne', 'pesce', 'uova', 'latticini', 'frutta secca e semi', 'grassi', 'dolci e zuccheri', 'bevande', 'altro')),
+    CONSTRAINT check_category CHECK (category IN('frutta', 'verdura', 'cereali', 'legumi', 'carne', 'pesce', 'uova', 'latticini', 'frutta_secca_e_semi', 'grassi', 'dolci_e_zuccheri', 'bevande', 'altro')),
     CONSTRAINT fk_ingredients_allergy FOREIGN KEY (allergy_id) REFERENCES allergies (id),
     CONSTRAINT fk_ingredients_intolerance FOREIGN KEY (intolerance_id) REFERENCES intolerances (id),
     CONSTRAINT check_diet_compatibility CHECK (diet_compatibility IN('vegano', 'vegetariano', 'pescatariano', 'onnivoro', 'carnivoro', 'fruttariano',  'altro'))
