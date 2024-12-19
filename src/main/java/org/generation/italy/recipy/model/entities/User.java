@@ -56,6 +56,10 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @ManyToOne
+    @JoinColumn(name = "eating_regime")
+    EatingRegime eatingRegime;
+
     public User() {}
 
     public User(String firstname, String lastname, String email, String encode, Role role) {
