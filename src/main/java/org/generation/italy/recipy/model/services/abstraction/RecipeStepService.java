@@ -7,5 +7,6 @@ import java.util.Optional;
 public interface RecipeStepService {
     RecipeStep createRecipeStep(RecipeStep recipeStep);
     Optional<RecipeStep> findById(long id);
+    Optional<RecipeStep> updateRecipeStep(RecipeStep recipeStep);
 
 }

@@ -9,10 +9,7 @@ import org.generation.italy.recipy.model.services.abstraction.RecipeStepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -45,7 +42,18 @@ public class RecipeStepController {
         return ResponseEntity.ok(savedStep);
     }
 
-
-
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateById(@RequestBody RecipeStepDto dto, @PathVariable long id) {
+        if (id != dto.getId()) {
+            return ResponseEntity.badRequest().body("Gli id della richiesta e del body non coincidono");
+        }
+        RecipeStep recipeStep = dto.toRecipeStep();
+        Optional<RecipeStep> updatedStep = recipeStepService.updateRecipeStep(recipeStep);
+        if (updatedStep.isPresent()) {
+            return ResponseEntity.ok(updatedStep.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }
