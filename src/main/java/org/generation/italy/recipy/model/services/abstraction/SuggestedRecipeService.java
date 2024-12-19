@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface SuggestedRecipeService {
     List<Recipe> recipesOkToUserDietType(long userId);
-//    List<Recipe> findAllRecipesShorterThan(int minutes);
-
+    List<Recipe> findAllRecipesShorterThan(int minutes);
+//    List<Recipe> getRecipesForUserProfile(long userId);
 
     //mirko
-    List<Recipe> findRecipesByAvailablePantries() throws EmptyListException;
+    List<Recipe> findRecipesByAvailablePantries(long userId) throws EmptyListException;
 }

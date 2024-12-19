@@ -8,6 +8,7 @@ import org.generation.italy.recipy.model.services.abstraction.PantryService;
 import org.generation.italy.recipy.model.services.abstraction.SuggestedRecipeService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,18 +26,23 @@ public class SuggestedRecipeServiceJpa implements SuggestedRecipeService {
         return suggestedRecipeRepo.recipesOkToUserDietType(userId);
     }
 
+    @Override
+    public List<Recipe> findAllRecipesShorterThan(int minutes) {
+        return suggestedRecipeRepo.findAllRecipesShorterThan(minutes);
+    }
+
 //    @Override
-//    public List<Recipe> findAllRecipesShorterThan(int minutes) {
-//        return suggestedRecipeRepo.findAllRecipesShorterThan(minutes);
+//    public List<Recipe> getRecipesForUserProfile(long userId) {
+//        return List.of(); //TODO
 //    }
 
 
     //mirko
     @Override
-    public List<Recipe> findRecipesByAvailablePantries() throws EmptyListException{
-        List<Pantry> pantries = pantryService.findAllAvailableIngredients();
+    public List<Recipe> findRecipesByAvailablePantries(long userId){
+        List<Pantry> pantries = pantryService.findPantriesByUserId(userId);
         if(pantries.isEmpty()) {
-            throw new EmptyListException("La lista di ingredienti è vuota.");
+            return new ArrayList<>();
         }
         return suggestedRecipeRepo.findByAvailablePantry();
 

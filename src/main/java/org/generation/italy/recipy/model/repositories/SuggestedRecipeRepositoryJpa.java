@@ -26,12 +26,20 @@ public interface SuggestedRecipeRepositoryJpa extends JpaRepository<Recipe, Long
             """)
     List<Recipe> recipesOkToUserDietType(@Param("userId") long userId);
 
+    @Query("""
+            SELECT r
+            FROM Recipe r
+            WHERE (r.prepTime + r.cookingTime) < :minutes
+            """)
+    List<Recipe> findAllRecipesShorterThan(@Param("minutes") int minutes);
+
 //    @Query("""
-//            SELECT *
+//            SELECT r
 //            FROM Recipe r
-//            WHERE (r.prepTime + r.cooking_time) < :minutes
+//            JOIN User u ON r.user.id = u.id
+//            WHERE u.id = :userId
 //            """)
-//    List<Recipe> findAllRecipesShorterThan(@Param("minutes") int minutes);
+//    List<Recipe> getRecipesForUserProfile(@Param("userId") long userId);
 
 
     @Query("""
