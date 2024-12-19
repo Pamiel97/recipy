@@ -1,5 +1,6 @@
 package org.generation.italy.recipy.dtos;
 
+import org.generation.italy.recipy.model.entities.Profile;
 import org.generation.italy.recipy.model.entities.User;
 
 public class UserDto {
@@ -41,5 +42,14 @@ public class UserDto {
     }
     public void setProfile(String profile) {
         this.profile = profile;
+    }
+
+    public User toUser() {
+        User user = new User();
+        user.setId(this.id);
+        user.setFirstname(this.firstname);
+        user.setLastname(this.lastname);
+        user.setProfile(Profile.valueOf(this.profile));
+        return user;
     }
 }

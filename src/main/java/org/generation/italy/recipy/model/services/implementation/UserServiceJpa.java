@@ -19,4 +19,9 @@ public class UserServiceJpa implements UserService {
     public Optional<User> findById(long id) {
         return repo.findById(id);
     }
+
+    @Override
+    public User createUser(User user){
+        return repo.save(user);
+    }
 }
