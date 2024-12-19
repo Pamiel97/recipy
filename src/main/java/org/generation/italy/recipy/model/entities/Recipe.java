@@ -20,7 +20,8 @@ public class Recipe {
     private int prepTime;
     @Column(name = "cooking_time")
     private int cookingTime;
-    private String difficulty;
+    @Enumerated(EnumType.STRING)
+    private Difficulty difficulty;
     @Column(name = "kcalories")
     private double kCalories;
     @Column(name = "creation_date")
@@ -36,7 +37,7 @@ public class Recipe {
     private List<RecipeStep> recipeSteps = new ArrayList<>();
 
     public Recipe() {}
-    public Recipe(long id, String title, String description, Course course, int prepTime, int cookingTime, String difficulty, double kCalories, LocalDate creationDate, List<Tag> tag, String imgUrl, User user, List<RecipeStep> recipeSteps) {
+    public Recipe(long id, String title, String description, Course course, int prepTime, int cookingTime, Difficulty difficulty, double kCalories, LocalDate creationDate, List<Tag> tag, String imgUrl, User user, List<RecipeStep> recipeSteps) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -100,11 +101,11 @@ public class Recipe {
         this.cookingTime = cookingTime;
     }
 
-    public String getDifficulty() {
+    public Difficulty getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(String difficulty) {
+    public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
     }
 
