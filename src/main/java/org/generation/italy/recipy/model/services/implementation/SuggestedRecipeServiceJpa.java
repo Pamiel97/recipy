@@ -39,7 +39,7 @@ public class SuggestedRecipeServiceJpa implements SuggestedRecipeService {
         if(pantries.isEmpty()) {
             return new ArrayList<>();
         }
-        return suggestedRecipeRepo.findByAvailablePantry();
+        return suggestedRecipeRepo.findByAvailablePantry(userId);
 
     }
 }
