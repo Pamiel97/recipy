@@ -6,7 +6,7 @@ import java.util.List;
 
 public class UserDetailDto {
     private long id;
-    private String firstname, lastname, email, profile, dietType, pal, imgUrl, role;
+    private String firstname, lastname, email, profile, pal, imgUrl, role;
     private double weight, height, bfp, lbmp;
     private Character sex;
     private List<AllergyDto> allergies;
@@ -14,13 +14,14 @@ public class UserDetailDto {
 
     public UserDetailDto() {}
 
-    public UserDetailDto(long id, String firstname, String lastname, String email, String profile, String dietType, String pal, String imgUrl, String role, double weight, double height, double bfp, double lbmp , Character sex, List<AllergyDto> allergies, List<IntoleranceDto> intolerances) {
+    public UserDetailDto(long id, String firstname, String lastname, String email, String profile, String pal,
+                         String imgUrl, String role, double weight, double height, double bfp, double lbmp,
+                         Character sex, List<AllergyDto> allergies, List<IntoleranceDto> intolerances) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.profile = profile;
-        this.dietType = dietType;
         this.pal = pal;
         this.imgUrl = imgUrl;
         this.role = role;
@@ -40,7 +41,6 @@ public class UserDetailDto {
                 user.getLastname(),
                 user.getEmail(),
                 user.getProfile().toString(),
-                user.getDietType().toString(),
                 user.getPal().toString(),
                 user.getImgUrl(),
                 user.getRole().toString(),
@@ -83,12 +83,6 @@ public class UserDetailDto {
     }
     public void setProfile(String profile) {
         this.profile = profile;
-    }
-    public String getDietType() {
-        return dietType;
-    }
-    public void setDietType(String dietType) {
-        this.dietType = dietType;
     }
     public String getPal() {
         return pal;
