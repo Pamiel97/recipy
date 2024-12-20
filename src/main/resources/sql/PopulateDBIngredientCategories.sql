@@ -7,7 +7,7 @@ INSERT INTO ingredient_categories (name, description) VALUES
 ('pesce', 'è del pesce'),
 ('uova', 'è un uovo'),
 ('latticini', 'è un latticino'),
-('frutta_secca_o_semi', 'è una frutta secca o un seme'),
+('frutta_secca_e_semi', 'è una frutta secca o un seme'),
 ('grassi_animali', 'è un grasso animale'),
 ('grassi_vegetali', 'è un grasso vegetale'),
 ('dolci_e_zuccheri', 'è un dolce o uno zucchero'),

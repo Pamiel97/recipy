@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS public.users
     pal character varying(64),
     img_url character varying(64),
     role character varying(32),
-    eating_regime_id bigint NOT NULL,
+    eating_regime_id bigint DEFAULT 5,
     CONSTRAINT users_pkey PRIMARY KEY (id),
     CONSTRAINT fk_users_eating_regimes FOREIGN KEY (eating_regime_id)
         REFERENCES public.eating_regimes (id)
