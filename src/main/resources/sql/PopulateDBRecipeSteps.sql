@@ -24,7 +24,7 @@ VALUES
 ((SELECT id FROM recipes WHERE title = 'Pollo al Curry'),
 (SELECT id FROM ingredients WHERE name = 'Curry'), 'Aggiungere la pasta di curry e mescolare bene.', 4, 'pasta_curry.jpg'),
 ((SELECT id FROM recipes WHERE title = 'Pollo al Curry'),
-(SELECT id FROM ingredients WHERE name = 'Latte di cocco'), 'Versare il latte di cocco e cuocere per 20 minuti.', 5, 'pollo_salsa.jpg'),
+(SELECT id FROM ingredients WHERE name = 'Latte di Cocco'), 'Versare il latte di cocco e cuocere per 20 minuti.', 5, 'pollo_salsa.jpg'),
 ((SELECT id FROM recipes WHERE title = 'Pollo al Curry'),
 (SELECT id FROM ingredients WHERE name = 'Riso basmati'), 'Servire con riso basmati cotto.', 6, 'pollo_riso.jpg'),
 
@@ -38,7 +38,7 @@ VALUES
 ((SELECT id FROM recipes WHERE title = 'Tiramisu'),
 (SELECT id FROM ingredients WHERE name = 'Mascarpone'), 'Aggiungere il mascarpone e mescolare fino a ottenere una crema omogenea.', 4, 'crema_mascarpone.jpg'),
 ((SELECT id FROM recipes WHERE title = 'Tiramisu'),
-(SELECT id FROM ingredients WHERE name = 'Savoiardi'), 'Inzuppare i savoiardi nel caffè e disporli in una teglia.', 5, 'savoiardi_inzuppati.jpg'),
+(SELECT id FROM ingredients WHERE name = 'Savoiardo'), 'Inzuppare i savoiardi nel caffè e disporli in una teglia.', 5, 'savoiardi_inzuppati.jpg'),
 ((SELECT id FROM recipes WHERE title = 'Tiramisu'),
 null , 'Stendere la crema ottenuta sopra i savoiardi e ripetere il processo.', 6, 'tiramisu_strati.jpg'),
 ((SELECT id FROM recipes WHERE title = 'Tiramisu'),
@@ -48,7 +48,7 @@ null , 'Stendere la crema ottenuta sopra i savoiardi e ripetere il processo.', 6
 ((SELECT id FROM recipes WHERE title = 'Smoothie al Mango'),
 (SELECT id FROM ingredients WHERE name = 'Mango'), 'Sbucciare il mango e tagliarlo a pezzi. Aggiungerlo in un frullatore', 1, 'mango_tagliato.jpg'),
 ((SELECT id FROM recipes WHERE title = 'Smoothie al Mango'),
-(SELECT id FROM ingredients WHERE name = 'Yogurt greco'), 'Aggiungere lo yogurt greco nel frullatore.', 2, 'mango_frullato.jpg'),
+(SELECT id FROM ingredients WHERE name = 'Yogurt Greco'), 'Aggiungere lo yogurt greco nel frullatore.', 2, 'mango_frullato.jpg'),
 ((SELECT id FROM recipes WHERE title = 'Smoothie al Mango'),
 (SELECT id FROM ingredients WHERE name = 'Miele'), 'Aggiungere il miele nel frullatore e frullare finché non si ottiene una consistenza liscia.', 3, null),
 
