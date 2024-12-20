@@ -25,15 +25,15 @@ public class SuggestedRecipeController {
         this.suggestedRecipeService = suggestedRecipeService;
     }
 
-//    @GetMapping("/diet-compatible/{id}")
-//    public ResponseEntity<List<RecipeDto>> recipesOkToUserDietType(@PathVariable("id") long userId){
-//        List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserDietType(userId)
-//                .stream().map(RecipeDto::fromRecipe).toList();
-//        if (recipes.isEmpty()){
-//            return ResponseEntity.notFound().build();
-//        }
-//        return ResponseEntity.ok(recipes);
-//    }
+    @GetMapping("/diet-compatible/{id}") // query not working as it should
+    public ResponseEntity<List<RecipeDto>> recipesOkToUserDietType(@PathVariable("id") long userId){
+        List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserDietType(userId)
+                .stream().map(RecipeDto::fromRecipe).toList();
+        if (recipes.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(recipes);
+    }
 
     @GetMapping("/shorter-than/{minutes}")
     public ResponseEntity<List<RecipeDto>> findAllRecipesShorterThan(@PathVariable int minutes){
@@ -46,7 +46,7 @@ public class SuggestedRecipeController {
     }
 
     @GetMapping("/difficulty/{id}")
-    public ResponseEntity<List<RecipeDto>> findRecipesForUserProfile(@PathVariable long userId) {
+    public ResponseEntity<List<RecipeDto>> findRecipesForUserProfile(@PathVariable("id") long userId) {
         List<RecipeDto> recipes = suggestedRecipeService.findRecipesForUserProfile(userId)
                 .stream().map(RecipeDto::fromRecipe).toList();
         if (recipes.isEmpty()){

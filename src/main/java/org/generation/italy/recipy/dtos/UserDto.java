@@ -15,7 +15,7 @@ public class UserDto {
     }
 
     public static UserDto fromUser(User user) {
-        return new UserDto(user.getId(), user.getFirstname(), user.getLastname(), user.getProfile().toString());
+        return new UserDto(user.getId(), user.getFirstname(), user.getLastname(), user.getProfile() == null ? "utente_base" : user.getProfile().toString());
     }
 
     public long getId() {
