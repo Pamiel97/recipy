@@ -6,8 +6,8 @@ public class IngredientDto {
     private long id;
     private String name, imgUrl, allergy, intolerance;
     private double kcal, carbs, prots, fats, weight, price;
-    public IngredientDto() {}
 
+    public IngredientDto() {}
     public IngredientDto(long id, String name, double kcal, double carbs, double prots, double fats, double weight,
                          double price, String imgUrl, String allergy, String intolerance) {
         this.id = id;

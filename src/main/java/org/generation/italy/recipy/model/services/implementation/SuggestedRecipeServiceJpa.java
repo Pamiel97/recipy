@@ -21,10 +21,10 @@ public class SuggestedRecipeServiceJpa implements SuggestedRecipeService {
         this.pantryService = pantryService;
     }
 
-//    @Override
-//    public List<Recipe> recipesOkToUserDietType(long userId) {
-//        return suggestedRecipeRepo.recipesOkToUserDietType(userId);
-//    }
+    @Override
+    public List<Recipe> recipesOkToUserDietType(long userId) {
+        return suggestedRecipeRepo.recipesOkToUserDietType(userId);
+    }
 
     @Override
     public List<Recipe> findAllRecipesShorterThan(int minutes) {
