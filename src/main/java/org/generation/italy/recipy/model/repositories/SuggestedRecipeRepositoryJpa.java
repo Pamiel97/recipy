@@ -11,15 +11,26 @@ public interface SuggestedRecipeRepositoryJpa extends JpaRepository<Recipe, Long
     @Query("""
             SELECT r
             FROM Recipe r
-            JOIN RecipeStep rs ON r.id = rs.recipe.id
-            JOIN Ingredient i ON rs.ingredient.id = i.id
-            JOIN IngredientCategory ig ON i.ingredientCategory.id = ig.id
-            JOIN User u ON r.user.id = u.id
-            JOIN EatingRegime er ON u.eatingRegime.id = er.id
-            WHERE u.id = :userId
-            GROUP BY r.id
+            WHERE NOT EXISTS (
+                SELECT rs
+                FROM RecipeStep rs
+                WHERE rs.recipe = r
+                AND rs.ingredient.ingredientCategory NOT IN (
+                    SELECT ic
+                    FROM User u
+                    JOIN u.eatingRegime er
+                    JOIN er.ingredientCategories ic
+                    WHERE u.id = :userId
+                )
+            )
             """)
     List<Recipe> recipesOkToUserDietType(@Param("userId") long userId);
+
+//    @Query("""
+//            SELECT r
+//            FROM Recipe r
+//            """)
+//    List<Recipe> recipesOkToUserIntolerancesAndAllergies(@Param("userId") long userId); // to finish
 
     @Query("""
             SELECT r
@@ -67,14 +78,14 @@ public interface SuggestedRecipeRepositoryJpa extends JpaRepository<Recipe, Long
 
     @Query("""
             SELECT r
-            FROM Recipe r 
-            WHERE NOT EXISTS 
-            ( SELECT rs 
-            FROM RecipeStep rs 
-            WHERE rs.recipe = r 
-            AND rs.ingredient NOT IN 
-            ( SELECT p.ingredient 
-            FROM Pantry p 
+            FROM Recipe r
+            WHERE NOT EXISTS
+            ( SELECT rs
+            FROM RecipeStep rs
+            WHERE rs.recipe = r
+            AND rs.ingredient NOT IN
+            ( SELECT p.ingredient
+            FROM Pantry p
             WHERE p.user.id = :userId ) )
             """)
     List<Recipe> findByAvailablePantry(@Param("userId") long userId);
