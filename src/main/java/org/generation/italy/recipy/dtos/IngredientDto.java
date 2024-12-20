@@ -6,10 +6,11 @@ public class IngredientDto {
     private long id;
     private String name, imgUrl, allergy, intolerance;
     private double kcal, carbs, prots, fats, weight, price;
+    private String ingredientCategory;
     public IngredientDto() {}
 
     public IngredientDto(long id, String name, double kcal, double carbs, double prots, double fats, double weight,
-                         double price, String imgUrl, String allergy, String intolerance) {
+                         double price, String imgUrl, String allergy, String intolerance, String ingredientCategory) {
         this.id = id;
         this.name = name;
         this.kcal = kcal;
@@ -21,6 +22,7 @@ public class IngredientDto {
         this.imgUrl = imgUrl;
         this.allergy = allergy;
         this.intolerance = intolerance;
+        this.ingredientCategory = ingredientCategory;
     }
 
     public static IngredientDto fromIngredient(Ingredient ingredient) {
@@ -34,6 +36,7 @@ public class IngredientDto {
         dto.setWeight(ingredient.getAvgWeight());
         dto.setPrice(ingredient.getAvgPrice());
         dto.setImgUrl(ingredient.getImgUrl());
+        dto.setIngredientCategory(ingredient.getIngredientCategory().getName());
 
         if(ingredient.getAllergy() != null) {
             dto.setAllergy(ingredient.getAllergy().getName());
@@ -62,6 +65,7 @@ public class IngredientDto {
         ingredient.setImgUrl(this.imgUrl);
         ingredient.setAllergy(new Allergy());
         ingredient.setIntolerance(new Intolerance());
+        //manca la category da settare
         return ingredient;
     }
 
@@ -130,5 +134,11 @@ public class IngredientDto {
     }
     public void setPrice(double price) {
         this.price = price;
+    }
+    public String getIngredientCategory() {
+        return ingredientCategory;
+    }
+    public void setIngredientCategory(String ingredientCategory) {
+        this.ingredientCategory = ingredientCategory;
     }
 }
