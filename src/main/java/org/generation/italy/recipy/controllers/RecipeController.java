@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("api/recipes")
 public class RecipeController {
@@ -31,6 +32,7 @@ public class RecipeController {
         this.ingredientService=ingredientService;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public ResponseEntity<?> createRecipe(@RequestBody RecipeDto recipeDto, @AuthenticationPrincipal User user) {
         Recipe recipe = recipeDto.toRecipe();
