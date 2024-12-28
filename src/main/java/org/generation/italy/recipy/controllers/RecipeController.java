@@ -88,4 +88,17 @@ public class RecipeController {
         }
     }
 
+
+    @GetMapping("/user/email/{email}")
+    public ResponseEntity<List<RecipeDto>> getRecipesByUserEmail(@PathVariable String email) {
+        try {
+            List<Recipe> recipes = recipeService.findByUserEmail(email);
+            if (recipes.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(recipes.stream().map(RecipeDto::fromRecipe).toList());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
 }

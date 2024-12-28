@@ -13,6 +13,7 @@ public interface RecipeService {
     Recipe updateRecipe(long id, Recipe updatedRecipe) throws EntityNotFoundException;
     void deleteRecipe(long id) throws EntityNotFoundException;
     List<Recipe> findAllByUserId(long userId);
+    List<Recipe> findByUserEmail(String email);
 
 
 }

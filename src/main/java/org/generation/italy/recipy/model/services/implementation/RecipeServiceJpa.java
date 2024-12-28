@@ -112,4 +112,9 @@ public class RecipeServiceJpa implements RecipeService {
     public List<Recipe> findAllByUserId(long userId) {
         return repo.findByUserId(userId);
     }
+
+    @Override
+    public List<Recipe> findByUserEmail(String email) {
+        return repo.findByUserEmail(email);
+    }
 }

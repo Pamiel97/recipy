@@ -10,4 +10,5 @@ import java.util.List;
 
 public interface RecipeRepositoryJPA extends JpaRepository<Recipe, Long> {
     List<Recipe> findByUserId(long userId);
+    List<Recipe> findByUserEmail(String email);
 }
