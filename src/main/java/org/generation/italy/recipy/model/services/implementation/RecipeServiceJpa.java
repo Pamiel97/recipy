@@ -107,4 +107,9 @@ public class RecipeServiceJpa implements RecipeService {
         Recipe existingRecipe = existingRecipeOpt.get();
         repo.delete(existingRecipe);
     }
+
+    @Override
+    public List<Recipe> findAllByUserId(long userId) {
+        return repo.findByUserId(userId);
+    }
 }
