@@ -59,7 +59,8 @@ public class RecipeController {
         }
         try {
             Recipe updatedRecipe = recipeService.updateRecipe(id, recipeDto.toRecipe());
-            return ResponseEntity.ok(updatedRecipe);
+            RecipeDto updatedRecipeDto = RecipeDto.fromRecipe(updatedRecipe);
+            return ResponseEntity.ok(updatedRecipeDto);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
@@ -101,4 +102,18 @@ public class RecipeController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RecipeDto> getRecipeById(@PathVariable long id) {
+        try {
+            Recipe recipe = recipeService.findById(id).orElseThrow(() -> new EntityNotFoundException("Ricetta non trovata"));
+            RecipeDto recipeDto = RecipeDto.fromRecipe(recipe);
+            return ResponseEntity.ok(recipeDto);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 }
