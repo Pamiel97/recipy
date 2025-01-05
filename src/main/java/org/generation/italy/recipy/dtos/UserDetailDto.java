@@ -1,5 +1,6 @@
 package org.generation.italy.recipy.dtos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.generation.italy.recipy.model.entities.*;
 import java.util.List;
 
@@ -10,10 +11,12 @@ public class UserDetailDto {
     private Character sex;
     private List<AllergyDto> allergies;
     private List<IntoleranceDto> intolerances;
+    @JsonProperty("password")
+    private String password;
 
     public UserDetailDto() {}
 
-    public UserDetailDto(long id, String firstname, String lastname, String email, String profile, DietType dietType, Pal pal, String imgUrl, String role, double weight, double height, double bfp, double lbmp , Character sex, List<AllergyDto> allergies, List<IntoleranceDto> intolerances) {
+    public UserDetailDto(long id, String firstname, String lastname, String email, String password, String profile, DietType dietType, Pal pal, String imgUrl, String role, double weight, double height, double bfp, double lbmp , Character sex, List<AllergyDto> allergies, List<IntoleranceDto> intolerances) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -30,6 +33,7 @@ public class UserDetailDto {
         this.sex = sex;
         this.allergies = allergies;
         this.intolerances = intolerances;
+        this.password = password;
     }
 
     public static UserDetailDto fromUser(User user){
@@ -38,6 +42,7 @@ public class UserDetailDto {
                 user.getFirstname(),
                 user.getLastname(),
                 user.getEmail(),
+                user.getPassword(),
                 user.getProfile().toString(),
                 user.getDietType(),
                 user.getPal(),
@@ -58,6 +63,7 @@ public class UserDetailDto {
         user.setId(this.id);
         user.setFirstname(this.firstname);
         user.setLastname(this.lastname);
+        user.setEmail(this.email);
         user.setProfile(Profile.valueOf(this.profile));
         user.setDietType(DietType.valueOf(this.dietType));
         user.setPal(Pal.valueOf(this.pal));
@@ -68,8 +74,7 @@ public class UserDetailDto {
         user.setBfp(this.bfp);
         user.setLbmp(this.lbmp);
         user.setSex(this.sex);
-        user.setAllergies(this.allergies.stream().map(AllergyDto::toAllergy).toList());
-        user.setIntolerances(this.intolerances.stream().map(IntoleranceDto::toIntolerance).toList());
+        user.setPassword(this.password);
         return user;
     }
 
