@@ -67,17 +67,7 @@ public class RecipeServiceJpa implements RecipeService {
         if (optionalRecipe.isEmpty()) {
             throw new EntityNotFoundException("Ricetta con id: " + id + " non trovata");
         }
-
         Recipe existingRecipe = optionalRecipe.get();
-
-        for (RecipeStep step : updatedRecipe.getRecipeSteps()) {
-            Optional<Ingredient> oi = ingredientRepo.findById(step.getIngredient().getId());
-            if (oi.isEmpty()) {
-                throw new EntityNotFoundException("Ingrediente con id: " + step.getIngredient().getId() + " non trovato");
-            }
-            step.setIngredient(oi.get());
-        }
-
         for (RecipeStep step : updatedRecipe.getRecipeSteps()) {
             if (step.getId() != 0) {
                 Optional<RecipeStep> optionalStep = recipeStepRepository.findById(step.getId());
@@ -87,14 +77,27 @@ public class RecipeServiceJpa implements RecipeService {
                     existingStep.setOrdinal(step.getOrdinal());
                     existingStep.setStepImgUrl(step.getStepImgUrl());
                     existingStep.setIngredient(step.getIngredient());
+                    recipeStepRepository.save(existingStep);
                 } else {
                     throw new EntityNotFoundException("Step con id: " + step.getId() + " non trovato");
                 }
+            } else {
+                RecipeStep newStep = new RecipeStep();
+                newStep.setDescription(step.getDescription());
+                newStep.setOrdinal(step.getOrdinal());
+                newStep.setStepImgUrl(step.getStepImgUrl());
+                newStep.setIngredient(step.getIngredient());
+                existingRecipe.getRecipeSteps().add(newStep);
             }
         }
-
-        existingRecipe.setRecipeSteps(updatedRecipe.getRecipeSteps());
-
+        existingRecipe.setTitle(updatedRecipe.getTitle());
+        existingRecipe.setDescription(updatedRecipe.getDescription());
+        existingRecipe.setCourse(updatedRecipe.getCourse());
+        existingRecipe.setPrepTime(updatedRecipe.getPrepTime());
+        existingRecipe.setCookingTime(updatedRecipe.getCookingTime());
+        existingRecipe.setDifficulty(updatedRecipe.getDifficulty());
+        existingRecipe.setkCalories(updatedRecipe.getkCalories());
+        existingRecipe.setImgUrl(updatedRecipe.getImgUrl());
         return repo.save(existingRecipe);
     }
 
@@ -106,5 +109,15 @@ public class RecipeServiceJpa implements RecipeService {
         }
         Recipe existingRecipe = existingRecipeOpt.get();
         repo.delete(existingRecipe);
+    }
+
+    @Override
+    public List<Recipe> findAllByUserId(long userId) {
+        return repo.findByUserId(userId);
+    }
+
+    @Override
+    public List<Recipe> findByUserEmail(String email) {
+        return repo.findByUserEmail(email);
     }
 }

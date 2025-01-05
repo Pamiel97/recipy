@@ -6,6 +6,7 @@ import org.generation.italy.recipy.model.entities.Recipe;
 import org.generation.italy.recipy.model.entities.User;
 import org.generation.italy.recipy.model.exceptions.EmptyListException;
 import org.generation.italy.recipy.model.services.abstraction.SuggestedRecipeService;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -25,8 +26,8 @@ public class SuggestedRecipeController {
         this.suggestedRecipeService = suggestedRecipeService;
     }
 
-    @GetMapping("/diet-compatible/{id}")
-    public ResponseEntity<List<RecipeDto>> recipesOkToUserDietType(@PathVariable long userId){
+    @GetMapping("/diet-compatible/{id}") // query not working as it should
+    public ResponseEntity<List<RecipeDto>> recipesOkToUserDietType(@PathVariable("id") long userId){
         List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserDietType(userId)
                 .stream().map(RecipeDto::fromRecipe).toList();
         if (recipes.isEmpty()){
@@ -46,8 +47,18 @@ public class SuggestedRecipeController {
     }
 
     @GetMapping("/difficulty/{id}")
-    public ResponseEntity<List<RecipeDto>> findRecipesForUserProfile(@PathVariable long userId) {
+    public ResponseEntity<List<RecipeDto>> findRecipesForUserProfile(@PathVariable("id") long userId) {
         List<RecipeDto> recipes = suggestedRecipeService.findRecipesForUserProfile(userId)
+                .stream().map(RecipeDto::fromRecipe).toList();
+        if (recipes.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(recipes);
+    }
+
+    @GetMapping("/allergies-intolerances/{id}")
+    public ResponseEntity<List<RecipeDto>> recipesOkToUserIntolerancesAndAllergies(@PathVariable("id") long userId){
+        List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserIntolerancesAndAllergies(userId)
                 .stream().map(RecipeDto::fromRecipe).toList();
         if (recipes.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -59,7 +70,7 @@ public class SuggestedRecipeController {
 
     //mirko
 
-    @GetMapping("/pantries")
+    @GetMapping("/recipes-by-pantries")
     public ResponseEntity<?> getRecipesByAvailablePantries(@AuthenticationPrincipal User user) {
         try {
             List<Recipe> recipes = suggestedRecipeService.findRecipesByAvailablePantries(user.getId());

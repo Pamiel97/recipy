@@ -1,31 +1,31 @@
 package org.generation.italy.recipy.dtos;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.generation.italy.recipy.model.entities.*;
+import org.generation.italy.recipy.model.entities.User;
+
 import java.util.List;
 
 public class UserDetailDto {
     private long id;
-    private String firstname, lastname, email, profile, dietType, imgUrl, role, pal;
+    private String firstname, lastname, email, profile, pal, imgUrl, role, eatingRegime;
     private double weight, height, bfp, lbmp;
     private Character sex;
     private List<AllergyDto> allergies;
     private List<IntoleranceDto> intolerances;
-    @JsonProperty("password")
-    private String password;
 
     public UserDetailDto() {}
 
-    public UserDetailDto(long id, String firstname, String lastname, String email, String password, String profile, DietType dietType, Pal pal, String imgUrl, String role, double weight, double height, double bfp, double lbmp , Character sex, List<AllergyDto> allergies, List<IntoleranceDto> intolerances) {
+    public UserDetailDto(long id, String firstname, String lastname, String email, String profile, String pal,
+                         String imgUrl, String role, String eatingRegime, double weight, double height, double bfp,
+                         double lbmp, Character sex, List<AllergyDto> allergies, List<IntoleranceDto> intolerances) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.profile = profile;
-        this.dietType = String.valueOf(dietType);
-        this.pal = String.valueOf(pal);
+        this.pal = pal;
         this.imgUrl = imgUrl;
         this.role = role;
+        this.eatingRegime = eatingRegime;
         this.weight = weight;
         this.height = height;
         this.bfp = bfp;
@@ -33,7 +33,6 @@ public class UserDetailDto {
         this.sex = sex;
         this.allergies = allergies;
         this.intolerances = intolerances;
-        this.password = password;
     }
 
     public static UserDetailDto fromUser(User user){
@@ -42,12 +41,11 @@ public class UserDetailDto {
                 user.getFirstname(),
                 user.getLastname(),
                 user.getEmail(),
-                user.getPassword(),
                 user.getProfile().toString(),
-                user.getDietType(),
-                user.getPal(),
+                user.getPal().toString(),
                 user.getImgUrl(),
                 user.getRole().toString(),
+                user.getEatingRegime().getName(),
                 user.getWeight(),
                 user.getHeight(),
                 user.getBfp(),
@@ -56,26 +54,6 @@ public class UserDetailDto {
                 user.getAllergies().stream().map(AllergyDto::fromAllergy).toList(),
                 user.getIntolerances().stream().map(IntoleranceDto::fromIntolerance).toList()
                 );
-    }
-
-    public User toUser(){
-        User user = new User();
-        user.setId(this.id);
-        user.setFirstname(this.firstname);
-        user.setLastname(this.lastname);
-        user.setEmail(this.email);
-        user.setProfile(Profile.valueOf(this.profile));
-        user.setDietType(DietType.valueOf(this.dietType));
-        user.setPal(Pal.valueOf(this.pal));
-        user.setImgUrl(this.imgUrl);
-        user.setRole(Role.valueOf(this.role));
-        user.setWeight(this.weight);
-        user.setHeight(this.height);
-        user.setBfp(this.bfp);
-        user.setLbmp(this.lbmp);
-        user.setSex(this.sex);
-        user.setPassword(this.password);
-        return user;
     }
 
     public long getId() {
@@ -107,12 +85,6 @@ public class UserDetailDto {
     }
     public void setProfile(String profile) {
         this.profile = profile;
-    }
-    public String getDietType() {
-        return dietType;
-    }
-    public void setDietType(String dietType) {
-        this.dietType = dietType;
     }
     public String getPal() {
         return pal;

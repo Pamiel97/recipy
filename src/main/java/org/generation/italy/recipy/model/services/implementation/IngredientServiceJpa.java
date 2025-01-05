@@ -9,6 +9,7 @@ import org.generation.italy.recipy.model.repositories.IntoleranceRepositoryJpa;
 import org.generation.italy.recipy.model.services.abstraction.IngredientService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,6 +35,11 @@ public class IngredientServiceJpa implements IngredientService {
     @Override
     public Optional<Intolerance> findIntoleranceById(long id) {
         return intoRepo.findById(id);
+    }
+
+    @Override
+    public List<Ingredient> findAllIngredient() {
+        return repo.findAll();
     }
 
 

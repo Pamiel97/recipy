@@ -10,6 +10,7 @@ import java.util.List;
 public interface SuggestedRecipeService {
     List<Recipe> recipesOkToUserDietType(long userId);
     List<Recipe> findAllRecipesShorterThan(int minutes);
+    List<Recipe> recipesOkToUserIntolerancesAndAllergies( long userId);
     List<Recipe> findRecipesForUserProfile(long userId);
 
     //mirko

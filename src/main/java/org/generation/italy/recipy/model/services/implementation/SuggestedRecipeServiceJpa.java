@@ -32,6 +32,11 @@ public class SuggestedRecipeServiceJpa implements SuggestedRecipeService {
     }
 
     @Override
+    public List<Recipe> recipesOkToUserIntolerancesAndAllergies(long userId) {
+        return suggestedRecipeRepo.recipesOkToUserIntolerancesAndAllergies(userId);
+    }
+
+    @Override
     public List<Recipe> findRecipesForUserProfile(long userId) {
         return suggestedRecipeRepo.findRecipesForUserProfile(userId);
     }

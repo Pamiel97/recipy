@@ -11,9 +11,10 @@ public class PantryDto {
     private String unitType, purchaseDate, expirationDate;
     private UserDto user;
     private long ingredientId;
+    private String ingredientName;
 
     public PantryDto() {}
-    public PantryDto(long id, int quantity, String unitType, String purchaseDate, String expirationDate, UserDto user, long ingredientId) {
+    public PantryDto(long id, int quantity, String unitType, String purchaseDate, String expirationDate, UserDto user, long ingredientId, String ingredientName) {
         this.id = id;
         this.quantity = quantity;
         this.unitType = unitType;
@@ -21,6 +22,7 @@ public class PantryDto {
         this.expirationDate = expirationDate;
         this.user = user;
         this.ingredientId = ingredientId;
+        this.ingredientName = ingredientName;
     }
 
     public static PantryDto fromPantry(Pantry pantry) {
@@ -31,7 +33,9 @@ public class PantryDto {
                 pantry.getPurchaseDate().format(DateTimeFormatter.ISO_LOCAL_DATE),
                 pantry.getExpirationDate().format(DateTimeFormatter.ISO_LOCAL_DATE),
                 UserDto.fromUser(pantry.getUser()),
-                pantry.getIngredient().getId());
+                pantry.getIngredient().getId(),
+                pantry.getIngredient().getName());
+
     }
 
     public Pantry toPantry(){
@@ -85,7 +89,13 @@ public class PantryDto {
     public long getIngredientId() {
         return ingredientId;
     }
-    public void setIngredient(long ingredientId) {
+    public void setIngredientId(long ingredientId) {
         this.ingredientId = ingredientId;
+    }
+    public String getIngredientName() {
+        return ingredientName;
+    }
+    public void setIngredientName(String ingredientName) {
+        this.ingredientName = ingredientName;
     }
 }

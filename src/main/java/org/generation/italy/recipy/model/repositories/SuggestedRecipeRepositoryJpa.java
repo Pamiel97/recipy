@@ -11,17 +11,17 @@ public interface SuggestedRecipeRepositoryJpa extends JpaRepository<Recipe, Long
     @Query("""
             SELECT r
             FROM Recipe r
-            JOIN RecipeStep rs ON r.id = rs.recipe.id
-            JOIN Ingredient i ON rs.ingredient.id = i.id
-            JOIN User u ON r.user.id = u.id
-            WHERE u.id = :userId
-            AND i.dietCompatibility = u.dietType
-            GROUP BY r.id
-            HAVING COUNT(i.id) = (
-                SELECT COUNT(rs2.id)
-                FROM RecipeStep rs2
-                JOIN Ingredient i2 ON rs2.ingredient.id = i2.id
-                WHERE rs2.recipe.id = r.id
+            WHERE NOT EXISTS (
+                SELECT rs
+                FROM RecipeStep rs
+                WHERE rs.recipe = r
+                AND rs.ingredient.ingredientCategory NOT IN (
+                    SELECT ic
+                    FROM User u
+                    JOIN u.eatingRegime er
+                    JOIN er.ingredientCategories ic
+                    WHERE u.id = :userId
+                )
             )
             """)
     List<Recipe> recipesOkToUserDietType(@Param("userId") long userId);
@@ -29,9 +29,20 @@ public interface SuggestedRecipeRepositoryJpa extends JpaRepository<Recipe, Long
     @Query("""
             SELECT r
             FROM Recipe r
-            WHERE (r.prepTime + r.cookingTime) < :minutes
+            WHERE NOT EXISTS (
+                SELECT rs
+                FROM RecipeStep rs
+                WHERE rs.recipe = r
+                AND rs.ingredient.intolerance NOT IN (
+                    SELECT intolerances
+                    FROM User u
+                    WHERE u.id = :userId
+                )
+            )
             """)
-    List<Recipe> findAllRecipesShorterThan(@Param("minutes") int minutes);
+    List<Recipe> recipesOkToUserIntolerancesAndAllergies(@Param("userId") long userId); //TODO non funziona porcodio
+
+//    List<Recipe> recipesOkToUser(@Param("userId") long userId); //TODO
 
     @Query("""
             SELECT r
@@ -46,6 +57,13 @@ public interface SuggestedRecipeRepositoryJpa extends JpaRepository<Recipe, Long
             )
             """)
     List<Recipe> findRecipesForUserProfile(@Param("userId") long userId);
+
+    @Query("""
+            SELECT r
+            FROM Recipe r
+            WHERE (r.prepTime + r.cookingTime) < :minutes
+            """)
+    List<Recipe> findAllRecipesShorterThan(@Param("minutes") int minutes);
 
 
 //    @Query("""
@@ -72,14 +90,14 @@ public interface SuggestedRecipeRepositoryJpa extends JpaRepository<Recipe, Long
 
     @Query("""
             SELECT r
-            FROM Recipe r 
-            WHERE NOT EXISTS 
-            ( SELECT rs 
-            FROM RecipeStep rs 
-            WHERE rs.recipe = r 
-            AND rs.ingredient NOT IN 
-            ( SELECT p.ingredient 
-            FROM Pantry p 
+            FROM Recipe r
+            WHERE NOT EXISTS
+            ( SELECT rs
+            FROM RecipeStep rs
+            WHERE rs.recipe = r
+            AND rs.ingredient NOT IN
+            ( SELECT p.ingredient
+            FROM Pantry p
             WHERE p.user.id = :userId ) )
             """)
     List<Recipe> findByAvailablePantry(@Param("userId") long userId);
