@@ -38,7 +38,7 @@ public class AuthService {
     public AuthenticationResponse register(RegisterRequest request) {
         logger.info("Register method called with request: {}", request);
 
-        User user = new User(request.getFirstname(), request.getLastname(), request.getEmail(), passwordEncoder.encode(request.getPassword()),request.getRole());
+            User user = new User(request.getFirstname(), request.getLastname(), request.getEmail(), passwordEncoder.encode(request.getPassword()),request.getRole());
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         return new AuthenticationResponse(jwtToken);

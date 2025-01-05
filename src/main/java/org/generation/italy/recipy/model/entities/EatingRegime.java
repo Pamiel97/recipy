@@ -13,8 +13,6 @@ public class EatingRegime {
     private long id;
     private String name;
     private String description;
-    @OneToMany(mappedBy = "eatingRegime")
-    private List<User> user;
     @ManyToMany(mappedBy = "eatingRegimes")
     private List<IngredientCategory> ingredientCategories = new ArrayList<>();
 
@@ -24,7 +22,6 @@ public class EatingRegime {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.user = user;
         this.ingredientCategories = ingredientCategories;
     }
 
@@ -45,12 +42,6 @@ public class EatingRegime {
     }
     public void setDescription(String description) {
         this.description = description;
-    }
-    public List<User> getUser() {
-        return user;
-    }
-    public void setUser(List<User> user) {
-        this.user = user;
     }
     public List<IngredientCategory> getIngredientCategories() {
         return ingredientCategories;

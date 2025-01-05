@@ -21,7 +21,8 @@ public class UserServiceJpa implements UserService {
     }
 
     @Override
-    public User createUser(User user){
-        return repo.save(user);
+    public Optional<User> updateUser(User user){
+        return Optional.of(repo.save(user));
     }
+
 }

@@ -1,12 +1,12 @@
 package org.generation.italy.recipy.dtos;
 
-import org.generation.italy.recipy.model.entities.User;
+import org.generation.italy.recipy.model.entities.*;
 
 import java.util.List;
 
 public class UserDetailDto {
-    private long id;
-    private String firstname, lastname, email, profile, pal, imgUrl, role, eatingRegime;
+    private long id, eatingRegimeId;
+    private String firstname, lastname, email, profile, pal, imgUrl, role;
     private double weight, height, bfp, lbmp;
     private Character sex;
     private List<AllergyDto> allergies;
@@ -15,7 +15,7 @@ public class UserDetailDto {
     public UserDetailDto() {}
 
     public UserDetailDto(long id, String firstname, String lastname, String email, String profile, String pal,
-                         String imgUrl, String role, String eatingRegime, double weight, double height, double bfp,
+                         String imgUrl, String role, long eatingRegimeId, double weight, double height, double bfp,
                          double lbmp, Character sex, List<AllergyDto> allergies, List<IntoleranceDto> intolerances) {
         this.id = id;
         this.firstname = firstname;
@@ -25,7 +25,7 @@ public class UserDetailDto {
         this.pal = pal;
         this.imgUrl = imgUrl;
         this.role = role;
-        this.eatingRegime = eatingRegime;
+        this.eatingRegimeId = eatingRegimeId;
         this.weight = weight;
         this.height = height;
         this.bfp = bfp;
@@ -45,7 +45,7 @@ public class UserDetailDto {
                 user.getPal().toString(),
                 user.getImgUrl(),
                 user.getRole().toString(),
-                user.getEatingRegime().getName(),
+                user.getEatingRegime().getId(),
                 user.getWeight(),
                 user.getHeight(),
                 user.getBfp(),
@@ -54,6 +54,27 @@ public class UserDetailDto {
                 user.getAllergies().stream().map(AllergyDto::fromAllergy).toList(),
                 user.getIntolerances().stream().map(IntoleranceDto::fromIntolerance).toList()
                 );
+    }
+
+    public User toUser(User userFromDb, EatingRegime eatingRegime){
+        User user = new User();
+
+        user.setId(userFromDb.getId());
+        user.setPassword(userFromDb.getPassword());
+        user.setEmail(userFromDb.getEmail());
+        user.setFirstname(userFromDb.getFirstname());
+        user.setLastname(userFromDb.getLastname());
+        user.setProfile(Profile.valueOf(this.profile));
+        user.setPal(Pal.valueOf(this.pal));
+        user.setImgUrl(this.imgUrl);
+        user.setRole(Role.valueOf(this.role));
+        user.setWeight(this.weight);
+        user.setHeight(this.height);
+        user.setBfp(this.bfp);
+        user.setLbmp(this.lbmp);
+        user.setSex(this.sex);
+        user.setEatingRegime(eatingRegime);
+        return user;
     }
 
     public long getId() {
@@ -145,5 +166,13 @@ public class UserDetailDto {
     }
     public void setIntolerances(List<IntoleranceDto> intolerances) {
         this.intolerances = intolerances;
+    }
+
+    public Long getEatingRegimeId() {
+        return eatingRegimeId;
+    }
+
+    public void setEatingRegime(long eatingRegimeId) {
+        this.eatingRegimeId = eatingRegimeId;
     }
 }
