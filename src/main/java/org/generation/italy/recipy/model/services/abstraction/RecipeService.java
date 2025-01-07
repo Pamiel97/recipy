@@ -14,6 +14,7 @@ public interface RecipeService {
     void deleteRecipe(long id) throws EntityNotFoundException;
     List<Recipe> findAllByUserId(long userId);
     List<Recipe> findByUserEmail(String email);
+    List<Recipe> findByTitleContainingIgnoreCase(String title);
 
 
 }

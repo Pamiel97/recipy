@@ -23,9 +23,9 @@ public class SuggestedRecipeController {
         this.suggestedRecipeService = suggestedRecipeService;
     }
 
-    @GetMapping("/diet-compatible/{id}") // query not working as it should
-    public ResponseEntity<List<RecipeDto>> recipesOkToUserDietType(@PathVariable("id") long userId){
-        List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserDietType(userId)
+    @GetMapping("/diet-compatible")
+    public ResponseEntity<List<RecipeDto>> recipesOkToUserDietType(@AuthenticationPrincipal User user){
+        List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserDietType(user.getId())
                 .stream().map(RecipeDto::fromRecipe).toList();
         if (recipes.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -43,9 +43,9 @@ public class SuggestedRecipeController {
         return ResponseEntity.ok(recipes);
     }
 
-    @GetMapping("/difficulty/{id}")
-    public ResponseEntity<List<RecipeDto>> findRecipesForUserProfile(@PathVariable("id") long userId) {
-        List<RecipeDto> recipes = suggestedRecipeService.findRecipesForUserProfile(userId)
+    @GetMapping("/difficulty")
+    public ResponseEntity<List<RecipeDto>> findRecipesForUserProfile(@AuthenticationPrincipal User user) {
+        List<RecipeDto> recipes = suggestedRecipeService.findRecipesForUserProfile(user.getId())
                 .stream().map(RecipeDto::fromRecipe).toList();
         if (recipes.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -53,9 +53,20 @@ public class SuggestedRecipeController {
         return ResponseEntity.ok(recipes);
     }
 
-    @GetMapping("/allergies-intolerances/{id}")
-    public ResponseEntity<List<RecipeDto>> recipesOkToUserIntolerancesAndAllergies(@PathVariable("id") long userId){
-        List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserIntolerancesAndAllergies(userId)
+    @GetMapping("/allergies-intolerances")
+    public ResponseEntity<List<RecipeDto>> recipesOkToUserIntolerancesAndAllergies(@AuthenticationPrincipal User user){
+        List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserIntolerancesAndAllergies(user.getId())
+                .stream().map(RecipeDto::fromRecipe).toList();
+        if (recipes.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(recipes);
+    }
+
+    @CrossOrigin
+    @GetMapping("/user")
+    public ResponseEntity<List<RecipeDto>> recipesOkToUser(@AuthenticationPrincipal User user){
+        List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUser(user.getId())
                 .stream().map(RecipeDto::fromRecipe).toList();
         if (recipes.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -66,7 +77,7 @@ public class SuggestedRecipeController {
 
 
     //mirko
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin
     @GetMapping("/recipes-by-pantries")
     public ResponseEntity<?> getRecipesByAvailablePantries(@AuthenticationPrincipal User user) {
         try {
@@ -76,5 +87,4 @@ public class SuggestedRecipeController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
 }
