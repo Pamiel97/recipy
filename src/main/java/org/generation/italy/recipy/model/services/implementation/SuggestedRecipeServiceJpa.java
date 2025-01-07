@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class SuggestedRecipeServiceJpa implements SuggestedRecipeService {
@@ -52,6 +53,9 @@ public class SuggestedRecipeServiceJpa implements SuggestedRecipeService {
                 .filter(byProfile::contains)
                 .distinct().toList();
 
+        List<Recipe> test1 = Stream.concat(Stream.concat(byDiet.stream(), byIntAndAll.stream()), byProfile.stream())
+                .distinct().toList();
+
         return test;
     }
 
@@ -65,6 +69,5 @@ public class SuggestedRecipeServiceJpa implements SuggestedRecipeService {
         }
         return suggestedRecipeRepo.findByAvailablePantry(userId);
     }
-
 
 }

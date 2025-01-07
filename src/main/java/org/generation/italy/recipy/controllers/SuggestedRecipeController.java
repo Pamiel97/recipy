@@ -23,7 +23,7 @@ public class SuggestedRecipeController {
         this.suggestedRecipeService = suggestedRecipeService;
     }
 
-    @GetMapping("/diet-compatible/{id}") //TODO query not working as it should.....?
+    @GetMapping("/diet-compatible/{id}")
     public ResponseEntity<List<RecipeDto>> recipesOkToUserDietType(@PathVariable("id") long userId){
         List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserDietType(userId)
                 .stream().map(RecipeDto::fromRecipe).toList();
