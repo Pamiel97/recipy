@@ -11,4 +11,6 @@ import java.util.List;
 public interface RecipeRepositoryJPA extends JpaRepository<Recipe, Long> {
     List<Recipe> findByUserId(long userId);
     List<Recipe> findByUserEmail(String email);
+    @Query("SELECT r FROM Recipe r WHERE LOWER(r.title) LIKE LOWER(CONCAT('%', :title, '%'))")
+    List<Recipe> findByTitleContaining(@Param("title") String title);
 }

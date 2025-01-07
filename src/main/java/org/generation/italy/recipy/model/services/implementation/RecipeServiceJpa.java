@@ -120,4 +120,9 @@ public class RecipeServiceJpa implements RecipeService {
     public List<Recipe> findByUserEmail(String email) {
         return repo.findByUserEmail(email);
     }
+
+    @Override
+    public List<Recipe> findByTitleContainingIgnoreCase(String title) {
+        return repo.findByTitleContaining(title);
+    }
 }

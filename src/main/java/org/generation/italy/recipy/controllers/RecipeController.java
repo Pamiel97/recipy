@@ -115,4 +115,19 @@ public class RecipeController {
         }
     }
 
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("search/{title}")
+    public ResponseEntity<?> getRecipeByTitle(@PathVariable String title) {
+        try {
+            List<Recipe> recipes = recipeService.findByTitleContainingIgnoreCase(title);
+            if (recipes.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(recipes.stream().map(RecipeDto::fromRecipe).toList());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore interno del server");
+        }
+    }
+
 }
