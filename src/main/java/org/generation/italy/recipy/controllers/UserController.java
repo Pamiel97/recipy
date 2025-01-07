@@ -6,6 +6,7 @@ import org.generation.italy.recipy.model.entities.User;
 import org.generation.italy.recipy.model.services.abstraction.EatingRegimeService;
 import org.generation.italy.recipy.model.services.abstraction.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -21,13 +22,12 @@ public class UserController {
         this.eatingRegimeService = eatingRegimeService;
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody UserDetailDto userDetailDto){
-        User userFromDb = userService.findById(userDetailDto.getId()).orElse(null);
+    public ResponseEntity<?> createUser(@AuthenticationPrincipal User userAuth, @RequestBody UserDetailDto userDetailDto){
         EatingRegime eatingRegime = eatingRegimeService.findById(userDetailDto.getEatingRegimeId()).orElse(null);
-        if(userFromDb != null) {
-            User user = userDetailDto.toUser(userFromDb, eatingRegime);
+        if(userAuth != null) {
+            User user = userDetailDto.toUser(userAuth, eatingRegime);
 
             try{
                 User saved = userService.updateUser(user).orElse(null);
