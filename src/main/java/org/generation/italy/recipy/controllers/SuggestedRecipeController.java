@@ -23,7 +23,7 @@ public class SuggestedRecipeController {
         this.suggestedRecipeService = suggestedRecipeService;
     }
 
-    @GetMapping("/diet-compatible/{id}") // query not working as it should
+    @GetMapping("/diet-compatible/{id}") //TODO query not working as it should.....?
     public ResponseEntity<List<RecipeDto>> recipesOkToUserDietType(@PathVariable("id") long userId){
         List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserDietType(userId)
                 .stream().map(RecipeDto::fromRecipe).toList();
@@ -63,10 +63,21 @@ public class SuggestedRecipeController {
         return ResponseEntity.ok(recipes);
     }
 
+    @CrossOrigin
+    @GetMapping("/user")
+    public ResponseEntity<List<RecipeDto>> recipesOkToUser(@AuthenticationPrincipal User user){
+        List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUser(user.getId())
+                .stream().map(RecipeDto::fromRecipe).toList();
+        if (recipes.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(recipes);
+    }
+
 
 
     //mirko
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin
     @GetMapping("/recipes-by-pantries")
     public ResponseEntity<?> getRecipesByAvailablePantries(@AuthenticationPrincipal User user) {
         try {
@@ -76,5 +87,4 @@ public class SuggestedRecipeController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
 }

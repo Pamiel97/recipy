@@ -2,7 +2,6 @@ package org.generation.italy.recipy.model.services.implementation;
 
 import org.generation.italy.recipy.model.entities.Pantry;
 import org.generation.italy.recipy.model.entities.Recipe;
-import org.generation.italy.recipy.model.exceptions.EmptyListException;
 import org.generation.italy.recipy.model.repositories.SuggestedRecipeRepositoryJpa;
 import org.generation.italy.recipy.model.services.abstraction.PantryService;
 import org.generation.italy.recipy.model.services.abstraction.SuggestedRecipeService;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SuggestedRecipeServiceJpa implements SuggestedRecipeService {
@@ -39,6 +39,20 @@ public class SuggestedRecipeServiceJpa implements SuggestedRecipeService {
     @Override
     public List<Recipe> findRecipesForUserProfile(long userId) {
         return suggestedRecipeRepo.findRecipesForUserProfile(userId);
+    }
+
+    @Override
+    public List<Recipe> recipesOkToUser(long userId) {
+        List<Recipe> byDiet = suggestedRecipeRepo.recipesOkToUserDietType(userId);
+        List<Recipe> byIntAndAll = suggestedRecipeRepo.recipesOkToUserIntolerancesAndAllergies(userId);
+        List<Recipe> byProfile = suggestedRecipeRepo.findRecipesForUserProfile(userId);
+
+        List<Recipe> test = byDiet.stream()
+                .filter(byIntAndAll::contains)
+                .filter(byProfile::contains)
+                .distinct().toList();
+
+        return test;
     }
 
 
