@@ -33,16 +33,14 @@ public interface SuggestedRecipeRepositoryJpa extends JpaRepository<Recipe, Long
                 SELECT rs
                 FROM RecipeStep rs
                 WHERE rs.recipe = r
-                AND rs.ingredient.intolerance NOT IN (
+                AND rs.ingredient.intolerance IN (
                     SELECT intolerances
                     FROM User u
                     WHERE u.id = :userId
                 )
             )
             """)
-    List<Recipe> recipesOkToUserIntolerancesAndAllergies(@Param("userId") long userId); //TODO non funziona porcodio
-
-//    List<Recipe> recipesOkToUser(@Param("userId") long userId); //TODO
+    List<Recipe> recipesOkToUserIntolerancesAndAllergies(@Param("userId") long userId);
 
     @Query("""
             SELECT r

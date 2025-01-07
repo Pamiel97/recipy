@@ -10,10 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,7 +23,7 @@ public class SuggestedRecipeController {
         this.suggestedRecipeService = suggestedRecipeService;
     }
 
-    @GetMapping("/diet-compatible/{id}") // query not working as it should
+    @GetMapping("/diet-compatible/{id}") //TODO query not working as it should.....?
     public ResponseEntity<List<RecipeDto>> recipesOkToUserDietType(@PathVariable("id") long userId){
         List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserDietType(userId)
                 .stream().map(RecipeDto::fromRecipe).toList();
@@ -66,10 +63,21 @@ public class SuggestedRecipeController {
         return ResponseEntity.ok(recipes);
     }
 
+    @CrossOrigin
+    @GetMapping("/user")
+    public ResponseEntity<List<RecipeDto>> recipesOkToUser(@AuthenticationPrincipal User user){
+        List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUser(user.getId())
+                .stream().map(RecipeDto::fromRecipe).toList();
+        if (recipes.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(recipes);
+    }
+
 
 
     //mirko
-
+    @CrossOrigin
     @GetMapping("/recipes-by-pantries")
     public ResponseEntity<?> getRecipesByAvailablePantries(@AuthenticationPrincipal User user) {
         try {

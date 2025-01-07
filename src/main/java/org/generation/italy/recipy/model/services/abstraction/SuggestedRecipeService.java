@@ -12,6 +12,7 @@ public interface SuggestedRecipeService {
     List<Recipe> findAllRecipesShorterThan(int minutes);
     List<Recipe> recipesOkToUserIntolerancesAndAllergies( long userId);
     List<Recipe> findRecipesForUserProfile(long userId);
+    List<Recipe> recipesOkToUser(long userId);
 
     //mirko
     List<Recipe> findRecipesByAvailablePantries(long userId) throws EmptyListException;
