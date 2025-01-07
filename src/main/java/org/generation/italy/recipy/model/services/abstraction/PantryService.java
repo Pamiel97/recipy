@@ -15,4 +15,5 @@ public interface PantryService {
     List<Pantry> findPantriesByIngredientIdAndUserId(Long ingredientId, long userId);
 
     List<Pantry> findPantriesByUserId(long userId);
+
 }

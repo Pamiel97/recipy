@@ -50,6 +50,7 @@ public class SuggestedRecipeServiceJpa implements SuggestedRecipeService {
             return new ArrayList<>();
         }
         return suggestedRecipeRepo.findByAvailablePantry(userId);
-
     }
+
+
 }
