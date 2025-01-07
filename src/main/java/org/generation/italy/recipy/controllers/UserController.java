@@ -5,7 +5,6 @@ import org.generation.italy.recipy.model.entities.EatingRegime;
 import org.generation.italy.recipy.model.entities.User;
 import org.generation.italy.recipy.model.services.abstraction.EatingRegimeService;
 import org.generation.italy.recipy.model.services.abstraction.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

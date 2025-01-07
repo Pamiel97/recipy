@@ -1,5 +1,6 @@
 package org.generation.italy.recipy.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -35,6 +36,7 @@ public class User implements UserDetails {
     private Role role;
     @ManyToOne
     @JoinColumn(name = "eating_regime_id")
+
     private EatingRegime eatingRegime;
     @OneToMany(mappedBy = "user")
     private List<Review> review = new ArrayList<>();

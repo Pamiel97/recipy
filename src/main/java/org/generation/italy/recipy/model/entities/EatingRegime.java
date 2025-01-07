@@ -1,5 +1,6 @@
 package org.generation.italy.recipy.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class EatingRegime {
     private String name;
     private String description;
     @ManyToMany(mappedBy = "eatingRegimes")
+    @JsonIgnore
     private List<IngredientCategory> ingredientCategories = new ArrayList<>();
 
     public EatingRegime(){}
