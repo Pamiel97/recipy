@@ -23,9 +23,9 @@ public class SuggestedRecipeController {
         this.suggestedRecipeService = suggestedRecipeService;
     }
 
-    @GetMapping("/diet-compatible/{id}")
-    public ResponseEntity<List<RecipeDto>> recipesOkToUserDietType(@PathVariable("id") long userId){
-        List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserDietType(userId)
+    @GetMapping("/diet-compatible")
+    public ResponseEntity<List<RecipeDto>> recipesOkToUserDietType(@AuthenticationPrincipal User user){
+        List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserDietType(user.getId())
                 .stream().map(RecipeDto::fromRecipe).toList();
         if (recipes.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -43,9 +43,9 @@ public class SuggestedRecipeController {
         return ResponseEntity.ok(recipes);
     }
 
-    @GetMapping("/difficulty/{id}")
-    public ResponseEntity<List<RecipeDto>> findRecipesForUserProfile(@PathVariable("id") long userId) {
-        List<RecipeDto> recipes = suggestedRecipeService.findRecipesForUserProfile(userId)
+    @GetMapping("/difficulty")
+    public ResponseEntity<List<RecipeDto>> findRecipesForUserProfile(@AuthenticationPrincipal User user) {
+        List<RecipeDto> recipes = suggestedRecipeService.findRecipesForUserProfile(user.getId())
                 .stream().map(RecipeDto::fromRecipe).toList();
         if (recipes.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -53,9 +53,9 @@ public class SuggestedRecipeController {
         return ResponseEntity.ok(recipes);
     }
 
-    @GetMapping("/allergies-intolerances/{id}")
-    public ResponseEntity<List<RecipeDto>> recipesOkToUserIntolerancesAndAllergies(@PathVariable("id") long userId){
-        List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserIntolerancesAndAllergies(userId)
+    @GetMapping("/allergies-intolerances")
+    public ResponseEntity<List<RecipeDto>> recipesOkToUserIntolerancesAndAllergies(@AuthenticationPrincipal User user){
+        List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserIntolerancesAndAllergies(user.getId())
                 .stream().map(RecipeDto::fromRecipe).toList();
         if (recipes.isEmpty()){
             return ResponseEntity.notFound().build();
