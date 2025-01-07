@@ -9,4 +9,5 @@ import java.util.List;
 public interface PantryRepositoryJPA extends JpaRepository<Pantry, Long> {
     List<Pantry> findByIngredientIdAndUserId(long ingredientId, long userId);
     List<Pantry> findByUserId(long userId);
+//    List<Pantry> findByUserEmail(String email);
 }

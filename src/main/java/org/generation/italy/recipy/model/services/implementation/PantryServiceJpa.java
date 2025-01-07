@@ -68,4 +68,5 @@ public class PantryServiceJpa implements PantryService {
     public List<Pantry> findPantriesByUserId(long userId) {
         return pantryRepo.findByUserId(userId);
     }
+
 }

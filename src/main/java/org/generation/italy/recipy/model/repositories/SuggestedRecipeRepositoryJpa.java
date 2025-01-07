@@ -101,4 +101,5 @@ public interface SuggestedRecipeRepositoryJpa extends JpaRepository<Recipe, Long
             WHERE p.user.id = :userId ) )
             """)
     List<Recipe> findByAvailablePantry(@Param("userId") long userId);
+
 }
