@@ -153,7 +153,7 @@ public class RecipeController {
 
     @GetMapping("/banana")
     public ResponseEntity<Page<RecipeDto>> getRecipes(@RequestParam(defaultValue = "0") int page,
-                                                   @RequestParam(defaultValue = "10") int size) {
+                                                   @RequestParam(defaultValue = "8") int size) {
         Page<RecipeDto> recipesPage = recipeService.getRecipes(page, size).map(RecipeDto::fromRecipe);
         return ResponseEntity.ok(recipesPage);
     }
