@@ -2,6 +2,8 @@ package org.generation.italy.recipy.model.repositories;
 
 
 import org.generation.italy.recipy.model.entities.Recipe;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,4 +15,7 @@ public interface RecipeRepositoryJPA extends JpaRepository<Recipe, Long> {
     List<Recipe> findByUserEmail(String email);
     @Query("SELECT r FROM Recipe r WHERE LOWER(r.title) LIKE LOWER(CONCAT('%', :title, '%'))")
     List<Recipe> findByTitleContaining(@Param("title") String title);
+
+
+    Page<Recipe> findAll(Pageable pageable);
 }

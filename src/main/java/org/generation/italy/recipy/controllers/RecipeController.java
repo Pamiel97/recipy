@@ -10,6 +10,7 @@ import org.generation.italy.recipy.model.services.abstraction.RecipeStepService;
 import org.generation.italy.recipy.model.services.implementation.IngredientServiceJpa;
 import org.generation.italy.recipy.model.services.implementation.RecipeServiceJpa;
 import org.generation.italy.recipy.model.services.implementation.RecipeStepServiceJpa;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -89,7 +90,6 @@ public class RecipeController {
         }
     }
 
-
     @GetMapping("/user/email/{email}")
     public ResponseEntity<List<RecipeDto>> getRecipesByUserEmail(@PathVariable String email) {
         try {
@@ -103,7 +103,6 @@ public class RecipeController {
         }
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<RecipeDto> getRecipeById(@PathVariable long id) {
         try {
@@ -114,7 +113,6 @@ public class RecipeController {
             return ResponseEntity.notFound().build();
         }
     }
-
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("search/{title}")
@@ -153,4 +151,10 @@ public class RecipeController {
 
 
 
+    @GetMapping("/banana")
+    public ResponseEntity<Page<RecipeDto>> getRecipes(@RequestParam(defaultValue = "0") int page,
+                                                   @RequestParam(defaultValue = "10") int size) {
+        Page<RecipeDto> recipesPage = recipeService.getRecipes(page, size).map(RecipeDto::fromRecipe);
+        return ResponseEntity.ok(recipesPage);
+    }
 }
