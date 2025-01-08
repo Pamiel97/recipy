@@ -10,6 +10,9 @@ import org.generation.italy.recipy.model.repositories.RecipeRepositoryJPA;
 import org.generation.italy.recipy.model.repositories.RecipeStepRepositoryJPA;
 import org.generation.italy.recipy.model.repositories.UserRepositoryJPA;
 import org.generation.italy.recipy.model.services.abstraction.RecipeService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -124,5 +127,11 @@ public class RecipeServiceJpa implements RecipeService {
     @Override
     public List<Recipe> findByTitleContainingIgnoreCase(String title) {
         return repo.findByTitleContaining(title);
+    }
+
+    @Override
+    public Page<Recipe> getRecipes(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return repo.findAll(pageable);
     }
 }
