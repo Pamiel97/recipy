@@ -45,6 +45,20 @@ public class UserController {
         return ResponseEntity.notFound().build();
 
     }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping
+    public ResponseEntity<?> getProfile(@AuthenticationPrincipal User userAuth){
+        User profile = userService.findById(userAuth.getId()).orElse(null);
+        if (profile != null) {
+            UserDetailDto userDetailDto = UserDetailDto.fromUser(profile);
+            return ResponseEntity.ok(userDetailDto);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
 }
 
 
