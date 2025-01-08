@@ -130,4 +130,27 @@ public class RecipeController {
         }
     }
 
+
+    @GetMapping("/user/recipes")
+    public ResponseEntity<List<RecipeDto>> getRecipesByAuthenticatedUser(@AuthenticationPrincipal User user) {
+        try {
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+            long userId = user.getId();
+            List<Recipe> recipes = recipeService.findAllByUserId(userId);
+            if (recipes.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            List<RecipeDto> recipeDtos = recipes.stream()
+                    .map(RecipeDto::fromRecipe)
+                    .toList();
+            return ResponseEntity.ok(recipeDtos);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+
+
 }

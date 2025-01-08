@@ -30,6 +30,7 @@ public class PantryController {
         this.userService = userService;
     }
 
+    @CrossOrigin
     @GetMapping
     public ResponseEntity<?> getAllPantries(@RequestParam (required = false) Long ingredientId, @AuthenticationPrincipal User user) {
         List<Pantry> pantries = null;
@@ -41,7 +42,7 @@ public class PantryController {
         return ResponseEntity.ok(pantries.stream().map(PantryDto::fromPantry).toList());
 
     }
-
+    @CrossOrigin
     @PostMapping
     public ResponseEntity<?> createPantry(@RequestBody PantryDto pantryDto, @AuthenticationPrincipal User user, UriComponentsBuilder uriBuilder) {
         long userId = user.getId();
@@ -54,7 +55,7 @@ public class PantryController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    @CrossOrigin
     @PutMapping("/{id}")
     public ResponseEntity<?> updatePantry(@PathVariable long id, @RequestBody PantryDto pantryDto, @AuthenticationPrincipal User user) {
         if(id != pantryDto.getId()) {
@@ -69,7 +70,7 @@ public class PantryController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePantry(@PathVariable long id) {
         Optional<Pantry> pantry = pantryService.findPantryByIngredientId(id);

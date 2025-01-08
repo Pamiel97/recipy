@@ -23,6 +23,7 @@ public class SuggestedRecipeController {
         this.suggestedRecipeService = suggestedRecipeService;
     }
 
+    @CrossOrigin
     @GetMapping("/diet-compatible")
     public ResponseEntity<List<RecipeDto>> recipesOkToUserDietType(@AuthenticationPrincipal User user){
         List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserDietType(user.getId())
@@ -33,6 +34,7 @@ public class SuggestedRecipeController {
         return ResponseEntity.ok(recipes);
     }
 
+    @CrossOrigin
     @GetMapping("/shorter-than/{minutes}")
     public ResponseEntity<List<RecipeDto>> findAllRecipesShorterThan(@PathVariable int minutes){
         List<RecipeDto> recipes = suggestedRecipeService.findAllRecipesShorterThan(minutes)
@@ -43,6 +45,7 @@ public class SuggestedRecipeController {
         return ResponseEntity.ok(recipes);
     }
 
+    @CrossOrigin
     @GetMapping("/difficulty")
     public ResponseEntity<List<RecipeDto>> findRecipesForUserProfile(@AuthenticationPrincipal User user) {
         List<RecipeDto> recipes = suggestedRecipeService.findRecipesForUserProfile(user.getId())
@@ -53,6 +56,7 @@ public class SuggestedRecipeController {
         return ResponseEntity.ok(recipes);
     }
 
+    @CrossOrigin
     @GetMapping("/allergies-intolerances")
     public ResponseEntity<List<RecipeDto>> recipesOkToUserIntolerancesAndAllergies(@AuthenticationPrincipal User user){
         List<RecipeDto> recipes = suggestedRecipeService.recipesOkToUserIntolerancesAndAllergies(user.getId())
