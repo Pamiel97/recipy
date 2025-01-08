@@ -1,5 +1,6 @@
 package org.generation.italy.recipy.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.generation.italy.recipy.model.entities.Pantry;
 
 import java.time.LocalDate;
@@ -80,6 +81,7 @@ public class PantryDto {
     public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
+    @JsonIgnore
     public UserDto getUser() {
         return user;
     }

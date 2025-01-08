@@ -1,5 +1,6 @@
 package org.generation.italy.recipy.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -66,17 +67,18 @@ public class Pantry {
     public void setExpirationDate(LocalDate expirationDate) {
         this.expirationDate = expirationDate;
     }
+    @JsonIgnore
     public User getUser() {
         return user;
     }
     public void setUser(User user) {
         this.user = user;
     }
+    @JsonIgnore
     public Ingredient getIngredient() {
         return ingredient;
     }
     public void setIngredient(Ingredient ingredient) {
         this.ingredient = ingredient;
     }
-
 }

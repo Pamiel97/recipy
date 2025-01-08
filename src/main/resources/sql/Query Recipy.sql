@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS public.users
     height real,
     bfp real,
     lbmp real,
-    pal character varying(64),
+    pal character varying(64) DEFAULT 'sedentario',
     img_url character varying(64),
     role character varying(32),
     eating_regime_id bigint DEFAULT 5,
