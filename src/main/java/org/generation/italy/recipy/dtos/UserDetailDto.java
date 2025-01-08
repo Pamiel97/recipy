@@ -64,10 +64,10 @@ public class UserDetailDto {
         user.setEmail(userFromDb.getEmail());
         user.setFirstname(userFromDb.getFirstname());
         user.setLastname(userFromDb.getLastname());
-        user.setProfile(Profile.valueOf(this.profile));
+        user.setProfile(userFromDb.getProfile());
         user.setPal(Pal.valueOf(this.pal));
         user.setImgUrl(this.imgUrl);
-        user.setRole(Role.valueOf(this.role));
+        user.setRole(userFromDb.getRole());
         user.setWeight(this.weight);
         user.setHeight(this.height);
         user.setBfp(this.bfp);
