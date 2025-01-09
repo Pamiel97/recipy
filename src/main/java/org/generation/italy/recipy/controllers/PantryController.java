@@ -32,16 +32,25 @@ public class PantryController {
 
     @CrossOrigin
     @GetMapping
-    public ResponseEntity<?> getAllPantries(@RequestParam (required = false) Long ingredientId, @AuthenticationPrincipal User user) {
+    public ResponseEntity<?> getAllPantries(@RequestParam (required = false) Long ingredientId,
+                                            @AuthenticationPrincipal User user) {
         List<Pantry> pantries = null;
         if(ingredientId != null) {
             pantries = pantryService.findPantriesByIngredientIdAndUserId(ingredientId, user.getId());
-        } else {
+        }else {
             pantries = pantryService.findPantriesByUserId(user.getId());
         }
         return ResponseEntity.ok(pantries.stream().map(PantryDto::fromPantry).toList());
 
     }
+
+    @CrossOrigin
+    @GetMapping("/{id}")
+    public ResponseEntity<PantryDto> getPantryById(@PathVariable long id, @AuthenticationPrincipal User user){
+        Pantry pantry = pantryService.findPantryByIdAndUserId(id, user.getId());
+        return ResponseEntity.ok(PantryDto.fromPantry(pantry));
+    }
+
     @CrossOrigin
     @PostMapping
     public ResponseEntity<?> createPantry(@RequestBody PantryDto pantryDto, @AuthenticationPrincipal User user, UriComponentsBuilder uriBuilder) {
@@ -73,7 +82,7 @@ public class PantryController {
     @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePantry(@PathVariable long id) {
-        Optional<Pantry> pantry = pantryService.findPantryByIngredientId(id);
+        Optional<Pantry> pantry = pantryService.findPantryById(id);
         if(pantry.isEmpty()) {
             return ResponseEntity.badRequest().body("Pantry non trovata");
         }
