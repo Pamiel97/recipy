@@ -92,6 +92,5 @@ public class PantryController {
         } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-
     }
 }
