@@ -53,7 +53,7 @@ public class IngredientController {
     @CrossOrigin
     @GetMapping("/all")
     public ResponseEntity<Page<IngredientDto>> getPaginatedIngredients(@RequestParam (defaultValue = "1") int page,
-                                                                       @RequestParam (defaultValue = "8") int size) {
+                                                                       @RequestParam (defaultValue = "16") int size) {
         Page<Ingredient> allIngredients = ingredientService.findAllIngredientImpaginated(page, size);
         return ResponseEntity.ok(allIngredients.map(IngredientDto::fromIngredient));
     }
