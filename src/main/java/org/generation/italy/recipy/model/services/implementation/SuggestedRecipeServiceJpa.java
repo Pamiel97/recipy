@@ -48,23 +48,36 @@ public class SuggestedRecipeServiceJpa implements SuggestedRecipeService {
         List<Recipe> byIntAndAll = suggestedRecipeRepo.recipesOkToUserIntolerancesAndAllergies(userId);
         List<Recipe> byProfile = suggestedRecipeRepo.findRecipesForUserProfile(userId);
 
-        List<Recipe> test = byDiet.stream()
+        List<Recipe> recipes1 = byDiet.stream()
                 .filter(byIntAndAll::contains)
                 .filter(byProfile::contains)
                 .distinct().toList();
-
-        List<Recipe> test1 = Stream.concat(Stream.concat(byDiet.stream(), byIntAndAll.stream()), byProfile.stream())
+        List<Recipe> recipes2 = Stream.concat(Stream.concat(byDiet.stream(), byIntAndAll.stream()), byProfile.stream())
                 .distinct().toList();
 
-        return test;
+        List<Recipe> recipes;
+        if (recipes1.size() >= 4) {
+            recipes = recipes1;
+        } else {
+            recipes = new ArrayList<>(recipes1);
+            for (Recipe recipe : recipes2) {
+                if (!recipes.contains(recipe)) {
+                    recipes.add(recipe);
+                }
+                if (recipes.size() >= 4) {
+                    break;
+                }
+            }
+        }
+        return recipes;
     }
 
 
     //mirko
     @Override
-    public List<Recipe> findRecipesByAvailablePantries(long userId){
+    public List<Recipe> findRecipesByAvailablePantries(long userId) {
         List<Pantry> pantries = pantryService.findPantriesByUserId(userId);
-        if(pantries.isEmpty()) {
+        if (pantries.isEmpty()) {
             return new ArrayList<>();
         }
         return suggestedRecipeRepo.findByAvailablePantry(userId);

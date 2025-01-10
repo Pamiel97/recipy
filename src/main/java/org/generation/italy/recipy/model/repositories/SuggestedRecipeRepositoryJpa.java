@@ -45,15 +45,19 @@ public interface SuggestedRecipeRepositoryJpa extends JpaRepository<Recipe, Long
     @Query("""
             SELECT r
             FROM Recipe r
-            JOIN User u ON r.user.id = u.id
-            WHERE u.id = :userId
-            AND (
-                (u.profile = 'chef' AND r.difficulty = 'difficile')
-                OR (u.profile = 'dietologo' AND r.difficulty IN ('medio', 'facile'))
-                OR (u.profile = 'altro' AND r.difficulty IN ('medio', 'facile'))
-                OR (u.profile = 'utente_base' AND r.difficulty = 'facile')
+            WHERE (
+                (SELECT u.profile FROM User u WHERE u.id = :userId) = 'chef' AND r.difficulty = 'difficile'
             )
-            """)
+            OR (
+                (SELECT u.profile FROM User u WHERE u.id = :userId) = 'dietologo' AND r.difficulty IN ('medio', 'facile')
+            )
+            OR (
+                (SELECT u.profile FROM User u WHERE u.id = :userId) = 'altro' AND r.difficulty IN ('medio', 'facile')
+            )
+            OR (
+                (SELECT u.profile FROM User u WHERE u.id = :userId) = 'utente_base' AND r.difficulty = 'facile'
+            )
+    """)
     List<Recipe> findRecipesForUserProfile(@Param("userId") long userId);
 
     @Query("""

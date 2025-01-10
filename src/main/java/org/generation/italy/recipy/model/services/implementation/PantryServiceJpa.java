@@ -8,7 +8,6 @@ import org.generation.italy.recipy.model.repositories.IngredientRepositoryJPA;
 import org.generation.italy.recipy.model.repositories.PantryRepositoryJPA;
 import org.generation.italy.recipy.model.repositories.UserRepositoryJPA;
 import org.generation.italy.recipy.model.services.abstraction.PantryService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,13 +45,13 @@ public class PantryServiceJpa implements PantryService {
     }
 
     @Override
-    public Optional<Pantry> findPantryByIngredientId(long id) {
+    public Optional<Pantry> findPantryById(long id) {
         return pantryRepo.findById(id);
     }
 
     @Override
     public void delete(long id) throws EntityNotFoundException {
-        Optional<Pantry> optPantry = findPantryByIngredientId(id);
+        Optional<Pantry> optPantry = findPantryById(id);
         if(optPantry.isEmpty()) {
             throw new EntityNotFoundException(String.format("Pantry con id %d non trovata!", id));
         }
@@ -67,6 +66,24 @@ public class PantryServiceJpa implements PantryService {
     @Override
     public List<Pantry> findPantriesByUserId(long userId) {
         return pantryRepo.findByUserId(userId);
+    }
+
+    @Override
+    public Pantry findPantryByIdAndUserId(Long pantryId, long userId) {
+//        Optional<Pantry> pantry = pantryRepo.findById(pantryId);
+//        if (pantry.isEmpty()) {
+//            throw new EntityNotFoundException(String.format("Pantry con id %d non trovata", pantryId);
+//        }
+//
+//        Optional<User> ou = userRepo.findById(userId);
+//        if(ou.isEmpty()){
+//            throw new EntityNotFoundException(String.format("Utente con id %d non trovato!", userId));
+//        }
+//        pantry.get().setUser(ou.get());
+//
+//        return pantryRepo.save(pantry.get());
+
+        return pantryRepo.findByIdAndUserId(pantryId, userId);
     }
 
 }
