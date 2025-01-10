@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -26,8 +27,10 @@ public class User implements UserDetails {
     private Profile profile;
     private double weight;
     private double height;
-    private double bfp;
-    private double lbmp;
+    @Column(name = "bfp", precision = 3, scale = 2)
+    private BigDecimal bfp;
+    @Column(name = "lbmp", precision = 3, scale = 2)
+    private BigDecimal lbmp;
     @Enumerated(EnumType.STRING)
     private Pal pal;
     @Column(name = "img_url")
@@ -122,16 +125,16 @@ public class User implements UserDetails {
     public void setHeight(double height) {
         this.height = height;
     }
-    public double getBfp() {
+    public BigDecimal getBfp() {
         return bfp;
     }
-    public void setBfp(double bfp) {
+    public void setBfp(BigDecimal bfp) {
         this.bfp = bfp;
     }
-    public double getLbmp() {
+    public BigDecimal getLbmp() {
         return lbmp;
     }
-    public void setLbmp(double lbmp) {
+    public void setLbmp(BigDecimal lbmp) {
         this.lbmp = lbmp;
     }
     public Pal getPal() {

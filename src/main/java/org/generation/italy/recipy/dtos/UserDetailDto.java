@@ -2,12 +2,14 @@ package org.generation.italy.recipy.dtos;
 
 import org.generation.italy.recipy.model.entities.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class UserDetailDto {
     private long id, eatingRegimeId;
     private String firstname, lastname, email, profile, pal, imgUrl, role;
-    private double weight, height, bfp, lbmp;
+    private double weight, height;
+    private BigDecimal bfp, lbmp;
     private Character sex;
     private List<AllergyDto> allergies;
     private List<IntoleranceDto> intolerances;
@@ -15,8 +17,8 @@ public class UserDetailDto {
     public UserDetailDto() {}
 
     public UserDetailDto(long id, String firstname, String lastname, String email, String profile, String pal,
-                         String imgUrl, String role, long eatingRegimeId, double weight, double height, double bfp,
-                         double lbmp, Character sex, List<AllergyDto> allergies, List<IntoleranceDto> intolerances) {
+                         String imgUrl, String role, long eatingRegimeId, double weight, double height, BigDecimal bfp,
+                         BigDecimal lbmp, Character sex, List<AllergyDto> allergies, List<IntoleranceDto> intolerances) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -137,16 +139,16 @@ public class UserDetailDto {
     public void setHeight(double height) {
         this.height = height;
     }
-    public double getBfp() {
+    public BigDecimal getBfp() {
         return bfp;
     }
-    public void setBfp(double bfp) {
+    public void setBfp(BigDecimal bfp) {
         this.bfp = bfp;
     }
-    public double getLbmp() {
+    public BigDecimal getLbmp() {
         return lbmp;
     }
-    public void setLbmp(double lbmp) {
+    public void setLbmp(BigDecimal lbmp) {
         this.lbmp = lbmp;
     }
     public Character getSex() {
