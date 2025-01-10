@@ -2,15 +2,18 @@ package org.generation.italy.recipy.dtos;
 
 import org.generation.italy.recipy.model.entities.*;
 
+import java.math.BigDecimal;
+
 public class IngredientDto {
     private long id;
     private String name, imgUrl, allergy, intolerance;
-    private double kcal, carbs, prots, fats, weight, price;
+    private BigDecimal kcal, carbs, prots, fats, weight, price;
     private String ingredientCategory;
     public IngredientDto() {}
 
-    public IngredientDto(long id, String name, double kcal, double carbs, double prots, double fats, double weight,
-                         double price, String imgUrl, String allergy, String intolerance, String ingredientCategory) {
+    public IngredientDto(long id, String name, BigDecimal kcal, BigDecimal carbs, BigDecimal prots, BigDecimal fats,
+                         BigDecimal weight, BigDecimal price, String imgUrl, String allergy, String intolerance,
+                         String ingredientCategory) {
         this.id = id;
         this.name = name;
         this.kcal = kcal;
@@ -99,40 +102,40 @@ public class IngredientDto {
     public void setIntolerance(String intolerance) {
         this.intolerance = intolerance;
     }
-    public double getKcal() {
+    public BigDecimal getKcal() {
         return kcal;
     }
-    public void setKcal(double kcal) {
+    public void setKcal(BigDecimal kcal) {
         this.kcal = kcal;
     }
-    public double getCarbs() {
+    public BigDecimal getCarbs() {
         return carbs;
     }
-    public void setCarbs(double carbs) {
+    public void setCarbs(BigDecimal carbs) {
         this.carbs = carbs;
     }
-    public double getProts() {
+    public BigDecimal getProts() {
         return prots;
     }
-    public void setProts(double prots) {
+    public void setProts(BigDecimal prots) {
         this.prots = prots;
     }
-    public double getFats() {
+    public BigDecimal getFats() {
         return fats;
     }
-    public void setFats(double fats) {
+    public void setFats(BigDecimal fats) {
         this.fats = fats;
     }
-    public double getWeight() {
+    public BigDecimal getWeight() {
         return weight;
     }
-    public void setWeight(double weight) {
+    public void setWeight(BigDecimal weight) {
         this.weight = weight;
     }
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
     public String getIngredientCategory() {
