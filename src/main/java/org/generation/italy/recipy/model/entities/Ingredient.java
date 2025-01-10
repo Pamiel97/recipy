@@ -2,6 +2,7 @@ package org.generation.italy.recipy.model.entities;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,18 +13,18 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    @Column(name = "kcal_per_gram")
-    private double kcal;
-    @Column(name = "carbohydrates_per_gram")
-    private double carbohydrates;
-    @Column(name = "proteins_per_gram")
-    private double proteins;
-    @Column(name = "fats_per_gram")
-    private double fats;
-    @Column(name = "avg_weight")
-    private double avgWeight;
-    @Column(name = "avg_price")
-    private double avgPrice;
+    @Column(name = "kcal_per_gram", precision = 10, scale = 2)
+    private BigDecimal kcal;
+    @Column(name = "carbohydrates_per_gram", precision = 10, scale = 2)
+    private BigDecimal carbohydrates;
+    @Column(name = "proteins_per_gram", precision = 10, scale = 2)
+    private BigDecimal proteins;
+    @Column(name = "fats_per_gram", precision = 10, scale = 2)
+    private BigDecimal fats;
+    @Column(name = "avg_weight", precision = 10, scale = 2)
+    private BigDecimal avgWeight;
+    @Column(name = "avg_price", precision = 10, scale = 2)
+    private BigDecimal avgPrice;
     @Column(name = "img_url")
     private String imgUrl;
     @ManyToOne
@@ -42,9 +43,9 @@ public class Ingredient {
     public Ingredient(long id){
         this.id =id;
     }
-    public Ingredient(long id, String name, double kcal, double carbohydrates, double proteins, double fats,
-                      double avgWeight, double avgPrice, String imgUrl, Allergy allergy, Intolerance intolerance,
-                      IngredientCategory ingredientCategory, List<Pantry> pantries) {
+    public Ingredient(long id, String name, BigDecimal kcal, BigDecimal carbohydrates, BigDecimal proteins,
+                      BigDecimal fats, BigDecimal avgWeight, BigDecimal avgPrice, String imgUrl, Allergy allergy,
+                      Intolerance intolerance, IngredientCategory ingredientCategory, List<Pantry> pantries) {
         this.id = id;
         this.name = name;
         this.kcal = kcal;
@@ -72,40 +73,40 @@ public class Ingredient {
     public void setName(String name) {
         this.name = name;
     }
-    public double getKcal() {
+    public BigDecimal getKcal() {
         return kcal;
     }
-    public void setKcal(double kcal) {
+    public void setKcal(BigDecimal kcal) {
         this.kcal = kcal;
     }
-    public double getCarbohydrates() {
+    public BigDecimal getCarbohydrates() {
         return carbohydrates;
     }
-    public void setCarbohydrates(double carbohydrates) {
+    public void setCarbohydrates(BigDecimal carbohydrates) {
         this.carbohydrates = carbohydrates;
     }
-    public double getProteins() {
+    public BigDecimal getProteins() {
         return proteins;
     }
-    public void setProteins(double proteins) {
+    public void setProteins(BigDecimal proteins) {
         this.proteins = proteins;
     }
-    public double getFats() {
+    public BigDecimal getFats() {
         return fats;
     }
-    public void setFats(double fats) {
+    public void setFats(BigDecimal fats) {
         this.fats = fats;
     }
-    public double getAvgWeight() {
+    public BigDecimal getAvgWeight() {
         return avgWeight;
     }
-    public void setAvgWeight(double avgWeight) {
+    public void setAvgWeight(BigDecimal avgWeight) {
         this.avgWeight = avgWeight;
     }
-    public double getAvgPrice() {
+    public BigDecimal getAvgPrice() {
         return avgPrice;
     }
-    public void setAvgPrice(double avgPrice) {
+    public void setAvgPrice(BigDecimal avgPrice) {
         this.avgPrice = avgPrice;
     }
     public String getImgUrl() {
