@@ -9,11 +9,12 @@ import java.util.Optional;
 public interface PantryService {
     List<Pantry> findAllAvailableIngredients();
     Pantry savePantry(Pantry pantry, long userId, long ingredientId) throws EntityNotFoundException;
-    Optional<Pantry> findPantryByIngredientId(long id);
+    Optional<Pantry> findPantryById(long id);
     void delete(long id) throws EntityNotFoundException;
 
     List<Pantry> findPantriesByIngredientIdAndUserId(Long ingredientId, long userId);
 
     List<Pantry> findPantriesByUserId(long userId);
 
+    Pantry findPantryByIdAndUserId(Long pantryId, long userId);
 }

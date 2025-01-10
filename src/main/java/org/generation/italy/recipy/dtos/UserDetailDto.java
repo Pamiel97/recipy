@@ -1,22 +1,28 @@
 package org.generation.italy.recipy.dtos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.generation.italy.recipy.model.entities.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
 public class UserDetailDto {
     private long id, eatingRegimeId;
     private String firstname, lastname, email, profile, pal, imgUrl, role;
+    @JsonProperty
+    private String password;
     private double weight, height, bfp, lbmp;
     private Character sex;
     private List<AllergyDto> allergies;
     private List<IntoleranceDto> intolerances;
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public UserDetailDto() {}
 
     public UserDetailDto(long id, String firstname, String lastname, String email, String profile, String pal,
                          String imgUrl, String role, long eatingRegimeId, double weight, double height, double bfp,
-                         double lbmp, Character sex, List<AllergyDto> allergies, List<IntoleranceDto> intolerances) {
+                         double lbmp, Character sex, List<AllergyDto> allergies, List<IntoleranceDto> intolerances, String password) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -33,6 +39,7 @@ public class UserDetailDto {
         this.sex = sex;
         this.allergies = allergies;
         this.intolerances = intolerances;
+        this.password = password;
     }
 
     public static UserDetailDto fromUser(User user){
@@ -52,8 +59,9 @@ public class UserDetailDto {
                 user.getLbmp(),
                 user.getSex(),
                 user.getAllergies().stream().map(AllergyDto::fromAllergy).toList(),
-                user.getIntolerances().stream().map(IntoleranceDto::fromIntolerance).toList()
-                );
+                user.getIntolerances().stream().map(IntoleranceDto::fromIntolerance).toList(),
+                "**********"
+        );
     }
 
     public User toUser(User userFromDb, EatingRegime eatingRegime){
@@ -61,10 +69,10 @@ public class UserDetailDto {
 
         user.setId(userFromDb.getId());
         user.setPassword(userFromDb.getPassword());
-        user.setEmail(userFromDb.getEmail());
-        user.setFirstname(userFromDb.getFirstname());
-        user.setLastname(userFromDb.getLastname());
-        user.setProfile(userFromDb.getProfile());
+        user.setEmail(this.email);
+        user.setFirstname(this.firstname);
+        user.setLastname(this.lastname);
+        user.setProfile(Profile.valueOf(this.profile));
         user.setPal(Pal.valueOf(this.pal));
         user.setImgUrl(this.imgUrl);
         user.setRole(userFromDb.getRole());
@@ -74,6 +82,7 @@ public class UserDetailDto {
         user.setLbmp(this.lbmp);
         user.setSex(this.sex);
         user.setEatingRegime(eatingRegime);
+        user.setPassword(passwordEncoder.encode(this.password));
         return user;
     }
 
