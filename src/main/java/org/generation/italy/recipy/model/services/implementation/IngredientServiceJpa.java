@@ -7,6 +7,10 @@ import org.generation.italy.recipy.model.repositories.AllergyRepositoryJpa;
 import org.generation.italy.recipy.model.repositories.IngredientRepositoryJPA;
 import org.generation.italy.recipy.model.repositories.IntoleranceRepositoryJpa;
 import org.generation.italy.recipy.model.services.abstraction.IngredientService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,6 +44,12 @@ public class IngredientServiceJpa implements IngredientService {
     @Override
     public List<Ingredient> findAllIngredient() {
         return repo.findAll();
+    }
+
+    @Override
+    public Page<Ingredient> findAllIngredientImpaginated(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.asc("name")));
+        return repo.findAll(pageable);
     }
 
 
