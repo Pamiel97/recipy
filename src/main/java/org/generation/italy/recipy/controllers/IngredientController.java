@@ -30,7 +30,10 @@ public class IngredientController {
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public ResponseEntity<List<IngredientDto>> getAllIngredients(){
-        List<Ingredient> allIngredient = ingredientService.findAllIngredient().stream().sorted(Comparator.comparing(i -> i.getName())).toList();
+        List<Ingredient> allIngredient = ingredientService.findAllIngredient()
+                                                          .stream()
+                                                          .sorted(Comparator.comparing(i -> i.getName()))
+                                                          .toList();
         return ResponseEntity.ok(allIngredient.stream().map(IngredientDto::fromIngredient).toList());
     }
 
