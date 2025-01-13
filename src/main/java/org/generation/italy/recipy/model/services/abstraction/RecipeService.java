@@ -17,5 +17,6 @@ public interface RecipeService {
     List<Recipe> findByUserEmail(String email);
     List<Recipe> findByTitleContainingIgnoreCase(String title);
     Page<Recipe> getRecipes(int page, int size);
+    Page<Recipe> getUserImpaginatedRecipes(int page, int size, long userId) throws EntityNotFoundException;
 
 }

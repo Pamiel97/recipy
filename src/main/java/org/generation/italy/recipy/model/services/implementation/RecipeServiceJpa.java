@@ -134,4 +134,15 @@ public class RecipeServiceJpa implements RecipeService {
         Pageable pageable = PageRequest.of(page, size);
         return repo.findAll(pageable);
     }
+
+    @Override
+    public Page<Recipe> getUserImpaginatedRecipes(int page, int size, long userId) throws EntityNotFoundException{
+        Optional<User> optionalUser = userRepositoryJPA.findById(userId);
+        if(optionalUser.isEmpty()) {
+            throw new EntityNotFoundException("Utente con id: " + userId + " non è stato trovato" );
+        }
+
+        Pageable pageable = PageRequest.of(page, size);
+        return repo.findUserRecipes(pageable, userId);
+    }
 }

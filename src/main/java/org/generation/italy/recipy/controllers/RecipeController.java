@@ -157,4 +157,15 @@ public class RecipeController {
         Page<RecipeDto> recipesPage = recipeService.getRecipes(page, size).map(RecipeDto::fromRecipe);
         return ResponseEntity.ok(recipesPage);
     }
+    @GetMapping("user.s")
+    public ResponseEntity<Page<RecipeDto>> getPaginatedUserRecipes(@RequestParam(defaultValue = "1") int page,
+                                                                   @RequestParam(defaultValue = "4") int size,
+                                                                   @AuthenticationPrincipal User user) {
+        try {
+            Page<RecipeDto> userPagedRecipes = recipeService.getUserImpaginatedRecipes(page, size, user.getId()).map(RecipeDto::fromRecipe);
+            return ResponseEntity.ok(userPagedRecipes);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

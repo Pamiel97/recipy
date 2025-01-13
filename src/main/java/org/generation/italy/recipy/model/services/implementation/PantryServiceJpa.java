@@ -8,8 +8,12 @@ import org.generation.italy.recipy.model.repositories.IngredientRepositoryJPA;
 import org.generation.italy.recipy.model.repositories.PantryRepositoryJPA;
 import org.generation.italy.recipy.model.repositories.UserRepositoryJPA;
 import org.generation.italy.recipy.model.services.abstraction.PantryService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,6 +88,16 @@ public class PantryServiceJpa implements PantryService {
 //        return pantryRepo.save(pantry.get());
 
         return pantryRepo.findByIdAndUserId(pantryId, userId);
+    }
+
+    @Override
+    public Page<Pantry> findPaginatedUserPantries(int page, int size, long userId) throws EntityNotFoundException {
+        Optional<User> optionalUser = userRepo.findById(userId);
+        if(optionalUser.isEmpty()) {
+            throw new EntityNotFoundException(String.format("Utente con id %d non trovato!", userId));
+        }
+        Pageable pageable = PageRequest.of(page, size);
+        return pantryRepo.findUserPantries(pageable, userId);
     }
 
 }

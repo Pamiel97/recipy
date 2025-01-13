@@ -18,4 +18,7 @@ public interface RecipeRepositoryJPA extends JpaRepository<Recipe, Long> {
 
 
     Page<Recipe> findAll(Pageable pageable);
+
+    @Query("Select r From Recipe r WHERE r.user.id = :userId")
+    Page<Recipe> findUserRecipes(Pageable pageable, @Param("userId") long userId);
 }
