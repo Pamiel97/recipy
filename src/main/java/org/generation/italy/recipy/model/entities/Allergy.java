@@ -1,5 +1,7 @@
 package org.generation.italy.recipy.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ public class Allergy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     String name;
+    @JsonIgnore
     @ManyToMany(mappedBy = "allergies")
     private List<User> affectedUsers = new ArrayList<>();
 

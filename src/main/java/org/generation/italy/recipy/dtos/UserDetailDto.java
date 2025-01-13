@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDetailDto {
@@ -16,7 +17,9 @@ public class UserDetailDto {
     private double weight, height;
     private BigDecimal bfp, lbmp;
     private Character sex;
+    @JsonProperty
     private List<AllergyDto> allergies;
+    @JsonProperty
     private List<IntoleranceDto> intolerances;
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -85,8 +88,28 @@ public class UserDetailDto {
         user.setLbmp(this.lbmp);
         user.setSex(this.sex);
         user.setEatingRegime(eatingRegime);
-        user.setPassword(passwordEncoder.encode(this.password));
+        if (password != null) {
+            user.setPassword(passwordEncoder.encode(this.password));
+        }
+        user.setAllergies(convertEachAllergyDtoInAllergy(this.allergies));
+        user.setIntolerances(convertEachIntoleranceDtoInIntolerance(this.intolerances));
         return user;
+    }
+
+    private List<Allergy> convertEachAllergyDtoInAllergy(List<AllergyDto> allergies){
+        List<Allergy> allergyList = new ArrayList<>();
+        for (AllergyDto allergy: allergies) {
+            allergyList.add(allergy.toAllergy());
+        }
+        return allergyList;
+    }
+
+    private List<Intolerance> convertEachIntoleranceDtoInIntolerance(List<IntoleranceDto> intolerances){
+        List<Intolerance> intoleranceList = new ArrayList<>();
+        for (IntoleranceDto intoleranceDto: intolerances) {
+            intoleranceList.add(intoleranceDto.toIntolerance());
+        }
+        return intoleranceList;
     }
 
     public long getId() {

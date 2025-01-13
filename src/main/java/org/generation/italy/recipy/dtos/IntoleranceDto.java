@@ -1,12 +1,16 @@
 package org.generation.italy.recipy.dtos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.generation.italy.recipy.model.entities.Intolerance;
 
 import java.util.List;
 
 public class IntoleranceDto {
-    private String name;
+    @JsonProperty("id")
     private long id;
+
+    @JsonProperty("name")
+    private String name;
 
     public IntoleranceDto() {}
     public IntoleranceDto(long id, String intolerance) {
