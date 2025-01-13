@@ -1,5 +1,6 @@
 package org.generation.italy.recipy.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class Intolerance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+    @JsonIgnore
     @ManyToMany(mappedBy = "intolerances")
     private List<User> affectedUsers = new ArrayList<>();
 

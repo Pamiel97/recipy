@@ -1,11 +1,14 @@
 package org.generation.italy.recipy.dtos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.generation.italy.recipy.model.entities.Allergy;
 
 import java.util.List;
 
 public class AllergyDto {
+    @JsonProperty("id")
     private long id;
+    @JsonProperty("name")
     private String name;
 
 
