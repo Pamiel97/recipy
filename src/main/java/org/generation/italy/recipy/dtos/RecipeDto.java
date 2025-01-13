@@ -93,7 +93,7 @@ public class RecipeDto {
         recipe.setDescription(this.description);
         recipe.setCourse(Course.valueOf(this.course));
         recipe.setPrepTime(this.prepTime);
-        recipe.setPrepTime(this.cookingTime);
+        recipe.setCookingTime(this.cookingTime);
         recipe.setDifficulty(Difficulty.valueOf(this.difficulty));
         recipe.setkCalories(this.kCalories);
 
