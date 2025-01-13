@@ -8,6 +8,7 @@ import org.generation.italy.recipy.model.services.abstraction.IngredientService;
 import org.generation.italy.recipy.model.services.abstraction.PantryService;
 import org.generation.italy.recipy.model.services.abstraction.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -91,6 +92,20 @@ public class PantryController {
             return ResponseEntity.noContent().build();
         } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @CrossOrigin
+    @GetMapping("user.s")
+    public ResponseEntity<Page<PantryDto>> getPaginatedUserPantries(@RequestParam(defaultValue = "1") int page,
+                                                                    @RequestParam(defaultValue = "8") int size,
+                                                                    @AuthenticationPrincipal User user) {
+        try {
+            Page<PantryDto> userPaginatedPantries = pantryService.findPaginatedUserPantries(page, size, user.getId())
+                                                                 .map(PantryDto::fromPantry);
+            return ResponseEntity.ok(userPaginatedPantries);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
         }
     }
 }
