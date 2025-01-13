@@ -159,7 +159,7 @@ public class RecipeController {
     }
     @GetMapping("user.s")
     public ResponseEntity<Page<RecipeDto>> getPaginatedUserRecipes(@RequestParam(defaultValue = "1") int page,
-                                                                   @RequestParam(defaultValue = "4") int size,
+                                                                   @RequestParam(defaultValue = "8") int size,
                                                                    @AuthenticationPrincipal User user) {
         try {
             Page<RecipeDto> userPagedRecipes = recipeService.getUserImpaginatedRecipes(page, size, user.getId()).map(RecipeDto::fromRecipe);
