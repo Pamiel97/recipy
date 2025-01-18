@@ -1,6 +1,7 @@
 package org.generation.italy.recipy.controllers;
 
 import org.generation.italy.recipy.dtos.UserDetailDto;
+import org.generation.italy.recipy.dtos.UserDto;
 import org.generation.italy.recipy.model.entities.EatingRegime;
 import org.generation.italy.recipy.model.entities.User;
 import org.generation.italy.recipy.model.services.abstraction.EatingRegimeService;
@@ -49,12 +50,7 @@ public class UserController {
     @CrossOrigin(origins = "*")
     @GetMapping
     public ResponseEntity<?> getProfile(@AuthenticationPrincipal User userAuth){
-        User profile = userService.findById(userAuth.getId()).orElse(null);
-        if (profile != null) {
-            UserDetailDto userDetailDto = UserDetailDto.fromUser(profile);
-            return ResponseEntity.ok(userDetailDto);
-        }else {
-            return ResponseEntity.notFound().build();
-        }
+        UserDto profile = userService.findById(userAuth.getId());
+        return ResponseEntity.ok(profile);
     }
 }

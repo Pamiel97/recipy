@@ -1,9 +1,15 @@
 package org.generation.italy.recipy.model.services.implementation;
 
+import org.generation.italy.recipy.dtos.RecipeDto;
 import org.generation.italy.recipy.dtos.ReviewDto;
+import org.generation.italy.recipy.dtos.UserDto;
 import org.generation.italy.recipy.model.entities.Review;
+import org.generation.italy.recipy.model.entities.User;
 import org.generation.italy.recipy.model.repositories.ReviewRepositoryJPA;
+import org.generation.italy.recipy.model.services.abstraction.RecipeService;
 import org.generation.italy.recipy.model.services.abstraction.ReviewService;
+import org.generation.italy.recipy.model.services.abstraction.UserService;
+import org.generation.italy.recipy.request.ReviewRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +25,34 @@ public class ReviewServiceJpa implements ReviewService {
     @Autowired
     private ReviewRepositoryJPA repository;
 
-    public ReviewServiceJpa(ReviewRepositoryJPA repository) {
+    @Autowired
+    private RecipeService recipeService;
+
+    @Autowired
+    private UserService userService;
+
+    public ReviewServiceJpa(ReviewRepositoryJPA repository, RecipeService recipeService, UserService userService) {
         this.repository = repository;
+        this.recipeService = recipeService;
+        this.userService = userService;
     }
 
     @Override
-    public void createReview(ReviewDto reviewDto) {
+    public ReviewDto createReview(User user, ReviewRequest reviewRequest) {
         //to-do: trasformare ReviewDto nell'entity
-        Review review = reviewDto.toEntity(reviewDto);
-        repository.save(review);
+        ReviewDto reviewDtoRequest = new ReviewDto();
+        //copio i dati dall'oggetto del frontend in dto
+        reviewDtoRequest.setText(reviewRequest.getText());
+        reviewDtoRequest.setRating(reviewRequest.getRating());
+        reviewDtoRequest.setCreationDate(reviewRequest.getCreationDate());
+        RecipeDto recipeDto = recipeService.findById(reviewRequest.getRecipeId());
+        reviewDtoRequest.setRecipeDto(recipeDto);
+        UserDto userDto = userService.findById(user.getId());
+        reviewDtoRequest.setUserDto(userDto);
+        Review review = ReviewDto.toEntity(reviewDtoRequest);
+        Review responceEntity = repository.save(review);
+        ReviewDto responceDto = ReviewDto.toDto(responceEntity);
+        return responceDto;
     }
 
     @Override
@@ -50,7 +75,7 @@ public class ReviewServiceJpa implements ReviewService {
     }
 
     @Override
-    public void updateReview(Long id, ReviewDto reviewDto) {
+    public ReviewDto updateReview(Long id, ReviewRequest reviewDto) {
         // Validazione del DTO
         if (reviewDto == null) {
             throw new IllegalArgumentException("ReviewDto or required fields cannot be null");
@@ -70,6 +95,7 @@ public class ReviewServiceJpa implements ReviewService {
             throw new NoSuchElementException("Review not found with ID: " + id);
         }
         repository.save(existingReview.get());
+        return new ReviewDto();
     }
 
 

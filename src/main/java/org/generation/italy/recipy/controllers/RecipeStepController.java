@@ -1,5 +1,6 @@
 package org.generation.italy.recipy.controllers;
 
+import org.generation.italy.recipy.dtos.RecipeDto;
 import org.generation.italy.recipy.dtos.RecipeStepDto;
 import org.generation.italy.recipy.model.entities.Recipe;
 import org.generation.italy.recipy.model.entities.RecipeStep;
@@ -32,15 +33,15 @@ public class RecipeStepController {
 
     @PostMapping
     public ResponseEntity<?> createRecipe(@RequestBody RecipeStepDto stepDto){
-        Optional<Recipe> optionalRecipe = recipeService.findById(stepDto.getRecipeId());
+        RecipeDto recipeDto = recipeService.findById(stepDto.getRecipeId());
 
-        if (optionalRecipe.isEmpty()) {
-            return ResponseEntity.status(404).body("Ricetta non trovata");
-        }
-        RecipeStep recipeStep = stepDto.toRecipeStep();
-        recipeStep.setRecipe(optionalRecipe.get());
-        RecipeStep savedStep = recipeStepService.createRecipeStep(recipeStep);
-        return ResponseEntity.ok(savedStep);
+//        if (optionalRecipe.isEmpty()) {
+//            return ResponseEntity.status(404).body("Ricetta non trovata");
+//        }
+//        RecipeStep recipeStep = stepDto.toRecipeStep();
+//        recipeStep.setRecipe(optionalRecipe.get());
+//        RecipeStep savedStep = recipeStepService.createRecipeStep(recipeStep);
+        return ResponseEntity.ok(recipeDto);
     }
 
     @PutMapping("/{id}")

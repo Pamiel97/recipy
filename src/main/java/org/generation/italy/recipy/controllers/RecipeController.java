@@ -105,13 +105,8 @@ public class RecipeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<RecipeDto> getRecipeById(@PathVariable long id) {
-        try {
-            Recipe recipe = recipeService.findById(id).orElseThrow(() -> new EntityNotFoundException("Ricetta non trovata"));
-            RecipeDto recipeDto = RecipeDto.fromRecipe(recipe);
-            return ResponseEntity.ok(recipeDto);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
+        RecipeDto recipe = recipeService.findById(id);
+        return ResponseEntity.ok(recipe);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

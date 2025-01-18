@@ -1,5 +1,6 @@
 package org.generation.italy.recipy.model.services.implementation;
 
+import org.generation.italy.recipy.dtos.UserDto;
 import org.generation.italy.recipy.model.entities.User;
 import org.generation.italy.recipy.model.repositories.UserRepositoryJPA;
 import org.generation.italy.recipy.model.services.abstraction.UserService;
@@ -16,8 +17,10 @@ public class UserServiceJpa implements UserService {
     }
 
     @Override
-    public Optional<User> findById(long id) {
-        return repo.findById(id);
+    public UserDto findById(long id) {
+        Optional<User> userEntity = repo.findById(id);
+        UserDto userDto = UserDto.fromUser(userEntity.get());
+        return userDto;
     }
 
     @Override
