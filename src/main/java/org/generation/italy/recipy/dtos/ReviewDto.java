@@ -27,7 +27,7 @@ public class ReviewDto {
         this.recipeDto = recipeDto;
     }
 
-    public Review toEntity(ReviewDto reviewDto) {
+    public static Review toEntity(ReviewDto reviewDto) {
         Review review = new Review();
         if (reviewDto.getId() != null){
             review.setId(reviewDto.getId());
@@ -43,7 +43,7 @@ public class ReviewDto {
         return review;
     }
 
-    public ReviewDto toDto(Review review) {
+    public static ReviewDto toDto(Review review) {
         ReviewDto dto = new ReviewDto();
         dto.setId(review.getId());
         dto.setText(review.getText());

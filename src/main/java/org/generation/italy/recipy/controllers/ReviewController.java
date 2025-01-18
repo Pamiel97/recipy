@@ -1,8 +1,11 @@
 package org.generation.italy.recipy.controllers;
 import org.generation.italy.recipy.dtos.ReviewDto;
+import org.generation.italy.recipy.dtos.UserDto;
+import org.generation.italy.recipy.dtos.security.RegisterRequest;
 import org.generation.italy.recipy.model.entities.Review;
 import org.generation.italy.recipy.model.entities.User;
 import org.generation.italy.recipy.model.services.abstraction.ReviewService;
+import org.generation.italy.recipy.request.ReviewRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +33,8 @@ public class ReviewController {
 */
     @CrossOrigin
     @PostMapping
-    public ResponseEntity<ReviewDto> createReview(@AuthenticationPrincipal User userAuth, @RequestBody ReviewDto reviewDto) {
-        reviewService.createReview(reviewDto);
+    public ResponseEntity<ReviewDto> createReview(@AuthenticationPrincipal User userAuth, @RequestBody ReviewRequest reviewRequest) {
+        ReviewDto reviewDto = reviewService.createReview(userAuth, reviewRequest);
         return new ResponseEntity<>(reviewDto, HttpStatus.CREATED);
     }
 
@@ -54,9 +57,9 @@ public class ReviewController {
     }
 
     @PutMapping("/{id}")
-    public void updateReview(@PathVariable Long id, @RequestBody ReviewDto reviewDetails) {
-        reviewService.updateReview(id, reviewDetails);
-//        return new ResponseEntity<>(reviewDto, HttpStatus.OK);
+    public ResponseEntity<ReviewDto> updateReview(@PathVariable Long id, @RequestBody ReviewRequest reviewDetails) {
+        ReviewDto reviewDto = reviewService.updateReview(id, reviewDetails);
+        return new ResponseEntity<>(reviewDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

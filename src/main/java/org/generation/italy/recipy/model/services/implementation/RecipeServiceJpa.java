@@ -1,5 +1,7 @@
 package org.generation.italy.recipy.model.services.implementation;
 
+import org.generation.italy.recipy.dtos.RecipeDto;
+import org.generation.italy.recipy.dtos.ReviewDto;
 import org.generation.italy.recipy.model.entities.Ingredient;
 import org.generation.italy.recipy.model.entities.Recipe;
 import org.generation.italy.recipy.model.entities.RecipeStep;
@@ -55,8 +57,10 @@ public class RecipeServiceJpa implements RecipeService {
 
 
     @Override
-    public Optional<Recipe> findById(long id) {
-        return repo.findById(id);
+    public RecipeDto findById(long id) {
+        Optional<Recipe> recipeEntity = repo.findById(id);
+        RecipeDto recipeDto = RecipeDto.fromRecipe(recipeEntity.get());
+        return recipeDto;
     }
 
     @Override
