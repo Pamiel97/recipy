@@ -64,13 +64,12 @@ public class ReviewServiceJpa implements ReviewService {
     }
 
     @Override
-    public List<ReviewDto> getAllReviews() {
-        List<Review> listEntity = repository.findAll();
+    public List<ReviewDto> getAllReviewsByRecipeId(User user, Long recipeId) {
+        List<Review> listEntity = repository.findAllByRecipeId(user.getId(), recipeId);
         ReviewDto reviewDto = new ReviewDto();
         List<ReviewDto> reviewDtos = listEntity.stream()
                 .map(entity -> reviewDto.toDto(entity))
                 .collect(Collectors.toList());
-
         return reviewDtos;
     }
 

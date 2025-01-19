@@ -50,9 +50,9 @@ public class ReviewController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping
-    public ResponseEntity<List<ReviewDto>> getAllReviews(@AuthenticationPrincipal User userAuth) {
-        List<ReviewDto> reviews = reviewService.getAllReviews();
+    @GetMapping("/recipe/{recipeId}")
+    public ResponseEntity<List<ReviewDto>> getAllReviewsByRecipeId(@AuthenticationPrincipal User userAuth, @PathVariable Long recipeId) {
+        List<ReviewDto> reviews = reviewService.getAllReviewsByRecipeId(userAuth, recipeId);
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 

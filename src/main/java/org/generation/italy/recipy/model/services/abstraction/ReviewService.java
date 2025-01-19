@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface ReviewService {
     ReviewDto createReview(User user, ReviewRequest request);
     ReviewDto getReview(Long id);
-    List<ReviewDto> getAllReviews();
+    List<ReviewDto> getAllReviewsByRecipeId(User user, Long recipeId);
     ReviewDto updateReview(Long id, ReviewRequest request);
     void deleteReview(Long id);
 }
