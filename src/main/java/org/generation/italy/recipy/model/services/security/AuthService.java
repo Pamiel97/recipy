@@ -40,7 +40,7 @@ public class AuthService {
 
             User user = new User(request.getFirstname(), request.getLastname(), request.getEmail(), passwordEncoder.encode(request.getPassword()),request.getRole());
         repository.save(user);
-        var jwtToken = jwtService.generateToken(user);
+        var jwtToken = jwtService.generateTokenWithUserInfo(user, user.getId(), user.getFirstname(), user.getLastname(), String.valueOf(user.getProfile()));
         return new AuthenticationResponse(jwtToken);
     }
 
@@ -49,7 +49,7 @@ public class AuthService {
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
         var user = repository.findByEmail(request.getEmail()).orElseThrow();
-        var jwtToken = jwtService.generateToken(user);
+        var jwtToken = jwtService.generateTokenWithUserInfo(user, user.getId(), user.getFirstname(), user.getLastname(), String.valueOf(user.getProfile()));
         return new AuthenticationResponse(jwtToken);
 
     }

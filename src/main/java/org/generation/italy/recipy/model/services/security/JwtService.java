@@ -42,13 +42,13 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
-    }
+    public String generateTokenWithUserInfo(UserDetails userDetails, Long userId, String firstname, String lastname, String profile) {
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("userId", userId);
+        extraClaims.put("firstname", firstname);
+        extraClaims.put("lastname", lastname);
+        extraClaims.put("profile", profile); // Aggiungi altri campi che ti servono
 
-    public String generateToken(
-            Map<String, Object> extraClaims,
-            UserDetails userDetails) {
         return buildToken(extraClaims, userDetails, jwtExpiration);
     }
 
