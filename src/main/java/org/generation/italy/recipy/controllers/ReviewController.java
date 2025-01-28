@@ -48,6 +48,13 @@ public class ReviewController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    @CrossOrigin
+    @GetMapping("/exists/{recipeId}")
+    public ResponseEntity<Boolean> checkReviewExists(@AuthenticationPrincipal User userAuth, @PathVariable Long recipeId) {
+        boolean exists = reviewService.checkReviewExists(userAuth.getId(), recipeId);
+        return new ResponseEntity<>(exists, HttpStatus.OK);
+    }
+
 
     @CrossOrigin(origins = "*")
     @GetMapping("/recipe/{recipeId}")

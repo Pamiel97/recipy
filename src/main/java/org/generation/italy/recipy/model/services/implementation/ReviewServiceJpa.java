@@ -78,6 +78,13 @@ public class ReviewServiceJpa implements ReviewService {
         return repository.existsByUserIdAndRecipeId(userId, recipeId);
     }
 
+    @Override
+    public boolean checkReviewExists(Long userId, Long recipeId) {
+        // Usa il repository per verificare se esiste una recensione per l'utente e la ricetta
+        return repository.existsByUserIdAndRecipeId(userId, recipeId);
+    }
+
+
 
     @Override
     public ReviewDto updateReview(Long id, ReviewRequest reviewDto) {
