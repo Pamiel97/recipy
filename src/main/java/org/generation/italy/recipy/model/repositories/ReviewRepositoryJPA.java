@@ -19,4 +19,6 @@ public interface ReviewRepositoryJPA extends JpaRepository<Review, Long> {
             "    r.creationDate DESC")
     List<Review> findAllByRecipeId(@Param("idUtente") Long idUtente, @Param("recipeId") Long recipeId);
 
+    // Metodo per verificare se esiste già una recensione per un utente e una ricetta
+    boolean existsByUserIdAndRecipeId(Long userId, Long recipeId);
 }
