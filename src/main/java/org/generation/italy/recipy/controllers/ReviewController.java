@@ -56,12 +56,14 @@ public class ReviewController {
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
+    @CrossOrigin
     @PutMapping("/{id}")
     public ResponseEntity<ReviewDto> updateReview(@PathVariable Long id, @RequestBody ReviewRequest reviewDetails) {
         ReviewDto reviewDto = reviewService.updateReview(id, reviewDetails);
         return new ResponseEntity<>(reviewDto, HttpStatus.OK);
     }
 
+    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteReview(@PathVariable Long id) {
         reviewService.deleteReview(id);
