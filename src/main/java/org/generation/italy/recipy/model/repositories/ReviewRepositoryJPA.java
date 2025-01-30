@@ -21,4 +21,5 @@ public interface ReviewRepositoryJPA extends JpaRepository<Review, Long> {
 
     // Metodo per verificare se esiste già una recensione per un utente e una ricetta
     boolean existsByUserIdAndRecipeId(Long userId, Long recipeId);
+    List<Review> findAllByUserId(Long userId);
 }

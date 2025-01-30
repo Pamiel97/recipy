@@ -15,6 +15,7 @@ public interface ReviewService {
     ReviewDto updateReview(Long id, ReviewRequest request);
     void deleteReview(Long id);
     boolean existsByUserAndRecipe(Long userId, Long recipeId);
+    List<ReviewDto> getAllReviewsByUser(Long id);
 
     boolean checkReviewExists(Long userId, Long recipeId);
 }

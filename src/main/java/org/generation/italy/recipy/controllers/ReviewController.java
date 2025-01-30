@@ -63,6 +63,13 @@ public class ReviewController {
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping("/user")
+    public ResponseEntity<List<ReviewDto>> getAllReviewsByUserId(@AuthenticationPrincipal User userAuth) {
+        List<ReviewDto> reviews = reviewService.getAllReviewsByUser(userAuth.getId());
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
+    }
+
     @CrossOrigin
     @PutMapping("/{id}")
     public ResponseEntity<ReviewDto> updateReview(@PathVariable Long id, @RequestBody ReviewRequest reviewDetails) {
